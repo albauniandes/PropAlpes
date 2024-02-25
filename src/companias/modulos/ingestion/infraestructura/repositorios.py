@@ -1,4 +1,4 @@
-""" Repositorios para el manejo de persistencia de objetos de dominio en la capa de infrastructura del dominio de ingestion"""
+""" Repositorios para el manejo de persistencia de objetos de dominio en la capa de infraestructura del dominio de ingestion"""
 
 from companias.config.db import db
 from companias.modulos.ingestion.dominio.repositorios import RepositorioCompanias, RepositorioProveedores

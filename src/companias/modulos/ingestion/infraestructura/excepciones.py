@@ -1,4 +1,4 @@
-""" Excepciones para la capa de infrastructura del dominio de ingestion"""
+""" Excepciones para la capa de infraestructura del dominio de ingestion"""
 
 from companias.seedwork.dominio.excepciones import ExcepcionFabrica
 

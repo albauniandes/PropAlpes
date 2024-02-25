@@ -1,4 +1,4 @@
-""" Fábricas para la creación de objetos en la capa de infrastructura del dominio de ingestion"""
+""" Fábricas para la creación de objetos en la capa de infraestructura del dominio de ingestion"""
 
 from dataclasses import dataclass, field
 from companias.seedwork.dominio.fabricas import Fabrica

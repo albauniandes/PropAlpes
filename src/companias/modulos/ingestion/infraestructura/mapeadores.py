@@ -1,4 +1,4 @@
-""" Mapeadores para la capa de infrastructura del dominio de ingestion"""
+""" Mapeadores para la capa de infraestructura del dominio de ingestion"""
 
 from companias.seedwork.dominio.repositorios import Mapeador
 from companias.modulos.ingestion.dominio.objetos_valor import NombreAero, Odo, Leg, Segmento, Itinerario, CodigoIATA
