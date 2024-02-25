@@ -1,10 +1,10 @@
 from companias.seedwork.aplicacion.queries import Query, QueryHandler, ResultadoQuery
 import uuid
 
-class ObtenerTodosUsuarios(Query):
+class ObtenerTodasAutorizaciones(Query):
     ...
 
-class ObtenerTodosUsuariosHandler(QueryHandler):
+class ObtenerTodasAutorizacionesHandler(QueryHandler):
 
     def handle() -> ResultadoQuery:
         ...

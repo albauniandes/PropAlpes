@@ -14,19 +14,19 @@ def importar_modelos_alchemy():
     import companias.modulos.validacion.infraestructura.dto
     import companias.modulos.ingestion.infraestructura.dto
 
-def comenzar_consumidor():
+# def comenzar_consumidor():
 
-    import threading
-    import companias.modulos.validacion.infraestructura.consumidores as validacion
-    import companias.modulos.ingestion.infraestructura.consumidores as ingestion
+#     import threading
+#     import companias.modulos.validacion.infraestructura.consumidores as validacion
+#     import companias.modulos.ingestion.infraestructura.consumidores as ingestion
 
-    # Suscripción a eventos
-    threading.Thread(target=validacion.suscribirse_a_eventos).start()
-    threading.Thread(target=ingestion.suscribirse_a_eventos).start()
+#     # Suscripción a eventos
+#     threading.Thread(target=validacion.suscribirse_a_eventos).start()
+#     threading.Thread(target=ingestion.suscribirse_a_eventos).start()
 
-    # Suscripción a comandos
-    threading.Thread(target=validacion.suscribirse_a_comandos).start()
-    threading.Thread(target=ingestion.suscribirse_a_comandos).start()
+#     # Suscripción a comandos
+#     threading.Thread(target=validacion.suscribirse_a_comandos).start()
+#     threading.Thread(target=ingestion.suscribirse_a_comandos).start()
 
 def create_app(configuracion={}):
     # Init la aplicacion de Flask
@@ -51,8 +51,8 @@ def create_app(configuracion={}):
 
     with app.app_context():
         db.create_all()
-        if not app.config.get('TESTING'):
-            comenzar_consumidor()
+        # if not app.config.get('TESTING'):
+            # comenzar_consumidor()
 
      # Importa Blueprints
     from . import validacion

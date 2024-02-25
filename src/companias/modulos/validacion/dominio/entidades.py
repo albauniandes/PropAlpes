@@ -1,26 +1,14 @@
-"""Entidades del dominio de cliente
-
-En este archivo usted encontrará las entidades del dominio de cliente
-
-"""
+"""Entidades del dominio de validación y autorización"""
 
 from datetime import datetime
 from companias.seedwork.dominio.entidades import Entidad
 from dataclasses import dataclass, field
 
-from .objetos_valor import Nombre, Email, Cedula, Rut
+from .objetos_valor import *
 
 @dataclass
-class Usuario(Entidad):
-    nombre: Nombre = field(default_factory=Nombre)
-    email: Email = field(default_factory=Email)
-
-@dataclass
-class ClienteNatural(Usuario):
-    cedula: Cedula = field(default_factory=Cedula)
-    fecha_nacimiento: datetime = field(default_factory=datetime)
-
-@dataclass
-class ClienteEmpresa(Usuario):
-    rut: Rut = field(default_factory=Rut)
-    fecha_constitucion: datetime = field(default_factory=datetime)
+class Compania(AgregacionRaiz):
+    estado: ov.EstadoCompania = field(default=ov.EstadoCompania.PENDIENTE)
+    nombre: ov.Nombre = field()
+    email: ov.Email = field()
+    identificacion = ov.Identificacion = field()

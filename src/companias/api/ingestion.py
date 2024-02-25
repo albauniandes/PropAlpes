@@ -1,6 +1,6 @@
 import companias.seedwork.presentacion.api as api
 import json
-from companias.modulos.ingestion.aplicacion.servicios import ServicioCompania
+from companias.modulos.ingestion.aplicacion.servicios import ServicioCreacionEmpresa
 from companias.modulos.ingestion.aplicacion.dto import CompaniaDTO
 from companias.seedwork.dominio.excepciones import ExcepcionDominio
 
@@ -9,7 +9,7 @@ from flask import Response
 from companias.modulos.ingestion.aplicacion.mapeadores import MapeadorCompaniaDTOJson
 from companias.modulos.ingestion.aplicacion.comandos.crear_compania import CrearCompania
 from companias.modulos.ingestion.aplicacion.queries.obtener_compania import ObtenerCompania
-from companias.seedwork.aplicacion.comandos import ejecutar_commando
+from companias.seedwork.aplicacion.comandos import ejecutar_comando
 from companias.seedwork.aplicacion.queries import ejecutar_query
 
 bp = api.crear_blueprint('ingestion', '/ingestion')
@@ -22,7 +22,7 @@ def crear_compania():
         map_compania = MapeadorCompaniaDTOJson()
         compania_dto = map_compania.externo_a_dto(compania_dict)
 
-        sr = ServicioCompania()
+        sr = ServicioCreacionEmpresa()
         dto_final = sr.crear_compania(compania_dto)
 
         return map_compania.dto_a_externo(dto_final)
@@ -37,11 +37,9 @@ def crear_compania_asincrona():
         map_compania = MapeadorCompaniaDTOJson()
         compania_dto = map_compania.externo_a_dto(compania_dict)
 
-        comando = CrearCompania(compania_dto.fecha_creacion, compania_dto.fecha_actualizacion, compania_dto.id)
+        comando = CrearCompania(compania_dto.fecha_creacion, compania_dto.fecha_actualizacion, compania_dto.id, compania_dto.nombre, compania_dto.email, compania_dto.identificacion)
         
-        # TODO Reemplaze es todo código sincrono y use el broker de eventos para propagar este comando de forma asíncrona
-        # Revise la clase Despachador de la capa de infraestructura
-        ejecutar_commando(comando)
+        ejecutar_comando(comando)
         
         return Response('{}', status=202, mimetype='application/json')
     except ExcepcionDominio as e:

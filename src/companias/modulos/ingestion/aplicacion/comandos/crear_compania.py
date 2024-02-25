@@ -2,7 +2,7 @@ from companias.seedwork.aplicacion.comandos import Comando
 from companias.modulos.ingestion.aplicacion.dto import ItinerarioDTO, CompaniaDTO
 from .base import CrearCompaniaBaseHandler
 from dataclasses import dataclass, field
-from companias.seedwork.aplicacion.comandos import ejecutar_commando as comando
+from companias.seedwork.aplicacion.comandos import ejecutar_comando as comando
 
 from companias.modulos.ingestion.dominio.entidades import Compania
 from companias.seedwork.infraestructura.uow import UnidadTrabajoPuerto

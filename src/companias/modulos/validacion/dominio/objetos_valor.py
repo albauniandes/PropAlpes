@@ -7,6 +7,12 @@ En este archivo usted encontrará los objetos valor del dominio de cliente
 from companias.seedwork.dominio.objetos_valor import ObjetoValor, Ciudad
 from dataclasses import dataclass
 
+
+class EstadoCompania(str, Enum):
+    APROBADA = "Aprobada"
+    PENDIENTE = "Pendiente"
+    RECHAZADA = "Rechazada"
+
 @dataclass(frozen=True)
 class Nombre(ObjetoValor):
     nombres: str
@@ -16,19 +22,8 @@ class Nombre(ObjetoValor):
 class Email(ObjetoValor):
     address: str
     dominio: str
-    es_empresarial: bool
 
 @dataclass(frozen=True)
-class Cedula(ObjetoValor):
+class Identificacion(ObjetoValor):
     numero: int
-    ciudad: Ciudad
-
-@dataclass(frozen=True)
-class Rut(ObjetoValor):
-    numero: int
-    ciudad: Ciudad
-
-class MetodosPago(ObjetoValor):
-    # TODO
-    ...
 

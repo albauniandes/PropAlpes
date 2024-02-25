@@ -5,7 +5,7 @@ from dataclasses import dataclass, field
 
 import companias.modulos.ingestion.dominio.objetos_valor as ov
 from companias.modulos.ingestion.dominio.eventos import CompaniaCreada, CompaniaAprobada, CompaniaRechazada
-from companias.seedwork.dominio.entidades import Locacion, AgregacionRaiz, Entidad
+from companias.seedwork.dominio.entidades import AgregacionRaiz, Entidad
 
 @dataclass
 class Compania(AgregacionRaiz):
