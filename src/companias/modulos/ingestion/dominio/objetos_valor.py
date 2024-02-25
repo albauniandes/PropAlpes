@@ -14,15 +14,13 @@ class EstadoCompania(str, Enum):
 
 @dataclass(frozen=True)
 class Nombre(ObjetoValor):
-    nombres: str
-    apellidos: str
+    nombre: str
 
 @dataclass(frozen=True)
 class Email(ObjetoValor):
-    address: str
-    dominio: str
+    email: str
 
 @dataclass(frozen=True)
 class Identificacion(ObjetoValor):
-    numero: int
+    identificacion: str
 

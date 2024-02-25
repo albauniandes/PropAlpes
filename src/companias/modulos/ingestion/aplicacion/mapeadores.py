@@ -20,17 +20,6 @@ class MapeadorCompania(RepMap):
 
     def obtener_tipo(self) -> type:
         return Compania.__class__
-
-    def locacion_a_dict(self, locacion):
-        if not locacion:
-            return dict(codigo=None, nombre=None, fecha_actualizacion=None, fecha_creacion=None)
-        
-        return dict(
-                    codigo=locacion.codigo
-                ,   nombre=locacion.nombre
-                ,   fecha_actualizacion=locacion.fecha_actualizacion.strftime(self._FORMATO_FECHA)
-                ,   fecha_creacion=locacion.fecha_creacion.strftime(self._FORMATO_FECHA)
-        )
         
 
     def entidad_a_dto(self, entidad: Compania) -> CompaniaDTO:

@@ -20,8 +20,7 @@ class Nombre(ObjetoValor):
 
 @dataclass(frozen=True)
 class Email(ObjetoValor):
-    address: str
-    dominio: str
+    email: str
 
 @dataclass(frozen=True)
 class Identificacion(ObjetoValor):

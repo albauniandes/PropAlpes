@@ -1,6 +1,6 @@
 import companias.seedwork.presentacion.api as api
 import json
-from companias.modulos.ingestion.aplicacion.servicios import ServicioCreacionEmpresa
+from companias.modulos.ingestion.aplicacion.servicios import ServicioCompania
 from companias.modulos.ingestion.aplicacion.dto import CompaniaDTO
 from companias.seedwork.dominio.excepciones import ExcepcionDominio
 
@@ -14,20 +14,20 @@ from companias.seedwork.aplicacion.queries import ejecutar_query
 
 bp = api.crear_blueprint('ingestion', '/ingestion')
 
-@bp.route('/compania', methods=('POST',))
-def crear_compania():
-    try:
-        compania_dict = request.json
+# @bp.route('/compania', methods=('POST',))
+# def crear_compania():
+#     try:
+#         compania_dict = request.json
 
-        map_compania = MapeadorCompaniaDTOJson()
-        compania_dto = map_compania.externo_a_dto(compania_dict)
+#         map_compania = MapeadorCompaniaDTOJson()
+#         compania_dto = map_compania.externo_a_dto(compania_dict)
 
-        sr = ServicioCreacionEmpresa()
-        dto_final = sr.crear_compania(compania_dto)
+#         sr = ServicioCompania()
+#         dto_final = sr.crear_compania(compania_dto)
 
-        return map_compania.dto_a_externo(dto_final)
-    except ExcepcionDominio as e:
-        return Response(json.dumps(dict(error=str(e))), status=400, mimetype='application/json')
+#         return map_compania.dto_a_externo(dto_final)
+#     except ExcepcionDominio as e:
+#         return Response(json.dumps(dict(error=str(e))), status=400, mimetype='application/json')
 
 @bp.route('/compania-comando', methods=('POST',))
 def crear_compania_asincrona():
@@ -45,16 +45,16 @@ def crear_compania_asincrona():
     except ExcepcionDominio as e:
         return Response(json.dumps(dict(error=str(e))), status=400, mimetype='application/json')
 
-@bp.route('/compania', methods=('GET',))
-@bp.route('/compania/<id>', methods=('GET',))
-def dar_compania(id=None):
-    if id:
-        sr = ServicioCompania()
-        map_compania = MapeadorCompaniaDTOJson()
+# @bp.route('/compania', methods=('GET',))
+# @bp.route('/compania/<id>', methods=('GET',))
+# def dar_compania(id=None):
+#     if id:
+#         sr = ServicioCompania()
+#         map_compania = MapeadorCompaniaDTOJson()
         
-        return map_compania.dto_a_externo(sr.obtener_compania_por_id(id))
-    else:
-        return [{'message': 'GET!'}]
+#         return map_compania.dto_a_externo(sr.obtener_compania_por_id(id))
+#     else:
+#         return [{'message': 'GET!'}]
 
 @bp.route('/compania-query', methods=('GET',))
 @bp.route('/compania-query/<id>', methods=('GET',))

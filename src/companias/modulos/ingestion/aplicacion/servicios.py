@@ -10,7 +10,7 @@ from .dto import CompaniaDTO
 
 import asyncio
 
-class ServicioCreacionEmpresa(Servicio):
+class ServicioCompania(Servicio):
 
     def __init__(self):
         self._fabrica_repositorio: FabricaRepositorio = FabricaRepositorio()

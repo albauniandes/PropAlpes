@@ -35,3 +35,7 @@ class Nombre(ObjetoValor):
 @dataclass(frozen=True)
 class Identificacion(ObjetoValor):
     identificacion: str
+
+@dataclass(frozen=True)
+class Email(ObjetoValor):
+    email: str

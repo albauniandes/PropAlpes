@@ -47,7 +47,7 @@ class UnidadTrabajo(ABC):
         raise NotImplementedError                    
 
     def commit(self):
-        self._publicar_eventos_post_commit()
+        # self._publicar_eventos_post_commit()
         self._limpiar_batches()
 
     @abstractmethod
@@ -67,9 +67,9 @@ class UnidadTrabajo(ABC):
         for evento in self._obtener_eventos(batches=[batch]):
             dispatcher.send(signal=f'{type(evento).__name__}Dominio', evento=evento)
 
-    def _publicar_eventos_post_commit(self):
-        for evento in self._obtener_eventos():
-            dispatcher.send(signal=f'{type(evento).__name__}Integracion', evento=evento)
+    # def _publicar_eventos_post_commit(self):
+    #     for evento in self._obtener_eventos():
+    #         dispatcher.send(signal=f'{type(evento).__name__}Integracion', evento=evento)
 
 def is_flask():
     try:
