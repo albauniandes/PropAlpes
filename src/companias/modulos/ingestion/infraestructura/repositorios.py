@@ -2,9 +2,9 @@
 
 from companias.config.db import db
 from companias.modulos.ingestion.dominio.repositorios import RepositorioCompanias
-from companias.modulos.ingestion.dominio.objetos_valor import *
-from companias.modulos.ingestion.dominio.entidades import *
-from companias.modulos.ingestion.dominio.fabricas import *
+from companias.modulos.ingestion.dominio.objetos_valor import EstadoCompania, Nombre, Email, Identificacion
+from companias.modulos.ingestion.dominio.entidades import Compania
+from companias.modulos.ingestion.dominio.fabricas import FabricaIngestion
 from .dto import Compania as CompaniaDTO
 from .mapeadores import MapeadorCompania
 from uuid import UUID

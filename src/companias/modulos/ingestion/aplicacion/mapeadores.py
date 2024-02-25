@@ -1,8 +1,8 @@
 from companias.seedwork.aplicacion.dto import Mapeador as AppMap
 from companias.seedwork.dominio.repositorios import Mapeador as RepMap
-from companias.modulos.ingestion.dominio.entidades import *
-from companias.modulos.ingestion.dominio.objetos_valor import *
-from .dto import *
+from companias.modulos.ingestion.dominio.entidades import Compania
+from companias.modulos.ingestion.dominio.objetos_valor import EstadoCompania, Nombre, Email, Identificacion
+from .dto import CompaniaDTO
 
 from datetime import datetime
 

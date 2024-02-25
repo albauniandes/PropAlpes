@@ -1,6 +1,6 @@
 import companias.seedwork.presentacion.api as api
 import json
-from companias.modulos.ingestion.aplicacion.servicios import ServicioCompania
+# from companias.modulos.ingestion.aplicacion.servicios import ServicioCompania
 from companias.modulos.ingestion.aplicacion.dto import CompaniaDTO
 from companias.seedwork.dominio.excepciones import ExcepcionDominio
 

@@ -2,10 +2,10 @@
 
 from datetime import datetime
 from companias.seedwork.dominio.entidades import Entidad
-from companias.seedwork.dominio.objetos_valor import *
+from companias.seedwork.dominio.objetos_valor import EstadoCompania, Nombre, Email, Identificacion
 from dataclasses import dataclass, field
 
-from .objetos_valor import *
+from .objetos_valor import EstadoCompania, Nombre, Email, Identificacion
 
 @dataclass
 class Compania(AgregacionRaiz):

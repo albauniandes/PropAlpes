@@ -1,55 +1,13 @@
 """ Mapeadores para la capa de infraestructura del dominio de ingestion"""
 
 from companias.seedwork.dominio.repositorios import Mapeador
-from companias.modulos.ingestion.dominio.objetos_valor import *
-from companias.modulos.ingestion.dominio.entidades import *
+from companias.modulos.ingestion.dominio.objetos_valor import EstadoCompania, Nombre, Email, Identificacion
+from companias.modulos.ingestion.dominio.entidades import Compania
 from .dto import Compania as CompaniaDTO
 
 class MapeadorCompania(Mapeador):
     _FORMATO_FECHA = '%Y-%m-%dT%H:%M:%SZ'
-
-    # def _procesar_itinerario_dto(self, itinerarios_dto: list) -> list[Itinerario]:
-    #     itin_dict = dict()
-        
-    #     for itin in itinerarios_dto:
-    #         destino = Aeropuerto(codigo=itin.destino_codigo, nombre=None)
-    #         origen = Aeropuerto(codigo=itin.origen_codigo, nombre=None)
-    #         fecha_salida = itin.fecha_salida
-    #         fecha_llegada = itin.fecha_llegada
-
-    #         itin_dict.setdefault(str(itin.odo_orden),{}).setdefault(str(itin.segmento_orden), {}).setdefault(str(itin.leg_orden), Leg(fecha_salida, fecha_llegada, origen, destino))
-
-    #     odos = list()
-    #     for k, odos_dict in itin_dict.items():
-    #         segmentos = list()
-    #         for k, seg_dict in odos_dict.items():
-    #             legs = list()
-    #             for k, leg in seg_dict.items():
-    #                 legs.append(leg)
-    #             segmentos.append(Segmento(legs))
-    #         odos.append(Odo(segmentos))
-
-    #     return [Itinerario(odos)]
-
-    # def _procesar_itinerario(self, itinerario: any) -> list[ItinerarioDTO]:
-    #     itinerarios_dto = list()
-
-    #     for i, odo in enumerate(itinerario.odos):
-    #         for j, seg in enumerate(odo.segmentos):
-    #             for k, leg in enumerate(seg.legs):
-    #                 itinerario_dto = ItinerarioDTO()
-    #                 itinerario_dto.destino_codigo = leg.destino.codigo
-    #                 itinerario_dto.origen_codigo = leg.origen.codigo
-    #                 itinerario_dto.fecha_salida = leg.fecha_salida
-    #                 itinerario_dto.fecha_llegada = leg.fecha_llegada
-    #                 itinerario_dto.leg_orden = k
-    #                 itinerario_dto.segmento_orden = j
-    #                 itinerario_dto.odo_orden = i
-
-    #                 itinerarios_dto.append(itinerario_dto)
-
-    #     return itinerarios_dto
-
+    
     def obtener_tipo(self) -> type:
         return Compania.__class__
 

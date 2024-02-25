@@ -12,7 +12,7 @@ class Compania(AgregacionRaiz):
     estado: ov.EstadoCompania = field(default=ov.EstadoCompania.PENDIENTE)
     nombre: ov.Nombre = field(default=ov.Nombre)
     email: ov.Email = field(default=ov.Email)
-    identificacion = ov.Identificacion = field(default=ov.Identificacion)
+    identificacion = field(default=ov.Identificacion)
 
     def crear_compania(self, compania: Compania):
         self.estado = compania.estado

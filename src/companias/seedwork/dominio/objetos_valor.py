@@ -25,10 +25,6 @@ class Ciudad(ObjetoValor):
     nombre: str
 
 @dataclass(frozen=True)
-class Direccion(ObjetoValor):
-    direccion: str
-
-@dataclass(frozen=True)
 class Nombre(ObjetoValor):
     nombre: str
 
