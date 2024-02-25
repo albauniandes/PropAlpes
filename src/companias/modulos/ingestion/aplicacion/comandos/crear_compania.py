@@ -1,5 +1,5 @@
 from companias.seedwork.aplicacion.comandos import Comando
-from companias.modulos.ingestion.aplicacion.dto import ItinerarioDTO, CompaniaDTO
+from companias.modulos.ingestion.aplicacion.dto import CompaniaDTO
 from .base import CrearCompaniaBaseHandler
 from dataclasses import dataclass, field
 from companias.seedwork.aplicacion.comandos import ejecutar_comando as comando

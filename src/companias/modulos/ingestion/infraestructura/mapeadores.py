@@ -7,7 +7,7 @@ from .dto import Compania as CompaniaDTO
 
 class MapeadorCompania(Mapeador):
     _FORMATO_FECHA = '%Y-%m-%dT%H:%M:%SZ'
-    
+
     def obtener_tipo(self) -> type:
         return Compania.__class__
 

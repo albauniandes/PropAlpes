@@ -3,8 +3,8 @@
 from dataclasses import dataclass, field
 from companias.seedwork.dominio.fabricas import Fabrica
 from companias.seedwork.dominio.repositorios import Repositorio
-from companias.modulos.ingestion.dominio.repositorios import RepositorioProveedores, RepositorioCompanias
-from .repositorios import RepositorioCompaniasSQLite, RepositorioProveedoresSQLite
+from companias.modulos.ingestion.dominio.repositorios import RepositorioCompanias
+from .repositorios import RepositorioCompaniasSQLite
 from .excepciones import ExcepcionFabrica
 
 @dataclass
