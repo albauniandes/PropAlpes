@@ -1,8 +1,4 @@
-"""Entidades reusables parte del seedwork del proyecto
-
-En este archivo usted encontrará las entidades reusables parte del seedwork del proyecto
-
-"""
+"""Entidades reusables parte del seedwork del proyecto"""
 
 from dataclasses import dataclass, field
 from .eventos import EventoDominio

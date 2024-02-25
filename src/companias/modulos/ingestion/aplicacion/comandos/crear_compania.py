@@ -14,7 +14,9 @@ class CrearCompania(Comando):
     fecha_creacion: str
     fecha_actualizacion: str
     id: str
-    itinerarios: list[ItinerarioDTO]
+    nombre: str
+    email: str
+    identificacion: str
 
 
 class CrearCompaniaHandler(CrearCompaniaBaseHandler):
@@ -24,7 +26,9 @@ class CrearCompaniaHandler(CrearCompaniaBaseHandler):
                 fecha_actualizacion=comando.fecha_actualizacion
             ,   fecha_creacion=comando.fecha_creacion
             ,   id=comando.id
-            ,   itinerarios=comando.itinerarios)
+            ,   nombre=comando.nombre
+            ,   email=comando.email
+            ,   identificacion=comando.identificacion)
 
         compania: Compania = self.fabrica_ingestion.crear_objeto(compania_dto, MapeadorCompania())
         compania.crear_compania(compania)
@@ -32,7 +36,6 @@ class CrearCompaniaHandler(CrearCompaniaBaseHandler):
         repositorio = self.fabrica_repositorio.crear_objeto(RepositorioCompanias.__class__)
 
         UnidadTrabajoPuerto.registrar_batch(repositorio.agregar, compania)
-        UnidadTrabajoPuerto.savepoint()
         UnidadTrabajoPuerto.commit()
 
 

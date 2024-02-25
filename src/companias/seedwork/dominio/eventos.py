@@ -1,8 +1,4 @@
-"""Entidades reusables parte del seedwork del proyecto
-
-En este archivo usted encontrará las clases para eventos reusables parte del seedwork del proyecto
-
-"""
+"""Entidades reusables parte del seedwork del proyecto"""
 
 from dataclasses import dataclass, field
 from .reglas import IdEntidadEsInmutable

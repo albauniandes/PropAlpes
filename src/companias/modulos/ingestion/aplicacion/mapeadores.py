@@ -1,8 +1,8 @@
 from companias.seedwork.aplicacion.dto import Mapeador as AppMap
 from companias.seedwork.dominio.repositorios import Mapeador as RepMap
-from companias.modulos.ingestion.dominio.entidades import Compania, Aeropuerto
-from companias.modulos.ingestion.dominio.objetos_valor import Itinerario, Odo, Segmento, Leg
-from .dto import CompaniaDTO, ItinerarioDTO, OdoDTO, SegmentoDTO, LegDTO
+from companias.modulos.ingestion.dominio.entidades import *
+from companias.modulos.ingestion.dominio.objetos_valor import *
+from .dto import *
 
 from datetime import datetime
 

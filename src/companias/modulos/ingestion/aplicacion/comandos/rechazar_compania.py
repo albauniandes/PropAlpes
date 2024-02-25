@@ -1,7 +1,7 @@
 from companias.seedwork.aplicacion.comandos import Comando, ComandoHandler
 
-class PagarCompania(Comando):
+class RechazarCompania(Comando):
     ...
 
-class PagarCompaniaHandler(ComandoHandler):
+class RechazarCompaniaHandler(ComandoHandler):
     ...

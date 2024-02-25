@@ -15,7 +15,7 @@ from companias.seedwork.aplicacion.queries import ejecutar_query
 bp = api.crear_blueprint('ingestion', '/ingestion')
 
 @bp.route('/compania', methods=('POST',))
-def companiar():
+def crear_compania():
     try:
         compania_dict = request.json
 
@@ -30,14 +30,14 @@ def companiar():
         return Response(json.dumps(dict(error=str(e))), status=400, mimetype='application/json')
 
 @bp.route('/compania-comando', methods=('POST',))
-def companiar_asincrona():
+def crear_compania_asincrona():
     try:
         compania_dict = request.json
 
         map_compania = MapeadorCompaniaDTOJson()
         compania_dto = map_compania.externo_a_dto(compania_dict)
 
-        comando = CrearCompania(compania_dto.fecha_creacion, compania_dto.fecha_actualizacion, compania_dto.id, compania_dto.itinerarios)
+        comando = CrearCompania(compania_dto.fecha_creacion, compania_dto.fecha_actualizacion, compania_dto.id)
         
         # TODO Reemplaze es todo código sincrono y use el broker de eventos para propagar este comando de forma asíncrona
         # Revise la clase Despachador de la capa de infraestructura

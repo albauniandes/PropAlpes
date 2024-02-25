@@ -1,8 +1,4 @@
-"""Reglas de negocio reusables parte del seedwork del proyecto
-
-En este archivo usted encontrará reglas de negocio reusables parte del seedwork del proyecto
-
-"""
+"""Reglas de negocio reusables parte del seedwork del proyecto"""
 
 from abc import ABC, abstractmethod
 
