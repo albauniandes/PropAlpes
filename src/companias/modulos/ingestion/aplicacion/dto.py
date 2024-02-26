@@ -1,5 +1,6 @@
 from dataclasses import dataclass, field
 from companias.seedwork.aplicacion.dto import DTO
+import uuid
 
 @dataclass(frozen=True)
 class CompaniaDTO(DTO):

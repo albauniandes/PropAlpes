@@ -29,10 +29,10 @@ class CrearCompaniaHandler(CrearCompaniaBaseHandler):
             ,   nombre=comando.nombre
             ,   email=comando.email
             ,   identificacion=comando.identificacion)
-
+        #breakpoint()
         compania: Compania = self.fabrica_ingestion.crear_objeto(compania_dto, MapeadorCompania())
         compania.crear_compania(compania)
-
+        #breakpoint()
         repositorio = self.fabrica_repositorio.crear_objeto(RepositorioCompanias.__class__)
 
         UnidadTrabajoPuerto.registrar_batch(repositorio.agregar, compania)

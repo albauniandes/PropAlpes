@@ -7,7 +7,8 @@ class HandlerCompaniaDominio(Handler):
 
     @staticmethod
     def handle_compania_creada(evento):
-        print('================ RESERVA CREADA ===========')
+        #breakpoint()
+        print('================ COMPAÑIA CREADA ===========')
         
 
     

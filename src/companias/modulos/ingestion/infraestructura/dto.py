@@ -2,7 +2,7 @@
 
 from companias.config.db import db
 from sqlalchemy.orm import declarative_base, relationship
-from sqlalchemy import Column, ForeignKey, Integer, Table
+from sqlalchemy import Column, ForeignKey, Integer, Table, UniqueConstraint
 
 import uuid
 
@@ -16,3 +16,6 @@ class Compania(db.Model):
     nombre = db.Column(db.String)
     email = db.Column(db.String)
     identificacion = db.Column(db.String)
+    __table_args__ = (
+        UniqueConstraint('nombre', 'identificacion', name='nombre_identificacion_unique'),
+    )

@@ -20,4 +20,5 @@ class ObtenerCompaniaHandler(CompaniaQueryBaseHandler):
 @query.register(ObtenerCompania)
 def ejecutar_query_obtener_compania(query: ObtenerCompania):
     handler = ObtenerCompaniaHandler()
+    #breakpoint()
     return handler.handle(query)

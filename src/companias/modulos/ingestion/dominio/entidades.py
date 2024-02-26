@@ -16,8 +16,8 @@ class Compania(AgregacionRaiz):
 
     def crear_compania(self, compania: Compania):
         self.estado = compania.estado
-
-        self.agregar_evento(CompaniaCreada(id_compania=self.id, id_cliente=self.id_cliente, estado=self.estado.name, fecha_creacion=self.fecha_creacion))
+        
+        self.agregar_evento(CompaniaCreada(id_compania=self.id, estado=self.estado.name, fecha_creacion=self.fecha_creacion))
 
     def aprobar_compania(self):
         self.estado = ov.EstadoCompania.APROBADA
