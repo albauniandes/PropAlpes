@@ -44,3 +44,16 @@ Desde el directorio principal ejecute el siguiente comando.
 ```bash
 docker run -p 5000:5000 companias/flask
 ```
+
+# Escenarios de calidad a probar
+
+Atributo de calidad: Escalabilidad
+![image](https://github.com/albauniandes/PropAlpes/assets/98656753/12c1d88f-b766-43cc-bda1-c5a72e3c1a1f)
+
+Atributo de calidad: Modificabilidad
+![image](https://github.com/albauniandes/PropAlpes/assets/98656753/c14ad867-a06a-4c7e-8160-9c54826e6360)
+
+
+Atributo de calidad: Disponibilidad
+![image](https://github.com/albauniandes/PropAlpes/assets/98656753/8bd9ec40-b660-4f09-9f2f-2cb30ea4027d)
+
