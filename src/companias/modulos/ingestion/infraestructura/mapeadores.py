@@ -24,7 +24,7 @@ class MapeadorCompania(Mapeador):
         return compania_dto
 
     def dto_a_entidad(self, dto: CompaniaDTO) -> Compania:
-        breakpoint()
+        # breakpoint()
         compania = Compania(id=dto.id, 
                             fecha_creacion=dto.fecha_creacion, 
                             fecha_actualizacion=dto.fecha_actualizacion, 
