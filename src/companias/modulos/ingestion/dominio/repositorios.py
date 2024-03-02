@@ -6,5 +6,5 @@ from companias.seedwork.dominio.repositorios import Repositorio
 class RepositorioCompanias(Repositorio, ABC):
     ...
 
-class RepositorioProveedores(Repositorio, ABC):
+class RepositorioEventosCompanias(Repositorio, ABC):
     ...

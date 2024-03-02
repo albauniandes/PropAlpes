@@ -5,12 +5,13 @@ from .excepciones import TipoObjetoNoExisteEnDominioCompaniasExcepcion
 from companias.seedwork.dominio.repositorios import Mapeador, Repositorio
 from companias.seedwork.dominio.fabricas import Fabrica
 from companias.seedwork.dominio.entidades import Entidad
+from companias.seedwork.dominio.eventos import EventoDominio
 from dataclasses import dataclass
 
 @dataclass
 class _FabricaCompania(Fabrica):
     def crear_objeto(self, obj: any, mapeador: Mapeador) -> any:
-        if isinstance(obj, Entidad):
+        if isinstance(obj, Entidad) or isinstance(obj, EventoDominio):
             return mapeador.entidad_a_dto(obj)
         else:
             compania: Compania = mapeador.dto_a_entidad(obj)
