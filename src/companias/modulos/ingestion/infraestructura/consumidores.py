@@ -27,6 +27,7 @@ def suscribirse_a_eventos(app=None):
             datos = mensaje.value().data
             print(f'Evento recibido: {datos}')
 
+
             # TODO Identificar el tipo de CRUD del evento: Creacion, actualización o eliminación.
             # ejecutar_proyeccion(ProyeccionReservasTotales(datos.fecha_creacion, ProyeccionReservasTotales.ADD), app=app)
             # ejecutar_proyeccion(
@@ -49,10 +50,13 @@ def suscribirse_a_comandos(app=None):
         cliente = pulsar.Client(f'pulsar://{utils.broker_host()}:6650')
         consumidor = cliente.subscribe('comandos-compania', consumer_type=_pulsar.ConsumerType.Shared,
                                        subscription_name='compania-sub-comandos',
-                                       schema=AvroSchema(ComandoCrearCompania))
+                                       schema=AvroSchema(ComandoCrearCompania)
+                                       )
 
         while True:
             mensaje = consumidor.receive()
+            breakpoint()
+            datos = mensaje.value().data
             print(f'Comando recibido: {mensaje.value().data}')
 
             consumidor.acknowledge(mensaje)

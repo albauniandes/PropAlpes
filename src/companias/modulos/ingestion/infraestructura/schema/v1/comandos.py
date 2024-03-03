@@ -4,9 +4,11 @@ from companias.seedwork.infraestructura.schema.v1.comandos import (ComandoIntegr
 
 
 class ComandoCrearCompaniaPayload(ComandoIntegracion):
-    id_compania = String()
+    #id_compania = String()
     # TODO Cree los records para itinerarios
-
+    nombre = String()
+    email = String()
+    identificacion = String()
 
 class ComandoCrearCompania(ComandoIntegracion):
     data = ComandoCrearCompaniaPayload()
