@@ -8,6 +8,9 @@ import datetime
 
 from companias.modulos.ingestion.infraestructura.schema.v1.eventos import EventoCompaniaCreada
 from companias.modulos.ingestion.infraestructura.schema.v1.comandos import ComandoCrearCompania
+from companias.modulos.ingestion.aplicacion.comandos.crear_compania import CrearCompania
+
+from companias.seedwork.aplicacion.comandos import ejecutar_comando
 
 from companias.modulos.ingestion.aplicacion.comandos.crear_compania import CrearCompania
 from companias.seedwork.aplicacion.comandos import ejecutar_comando
@@ -49,7 +52,8 @@ def suscribirse_a_comandos(app=None):
     cliente = None
     try:
         cliente = pulsar.Client(f'pulsar://{utils.broker_host()}:6650')
-        consumidor = cliente.subscribe('comandos-compania', consumer_type=_pulsar.ConsumerType.Shared,
+
+        consumidor = cliente.subscribe('comando-crear-compania', consumer_type=_pulsar.ConsumerType.Shared,
                                        subscription_name='compania-sub-comandos',
                                        schema=AvroSchema(ComandoCrearCompania)
                                        )
@@ -74,7 +78,9 @@ def suscribirse_a_comandos(app=None):
                 logging.error('ERROR: Procesando eventos!')
                 traceback.print_exc()
 
+
             consumidor.acknowledge(mensaje)
+
 
         cliente.close()
     except:

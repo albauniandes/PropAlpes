@@ -3,7 +3,7 @@ import avro.schema
 from avro.io import DatumWriter, BinaryEncoder
 import io
 client = pulsar.Client('pulsar://localhost:6650')
-producer = client.create_producer('comandos-compania')
+producer = client.create_producer('comando-crear-compania')
 
 
 # Define Avro schema
@@ -62,9 +62,9 @@ print(f'Hola-Pulsar')
     #producer.send(('Hola-Pulsar-%d' % i).encode('utf-8'))
 payload = {
   "data": {
-    "nombre": "Nombre de la compañía5",
-    "email": "correo@compania.com5",
-    "identificacion": "identificador_de_la_compania5",
+    "nombre": "Nombre de la compañía6",
+    "email": "correo@compania.com6",
+    "identificacion": "identificador_de_la_compania6",
     "fecha_creacion": "1709515009893"
   }
 }
