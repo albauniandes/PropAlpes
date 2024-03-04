@@ -71,7 +71,7 @@ def suscribirse_a_comandos(app=None):
                     comando = CrearDatosGeograficos(fecha_creacion, fecha_creacion,
                                             id_geograficos, datos.nombre_propiedad, datos.latitud,
                                             datos.longitud)
-
+                    print(f'Ejecutando comando: {comando}')
                     ejecutar_comando(comando)
 
             except:
