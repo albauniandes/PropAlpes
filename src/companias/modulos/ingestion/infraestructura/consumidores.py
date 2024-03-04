@@ -59,7 +59,7 @@ def suscribirse_a_comandos(app=None):
             valor = mensaje.value()
             print(f'Comando recibido: {mensaje.value().data}')
 
-            fecha_creacion = utils.millis_a_datetime(valor.data.fecha_creacion).strftime('%Y-%m-%dT%H:%M:%SZ')
+            fecha_creacion = utils.millis_a_datetime(int(valor.data.fecha_creacion)).strftime('%Y-%m-%dT%H:%M:%SZ')
             id_compania = str(uuid.uuid4())
 
             try:

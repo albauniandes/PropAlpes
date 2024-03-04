@@ -5,9 +5,10 @@ import uuid
 
 
 class CompaniaCreadaPayload(Record):
-    id_compania = String()
-    estado = String()
-    fecha_creacion = Long()
+    nombre = String()
+    email = String()
+    identificacion = String()
+    fecha_creacion = String()
 
 
 class EventoCompaniaCreada(EventoIntegracion):
