@@ -1,10 +1,10 @@
 from geograficos.seedwork.aplicacion.queries import Query, QueryHandler, ResultadoQuery
 import uuid
 
-class ObtenerAutorizacion(Query):
-    listing_id: uuid.UUID
+class ObtenerDatosGeograficosRechazadas(Query):
+    ...
 
-class ObtenerAutorizacionHandler(QueryHandler):
+class ObtenerDatosGeograficosRechachazadasHandler(QueryHandler):
 
     def handle() -> ResultadoQuery:
         ...

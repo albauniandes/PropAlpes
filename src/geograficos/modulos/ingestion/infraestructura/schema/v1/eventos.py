@@ -1,20 +1,19 @@
 from pulsar.schema import *
-from companias.seedwork.infraestructura.schema.v1.eventos import EventoIntegracion
-from companias.seedwork.infraestructura.utils import time_millis
+from geograficos.seedwork.infraestructura.schema.v1.eventos import EventoIntegracion
+from geograficos.seedwork.infraestructura.utils import time_millis
 import uuid
 
 
-class CompaniaCreadaPayload(Record):
-    id_compania = String()
+class DatosGeograficosCreadaPayload(Record):
+    id_geograficos = String()
     estado = String()
     fecha_creacion = Long()
-    # nombre = String()
-    # email = String()
-    # identificacion = String()
-    # fecha_creacion = String()
+    nombre_propiedad = String()
+    latitud = String()
+    longitud = String()
 
 
-class EventoCompaniaCreada(EventoIntegracion):
+class EventoDatosGeograficosCreada(EventoIntegracion):
     # NOTE La librería Record de Pulsar no es capaz de reconocer campos heredados, 
     # por lo que los mensajes al ser codificados pierden sus valores
     # Dupliqué el los cambios que ya se encuentran en la clase Mensaje

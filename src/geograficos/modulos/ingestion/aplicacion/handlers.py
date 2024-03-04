@@ -1,28 +1,28 @@
-from companias.modulos.ingestion.dominio.eventos import CompaniaCreada, CompaniaRechazada, CompaniaAprobada
-from companias.seedwork.aplicacion.handlers import Handler
-from companias.modulos.ingestion.infraestructura.despachadores import Despachador
+from geograficos.modulos.ingestion.dominio.eventos import DatosGeograficosCreados, DatosGeograficosRechazados, DatosGeograficosAprobados
+from geograficos.seedwork.aplicacion.handlers import Handler
+from geograficos.modulos.ingestion.infraestructura.despachadores import Despachador
 
-class HandlerCompaniaIntegracion(Handler):
-
-    @staticmethod
-    def handle_compania_creada(evento):
-        despachador = Despachador()
-        despachador.publicar_evento(evento, 'eventos-compania')
+class HandlerDatosGeograficosIntegracion(Handler):
 
     @staticmethod
-    def handle_compania_cancelada(evento):
+    def handle_datos_geograficos_creados(evento):
         despachador = Despachador()
-        despachador.publicar_evento(evento, 'eventos-compania')
+        despachador.publicar_evento(evento, 'eventos-datos-geograficos')
 
     @staticmethod
-    def handle_compania_aprobada(evento):
+    def handle_datos_geograficos_cancelados(evento):
         despachador = Despachador()
-        despachador.publicar_evento(evento, 'eventos-compania')
+        despachador.publicar_evento(evento, 'eventos-datos-geograficos')
 
     @staticmethod
-    def handle_compania_pagada(evento):
+    def handle_datos_geograficos_aprobados(evento):
         despachador = Despachador()
-        despachador.publicar_evento(evento, 'eventos-compania')
+        despachador.publicar_evento(evento, 'eventos-datos-geograficos')
+
+    @staticmethod
+    def handle_datos_geograficos_pagados(evento):
+        despachador = Despachador()
+        despachador.publicar_evento(evento, 'eventos-datos-geograficos')
 
 
     

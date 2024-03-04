@@ -1,17 +1,17 @@
 """ Repositorios para el manejo de persistencia de objetos de dominio en la capa de infraestructura del dominio de ingestión"""
 
-from companias.config.db import db
-from companias.modulos.ingestion.dominio.repositorios import RepositorioCompanias, RepositorioEventosCompanias
-from companias.modulos.ingestion.dominio.objetos_valor import EstadoCompania, Nombre, Email, Identificacion
-from companias.modulos.ingestion.dominio.entidades import Compania
-from companias.modulos.ingestion.dominio.fabricas import FabricaIngestion
-from .dto import Compania as CompaniaDTO
-from .dto import EventosCompania
-from .mapeadores import MapeadorCompania, MapadeadorEventosCompania
+from geograficos.config.db import db
+from geograficos.modulos.ingestion.dominio.repositorios import RepositorioDatosGeograficos, RepositorioEventosDatosGeograficos
+from geograficos.modulos.ingestion.dominio.objetos_valor import EstadoDatosGeograficos, NombrePropiedad, Latitud, Longitud
+from geograficos.modulos.ingestion.dominio.entidades import DatosGeograficos
+from geograficos.modulos.ingestion.dominio.fabricas import FabricaIngestion
+from .dto import DatosGeograficos as DatosGeograficosDTO
+from .dto import EventosDatosGeograficos
+from .mapeadores import MapeadorDatosGeograficos, MapadeadorEventosDatosGeograficos
 from uuid import UUID
 from pulsar.schema import *
 
-class RepositorioCompaniasSQLAlchemy(RepositorioCompanias):
+class RepositorioDatosGeograficosSQLAlchemy(RepositorioDatosGeograficos):
 
     def __init__(self):
         self._fabrica_ingestion: FabricaIngestion = FabricaIngestion()
@@ -20,28 +20,28 @@ class RepositorioCompaniasSQLAlchemy(RepositorioCompanias):
     def fabrica_ingestion(self):
         return self._fabrica_ingestion
 
-    def obtener_por_id(self, id: UUID) -> Compania:
-        compania_dto = db.session.query(CompaniaDTO).filter_by(id=str(id)).one()
-        return self.fabrica_ingestion.crear_objeto(compania_dto, MapeadorCompania())
+    def obtener_por_id(self, id: UUID) -> DatosGeograficos:
+        datos_geograficos_dto = db.session.query(DatosGeograficosDTO).filter_by(id=str(id)).one()
+        return self.fabrica_ingestion.crear_objeto(datos_geograficos_dto, MapeadorDatosGeograficos())
 
-    def obtener_todos(self) -> list[Compania]:
+    def obtener_todos(self) -> list[DatosGeograficos]:
         # TODO
         raise NotImplementedError
 
-    def agregar(self, compania: Compania):
-        compania_dto = self.fabrica_ingestion.crear_objeto(compania, MapeadorCompania())
-        db.session.add(compania_dto)
+    def agregar(self, datos_geograficos: DatosGeograficos):
+        datos_geograficos_dto = self.fabrica_ingestion.crear_objeto(datos_geograficos, MapeadorDatosGeograficos())
+        db.session.add(datos_geograficos_dto)
 
-    def actualizar(self, compania: Compania):
+    def actualizar(self, datos_geograficos: DatosGeograficos):
         # TODO
         raise NotImplementedError
 
-    def eliminar(self, compania_id: UUID):
+    def eliminar(self, datos_geograficos_id: UUID):
         # TODO
         raise NotImplementedError
 
 
-class RepositorioEventosCompaniasSQLAlchemy(RepositorioEventosCompanias):
+class RepositorioEventosDatosGeograficosSQLAlchemy(RepositorioEventosDatosGeograficos):
 
     def __init__(self):
         self._fabrica_ingestion: FabricaIngestion = FabricaIngestion()
@@ -50,33 +50,33 @@ class RepositorioEventosCompaniasSQLAlchemy(RepositorioEventosCompanias):
     def fabrica_ingestion(self):
         return self._fabrica_ingestion
 
-    def obtener_por_id(self, id: UUID) -> Compania:
-        compania_dto = db.session.query(CompaniaDTO).filter_by(id=str(id)).one()
-        return self.fabrica_ingestion.crear_objeto(compania_dto, MapadeadorEventosCompania())
+    def obtener_por_id(self, id: UUID) -> DatosGeograficos:
+        datos_geograficos_dto = db.session.query(DatosGeograficosDTO).filter_by(id=str(id)).one()
+        return self.fabrica_ingestion.crear_objeto(datos_geograficos_dto, MapadeadorEventosDatosGeograficos())
 
-    def obtener_todos(self) -> list[Compania]:
+    def obtener_todos(self) -> list[DatosGeograficos]:
         raise NotImplementedError
 
     def agregar(self, evento):
-        compania_evento = self.fabrica_ingestion.crear_objeto(evento, MapadeadorEventosCompania())
+        datos_geograficos_evento = self.fabrica_ingestion.crear_objeto(evento, MapadeadorEventosDatosGeograficos())
 
-        parser_payload = JsonSchema(compania_evento.data.__class__)
-        json_str = parser_payload.encode(compania_evento.data)
+        parser_payload = JsonSchema(datos_geograficos_evento.data.__class__)
+        json_str = parser_payload.encode(datos_geograficos_evento.data)
 
-        evento_dto = EventosCompania()
+        evento_dto = EventosDatosGeograficos()
         evento_dto.id = str(evento.id)
-        evento_dto.id_entidad = str(evento.id_compania)
+        evento_dto.id_entidad = str(evento.id_datos_geograficos)
         evento_dto.fecha_evento = evento.fecha_creacion
-        evento_dto.version = str(compania_evento.specversion)
+        evento_dto.version = str(datos_geograficos_evento.specversion)
         evento_dto.tipo_evento = evento.__class__.__name__
         evento_dto.formato_contenido = 'JSON'
-        evento_dto.nombre_servicio = str(compania_evento.service_name)
+        evento_dto.nombre_servicio = str(datos_geograficos_evento.service_name)
         evento_dto.contenido = json_str
 
         db.session.add(evento_dto)
 
-    def actualizar(self, compania: Compania):
+    def actualizar(self, datos_geograficos: DatosGeograficos):
         raise NotImplementedError
 
-    def eliminar(self, compania_id: UUID):
+    def eliminar(self, datos_geograficos_id: UUID):
         raise NotImplementedError

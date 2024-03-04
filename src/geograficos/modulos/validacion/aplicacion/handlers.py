@@ -1,13 +1,13 @@
 
 
-from companias.modulos.ingestion.dominio.eventos import CompaniaCreada
-from companias.seedwork.aplicacion.handlers import Handler
+from geograficos.modulos.ingestion.dominio.eventos import DatosGeograficosCreados
+from geograficos.seedwork.aplicacion.handlers import Handler
 
-class HandlerCompaniaDominio(Handler):
+class HandlerDatosGeograficosDominio(Handler):
 
     @staticmethod
-    def handle_compania_creada(evento):
+    def handle_datos_geograficos_creada(evento):
         #breakpoint()
-        print('================ COMPAÑIA CREADA ===========')
+        print('================ DATOS GEOGRAFICOS CREADOS ===========')
         
 

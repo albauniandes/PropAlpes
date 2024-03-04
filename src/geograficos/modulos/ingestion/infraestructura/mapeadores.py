@@ -1,16 +1,16 @@
 """ Mapeadores para la capa de infraestructura del dominio de ingestion"""
 
-from companias.seedwork.dominio.repositorios import Mapeador
-from companias.seedwork.infraestructura.utils import unix_time_millis
-from companias.modulos.ingestion.dominio.objetos_valor import EstadoCompania, Nombre, Email, Identificacion
-from companias.modulos.ingestion.dominio.entidades import Compania
-from .dto import Compania as CompaniaDTO
+from geograficos.seedwork.dominio.repositorios import Mapeador
+from geograficos.seedwork.infraestructura.utils import unix_time_millis
+from geograficos.modulos.ingestion.dominio.objetos_valor import EstadoDatosGeograficos, NombrePropiedad, Latitud, Longitud
+from geograficos.modulos.ingestion.dominio.entidades import DatosGeograficos
+from .dto import DatosGeograficos as DatosGeograficosDTO
 
-from companias.modulos.ingestion.dominio.eventos import CompaniaAprobada, CompaniaRechazada, CompaniaCreada, EventoCompania
+from geograficos.modulos.ingestion.dominio.eventos import DatosGeograficosAprobados, DatosGeograficosRechazados, DatosGeograficosCreados, EventoDatosGeograficos
 from .excepciones import NoExisteImplementacionParaTipoFabricaExcepcion
 
 
-class MapadeadorEventosCompania(Mapeador):
+class MapadeadorEventosDatosGeograficos(Mapeador):
     # Versiones aceptadas
     versions = ('v1',)
 
@@ -18,13 +18,13 @@ class MapadeadorEventosCompania(Mapeador):
 
     def __init__(self):
         self.router = {
-            CompaniaCreada: self._entidad_a_compania_creada,
-            CompaniaAprobada: self._entidad_a_compania_aprobada,
-            CompaniaRechazada: self._entidad_a_compania_rechazada,
+            DatosGeograficosCreados: self._entidad_a_datos_geograficos_creados,
+            DatosGeograficosAprobados: self._entidad_a_datos_geograficos_aprobados,
+            DatosGeograficosRechazados: self._entidad_a_datos_geograficos_rechazados,
         }
 
     def obtener_tipo(self) -> type:
-        return EventoCompania.__class__
+        return EventoDatosGeograficos.__class__
 
     def es_version_valida(self, version):
         for v in self.versions:
@@ -32,22 +32,22 @@ class MapadeadorEventosCompania(Mapeador):
                 return True
         return False
 
-    def _entidad_a_compania_creada(self, entidad: CompaniaCreada, version=LATEST_VERSION):
+    def _entidad_a_datos_geograficos_creada(self, entidad: DatosGeograficosCreados, version=LATEST_VERSION):
         def v1(evento):
-            from .schema.v1.eventos import CompaniaCreadaPayload, EventoCompaniaCreada
+            from .schema.v1.eventos import DatosGeograficosCreadaPayload, EventoDatosGeograficosCreada
 
-            payload = CompaniaCreadaPayload(
-                id_compania=str(evento.id_compania),
+            payload = DatosGeograficosCreadaPayload(
+                id_geograficos=str(evento.id_geograficos),
                 estado=str(evento.estado),
                 fecha_creacion=int(unix_time_millis(evento.fecha_creacion))
             )
-            evento_integracion = EventoCompaniaCreada(id=str(evento.id))
+            evento_integracion = EventoDatosGeograficosCreada(id=str(evento.id))
             evento_integracion.id = str(evento.id)
             evento_integracion.time = int(unix_time_millis(evento.fecha_creacion))
             evento_integracion.specversion = str(version)
-            evento_integracion.type = 'CompaniaCreada'
+            evento_integracion.type = 'DatosGeograficosCreados'
             evento_integracion.datacontenttype = 'AVRO'
-            evento_integracion.service_name = 'companias'
+            evento_integracion.service_name = 'geograficos'
             evento_integracion.data = payload
 
             return evento_integracion
@@ -58,16 +58,16 @@ class MapadeadorEventosCompania(Mapeador):
         if version == 'v1':
             return v1(entidad)
 
-    def _entidad_a_compania_aprobada(self, entidad: CompaniaAprobada, version=LATEST_VERSION):
+    def _entidad_a_datos_geograficos_aprobada(self, entidad: DatosGeograficosAprobados, version=LATEST_VERSION):
         # TODO
         raise NotImplementedError
 
-    def _entidad_a_compania_rechazada(self, entidad: CompaniaRechazada, version=LATEST_VERSION):
+    def _entidad_a_datos_geograficos_rechazada(self, entidad: DatosGeograficosRechazados, version=LATEST_VERSION):
         # TODO
         raise NotImplementedError
 
 
-    def entidad_a_dto(self, entidad: EventoCompania, version=LATEST_VERSION) -> CompaniaDTO:
+    def entidad_a_dto(self, entidad: EventoDatosGeograficos, version=LATEST_VERSION) -> DatosGeograficosDTO:
         if not entidad:
             raise NoExisteImplementacionParaTipoFabricaExcepcion
         func = self.router.get(entidad.__class__, None)
@@ -77,35 +77,35 @@ class MapadeadorEventosCompania(Mapeador):
 
         return func(entidad, version=version)
 
-    def dto_a_entidad(self, dto: CompaniaDTO, version=LATEST_VERSION) -> Compania:
+    def dto_a_entidad(self, dto: DatosGeograficosDTO, version=LATEST_VERSION) -> DatosGeograficos:
         raise NotImplementedError
 
-class MapeadorCompania(Mapeador):
+class MapeadorDatosGeograficos(Mapeador):
     _FORMATO_FECHA = '%Y-%m-%dT%H:%M:%SZ'
 
     def obtener_tipo(self) -> type:
-        return Compania.__class__
+        return DatosGeograficos.__class__
 
-    def entidad_a_dto(self, entidad: Compania) -> CompaniaDTO:
+    def entidad_a_dto(self, entidad: DatosGeograficos) -> DatosGeograficosDTO:
         
-        compania_dto = CompaniaDTO()
-        compania_dto.fecha_creacion = entidad.fecha_creacion
-        compania_dto.fecha_actualizacion = entidad.fecha_actualizacion
-        compania_dto.id = str(entidad.id)
-        compania_dto.nombre = str(entidad.nombre)
-        compania_dto.email = str(entidad.email)
-        compania_dto.identificacion = str(entidad.identificacion)
+        datos_geograficos_dto = DatosGeograficosDTO()
+        datos_geograficos_dto.fecha_creacion = entidad.fecha_creacion
+        datos_geograficos_dto.fecha_actualizacion = entidad.fecha_actualizacion
+        datos_geograficos_dto.id = str(entidad.id)
+        datos_geograficos_dto.nombre_propiedad = str(entidad.nombre_propiedad)
+        datos_geograficos_dto.latitud = str(entidad.latitud)
+        datos_geograficos_dto.longitud = str(entidad.longitud)
 
-        return compania_dto
+        return datos_geograficos_dto
 
-    def dto_a_entidad(self, dto: CompaniaDTO) -> Compania:
+    def dto_a_entidad(self, dto: DatosGeograficosDTO) -> DatosGeograficos:
         # breakpoint()
-        compania = Compania(id=dto.id, 
+        datos_geograficos = DatosGeograficos(id=dto.id, 
                             fecha_creacion=dto.fecha_creacion, 
                             fecha_actualizacion=dto.fecha_actualizacion, 
-                            nombre=dto.nombre, 
-                            email=dto.email, 
-                            identificacion=dto.identificacion)
+                            nombre_propiedad=dto.nombre_propiedad, 
+                            latitud=dto.latitud, 
+                            longitud=dto.longitud)
         
-        return compania
+        return datos_geograficos
         

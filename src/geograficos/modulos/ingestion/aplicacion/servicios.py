@@ -1,16 +1,16 @@
-from companias.seedwork.aplicacion.servicios import Servicio
-from companias.modulos.ingestion.dominio.entidades import Compania
-from companias.modulos.ingestion.dominio.fabricas import FabricaIngestion
-from companias.modulos.ingestion.infraestructura.fabricas import FabricaRepositorio
-from companias.modulos.ingestion.infraestructura.repositorios import RepositorioCompanias
-from companias.seedwork.infraestructura.uow import UnidadTrabajoPuerto
-from .mapeadores import MapeadorCompania
+from geograficos.seedwork.aplicacion.servicios import Servicio
+from geograficos.modulos.ingestion.dominio.entidades import DatosGeograficos
+from geograficos.modulos.ingestion.dominio.fabricas import FabricaIngestion
+from geograficos.modulos.ingestion.infraestructura.fabricas import FabricaRepositorio
+from geograficos.modulos.ingestion.infraestructura.repositorios import RepositorioDatosGeograficos
+from geograficos.seedwork.infraestructura.uow import UnidadTrabajoPuerto
+from .mapeadores import MapeadorDatosGeograficos
 
-from .dto import CompaniaDTO
+from .dto import DatosGeograficosDTO
 
 import asyncio
 
-class ServicioCompania(Servicio):
+class ServicioDatosGeograficos(Servicio):
 
     def __init__(self):
         self._fabrica_repositorio: FabricaRepositorio = FabricaRepositorio()
@@ -24,19 +24,19 @@ class ServicioCompania(Servicio):
     def fabrica_ingestion(self):
         return self._fabrica_ingestion       
     
-    def crear_compania(self, compania_dto: CompaniaDTO) -> CompaniaDTO:
-        compania: Compania = self.fabrica_ingestion.crear_objeto(compania_dto, MapeadorCompania())
-        compania.crear_compania(compania)
+    def crear_datos_geograficos(self, datos_geograficos_dto: DatosGeograficosDTO) -> DatosGeograficosDTO:
+        datos_geograficos: DatosGeograficos = self.fabrica_ingestion.crear_objeto(datos_geograficos_dto, MapeadorDatosGeograficos())
+        datos_geograficos.crear_datos_geograficos(datos_geograficos)
 
-        repositorio = self.fabrica_repositorio.crear_objeto(RepositorioCompanias.__class__)
+        repositorio = self.fabrica_repositorio.crear_objeto(RepositorioDatosGeograficos.__class__)
 
-        UnidadTrabajoPuerto.registrar_batch(repositorio.agregar, compania)
+        UnidadTrabajoPuerto.registrar_batch(repositorio.agregar, datos_geograficos)
         # UnidadTrabajoPuerto.savepoint()
         UnidadTrabajoPuerto.commit()
 
-        return self.fabrica_ingestion.crear_objeto(compania, MapeadorCompania())
+        return self.fabrica_ingestion.crear_objeto(datos_geograficos, MapeadorDatosGeograficos())
 
-    def obtener_compania_por_id(self, id) -> CompaniaDTO:
-        repositorio = self.fabrica_repositorio.crear_objeto(RepositorioCompanias.__class__)
-        return self.fabrica_ingestion.crear_objeto(repositorio.obtener_por_id(id), MapeadorCompania())
+    def obtener_datos_geograficos_por_id(self, id) -> DatosGeograficosDTO:
+        repositorio = self.fabrica_repositorio.crear_objeto(RepositorioDatosGeograficos.__class__)
+        return self.fabrica_ingestion.crear_objeto(repositorio.obtener_por_id(id), MapeadorDatosGeograficos())
 

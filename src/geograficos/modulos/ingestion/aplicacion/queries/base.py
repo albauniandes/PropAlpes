@@ -1,8 +1,8 @@
-from companias.seedwork.aplicacion.queries import QueryHandler
-from companias.modulos.ingestion.infraestructura.fabricas import FabricaRepositorio
-from companias.modulos.ingestion.dominio.fabricas import FabricaIngestion
+from geograficos.seedwork.aplicacion.queries import QueryHandler
+from geograficos.modulos.ingestion.infraestructura.fabricas import FabricaRepositorio
+from geograficos.modulos.ingestion.dominio.fabricas import FabricaIngestion
 
-class CompaniaQueryBaseHandler(QueryHandler):
+class DatosGeograficosQueryBaseHandler(QueryHandler):
     def __init__(self):
         self._fabrica_repositorio: FabricaRepositorio = FabricaRepositorio()
         self._fabrica_ingestion: FabricaIngestion = FabricaIngestion()

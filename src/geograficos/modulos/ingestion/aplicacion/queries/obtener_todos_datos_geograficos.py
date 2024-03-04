@@ -1,10 +1,9 @@
 from geograficos.seedwork.aplicacion.queries import Query, QueryHandler, ResultadoQuery
-import uuid
 
-class ObtenerAutorizacion(Query):
-    listing_id: uuid.UUID
+class ObtenerTodasDatosGeograficosPagadas(Query):
+    ...
 
-class ObtenerAutorizacionHandler(QueryHandler):
+class ObtenerTodasDatosGeograficosHandler(QueryHandler):
 
     def handle() -> ResultadoQuery:
         ...

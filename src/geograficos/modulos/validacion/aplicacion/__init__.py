@@ -1,4 +1,4 @@
 from pydispatch import dispatcher
-from .handlers import HandlerCompaniaDominio
+from .handlers import HandlerDatosGeograficosDominio
 
-dispatcher.connect(HandlerCompaniaDominio.handle_compania_creada, signal='CompaniaCreadaDominio')
+dispatcher.connect(HandlerDatosGeograficosDominio.handle_datos_geograficos_creada, signal='DatosGeograficosCreadaDominio')

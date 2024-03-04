@@ -1,6 +1,6 @@
 """DTOs para la capa de infraestructura del dominio de ingestion"""
 
-from companias.config.db import db
+from geograficos.config.db import db
 from sqlalchemy.orm import declarative_base, relationship
 from sqlalchemy import Column, ForeignKey, Integer, Table, UniqueConstraint
 
@@ -8,20 +8,17 @@ import uuid
 
 Base = db.declarative_base()
 
-class Compania(db.Model):
-    __tablename__ = "companias"
+class DatosGeograficos(db.Model):
+    __tablename__ = "geograficos"
     id = db.Column(db.String(40), primary_key=True)
     fecha_creacion = db.Column(db.DateTime, nullable=False)
     fecha_actualizacion = db.Column(db.DateTime, nullable=False)
-    nombre = db.Column(db.String(40))
-    email = db.Column(db.String(40))
-    identificacion = db.Column(db.String(40))
-    __table_args__ = (
-        UniqueConstraint('nombre', 'identificacion', name='nombre_identificacion_unique'),
-    )
+    nombre_propiedad = db.Column(db.String(40))
+    latitud = db.Column(db.String(40))
+    longitud = db.Column(db.String(40))
 
-class EventosCompania(db.Model):
-    __tablename__ = "eventos_compania"
+class EventosDatosGeograficos(db.Model):
+    __tablename__ = "eventos_datos_geograficos"
     id = db.Column(db.String(40), primary_key=True)
     id_entidad = db.Column(db.String(40), nullable=False)
     fecha_evento = db.Column(db.DateTime, nullable=False)

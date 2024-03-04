@@ -1,4 +1,4 @@
-from companias.seedwork.aplicacion.queries import Query, QueryHandler, ResultadoQuery
+from geograficos.seedwork.aplicacion.queries import Query, QueryHandler, ResultadoQuery
 import uuid
 
 class ObtenerTodasAutorizaciones(Query):

@@ -4,25 +4,25 @@ En este archivo usted encontrará los objetos valor del dominio de cliente
 
 """
 
-from companias.seedwork.dominio.objetos_valor import ObjetoValor, Ciudad
+from enum import Enum
+from geograficos.seedwork.dominio.objetos_valor import ObjetoValor, Ciudad
 from dataclasses import dataclass
 
 
-class EstadoCompania(str, Enum):
+class EstadoDatosGeograficos(str, Enum):
     APROBADA = "Aprobada"
     PENDIENTE = "Pendiente"
     RECHAZADA = "Rechazada"
 
 @dataclass(frozen=True)
-class Nombre(ObjetoValor):
-    nombres: str
-    apellidos: str
+class NombrePropiedad(ObjetoValor):
+    nombre_propiedad: str
 
 @dataclass(frozen=True)
-class Email(ObjetoValor):
-    email: str
+class Latitud(ObjetoValor):
+    latitud: str
 
 @dataclass(frozen=True)
-class Identificacion(ObjetoValor):
-    numero: int
+class Longitud(ObjetoValor):
+    longitud: int
 

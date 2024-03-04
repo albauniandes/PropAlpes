@@ -1,9 +1,9 @@
 '''Comando para iniciar validación de datos con la compañía y solicitud de autorización para su uso'''
 
-from companias.seedwork.aplicacion.comandos import Comando, ComandoHandler    
+from geograficos.seedwork.aplicacion.comandos import Comando, ComandoHandler    
 
-class ValidarCompania(Comando):
-    id_compania: uuid.UUID
+class ValidarDatosGeograficos(Comando):
+    id_datos_geograficos: uuid.UUID
 
-class ValidarCompaniaHandler(ComandoHandler):
+class ValidarDatosGeograficosHandler(ComandoHandler):
     ...

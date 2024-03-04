@@ -1,19 +1,19 @@
 import pulsar
 from pulsar.schema import *
 
-from companias.modulos.ingestion.infraestructura.schema.v1.eventos import EventoCompaniaCreada, CompaniaCreadaPayload
-from companias.modulos.ingestion.infraestructura.schema.v1.comandos import ComandoCrearCompania, ComandoCrearCompaniaPayload
-from companias.seedwork.infraestructura import utils
+from geograficos.modulos.ingestion.infraestructura.schema.v1.eventos import EventoDatosGeograficosCreada, DatosGeograficosCreadaPayload
+from geograficos.modulos.ingestion.infraestructura.schema.v1.comandos import ComandoCrearDatosGeograficos, ComandoCrearDatosGeograficosPayload
+from geograficos.seedwork.infraestructura import utils
 
-from companias.modulos.ingestion.infraestructura.mapeadores import MapadeadorEventosCompania
+from geograficos.modulos.ingestion.infraestructura.mapeadores import MapadeadorEventosDatosGeograficos
 
 class Despachador:
     def __init__(self):
-        self.mapper = MapadeadorEventosCompania()
+        self.mapper = MapadeadorEventosDatosGeograficos()
 
     def _publicar_mensaje(self, mensaje, topico, schema):
         cliente = pulsar.Client(f'pulsar://{utils.broker_host()}:6650')
-        publicador = cliente.create_producer(topico, schema=AvroSchema(EventoCompaniaCreada))
+        publicador = cliente.create_producer(topico, schema=AvroSchema(EventoDatosGeograficosCreada))
         publicador.send(mensaje)
         cliente.close()
 
@@ -23,9 +23,9 @@ class Despachador:
 
     def publicar_comando(self, comando, topico):
         # TODO Debe existir un forma de crear el Payload en Avro con base al tipo del comando
-        payload = ComandoCrearCompaniaPayload(
-            id_compania=str(comando.id_compania)
+        payload = ComandoCrearDatosGeograficosPayload(
+            id_geograficos=str(comando.id_geograficos)
             # agregar itinerarios
         )
-        comando_integracion = ComandoCrearCompania(data=payload)
-        self._publicar_mensaje(comando_integracion, topico, AvroSchema(ComandoCrearCompania))
+        comando_integracion = ComandoCrearDatosGeograficos(data=payload)
+        self._publicar_mensaje(comando_integracion, topico, AvroSchema(ComandoCrearDatosGeograficos))
