@@ -1,7 +1,7 @@
 import geograficos.seedwork.presentacion.api as api
 import json
 # from geograficos.modulos.ingestion.aplicacion.servicios import ServicioCompania
-from geograficos.modulos.ingestion.aplicacion.dto import DatosGegraficosDTO
+from geograficos.modulos.ingestion.aplicacion.dto import DatosGeograficosDTO
 from geograficos.seedwork.dominio.excepciones import ExcepcionDominio
 
 from flask import redirect, render_template, request, session, url_for
@@ -21,8 +21,8 @@ def crear_datos_geograficos_asincrona():
 
         map_datos_geograficos = MapeadorDatosGeograficosDTOJson()
         datos_geograficos_dto = map_datos_geograficos.externo_a_dto(datos_geograficos_dict)
-
-        comando = CrearDatosGeograficos(datos_geograficos_dto.nombre_propiedad, datos_geograficos_dto.latitud, datos_geograficos_dto.id, datos_geograficos_dto.longitud)
+        print(datos_geograficos_dto)
+        comando = CrearDatosGeograficos(datos_geograficos_dto.fecha_creacion, datos_geograficos_dto.fecha_actualizacion,  datos_geograficos_dto.id, datos_geograficos_dto.nombre_propiedad, datos_geograficos_dto.latitud, datos_geograficos_dto.longitud)
         
         ejecutar_comando(comando)
         

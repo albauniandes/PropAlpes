@@ -134,7 +134,7 @@ services:
     environment:
       - MYSQL_DATABASE=geograficos
       - MYSQL_ROOT_PASSWORD=adminadmin
-    profiles: ["db"]
+    profiles: ["geograficosdb"]
     networks:
       - pulsar
     ports:

@@ -18,9 +18,9 @@ class MapadeadorEventosDatosGeograficos(Mapeador):
 
     def __init__(self):
         self.router = {
-            DatosGeograficosCreados: self._entidad_a_datos_geograficos_creados,
-            DatosGeograficosAprobados: self._entidad_a_datos_geograficos_aprobados,
-            DatosGeograficosRechazados: self._entidad_a_datos_geograficos_rechazados,
+            DatosGeograficosCreados: self._entidad_a_datos_geograficos_creada,
+            DatosGeograficosAprobados: self._entidad_a_datos_geograficos_aprobada,
+            DatosGeograficosRechazados: self._entidad_a_datos_geograficos_rechazada,
         }
 
     def obtener_tipo(self) -> type:

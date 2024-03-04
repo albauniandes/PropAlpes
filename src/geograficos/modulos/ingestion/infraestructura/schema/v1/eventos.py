@@ -24,7 +24,7 @@ class EventoDatosGeograficosCreada(EventoIntegracion):
     type = String()
     datacontenttype = String()
     service_name = String()
-    data = CompaniaCreadaPayload()
+    data = DatosGeograficosCreadaPayload()
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
