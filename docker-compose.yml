@@ -17,6 +17,7 @@ services:
       - ./data/zookeeper:/pulsar/data/zookeeper
     environment:
       - metadataStoreUrl=zk:zookeeper:2181
+      - PULSAR_MEM=-Xms256m -Xmx256m -XX:MaxDirectMemorySize=256m
     command: >
       bash -c "bin/apply-config-from-env.py conf/zookeeper.conf && \
              bin/generate-zookeeper-config.sh conf/zookeeper.conf && \
@@ -58,6 +59,7 @@ services:
       - clusterName=cluster-a
       - zkServers=zookeeper:2181
       - metadataServiceUri=metadata-store:zk:zookeeper:2181
+      - BOOKIE_MEM=-Xms512m -Xmx512m -XX:MaxDirectMemorySize=256m
     depends_on:
       zookeeper:
         condition: service_healthy
@@ -87,6 +89,7 @@ services:
       - managedLedgerDefaultAckQuorum=1
       - advertisedAddress=broker
       - advertisedListeners=external:pulsar://127.0.0.1:6650
+      - PULSAR_MEM=-Xms512m -Xmx512m -XX:MaxDirectMemorySize=256m
     depends_on:
       zookeeper:
         condition: service_healthy
@@ -139,3 +142,19 @@ services:
       - PULSAR_ADDRESS=broker
     ports:
       - "5000:5000"
+
+  # Servicio BFF
+  bff:
+    container_name: bff
+    hostname: bff
+    image: bff
+    profiles: ["bff"]
+    depends_on:
+      - broker
+    environment:
+      - COMPANIAS_ADDRESS=companias
+      - BROKER_HOST=broker
+    networks:
+      - pulsar
+    ports:
+      - "8003:8003"

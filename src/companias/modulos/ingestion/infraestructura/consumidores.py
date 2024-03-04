@@ -8,6 +8,9 @@ import datetime
 
 from companias.modulos.ingestion.infraestructura.schema.v1.eventos import EventoCompaniaCreada
 from companias.modulos.ingestion.infraestructura.schema.v1.comandos import ComandoCrearCompania
+from companias.modulos.ingestion.aplicacion.comandos.crear_compania import CrearCompania
+
+from companias.seedwork.aplicacion.comandos import ejecutar_comando
 
 #from companias.modulos.ingestion.infraestructura.proyecciones import ProyeccionReservasLista, ProyeccionReservasTotales
 #from companias.seedwork.infraestructura.proyecciones import ejecutar_proyeccion
@@ -47,15 +50,27 @@ def suscribirse_a_comandos(app=None):
     cliente = None
     try:
         cliente = pulsar.Client(f'pulsar://{utils.broker_host()}:6650')
-        consumidor = cliente.subscribe('comandos-compania', consumer_type=_pulsar.ConsumerType.Shared,
-                                       subscription_name='compania-sub-comandos',
+        consumidor = cliente.subscribe('comando-crear-compania', consumer_type=_pulsar.ConsumerType.Shared,
+                                       subscription_name='creacion-compania-sub-comandos',
                                        schema=AvroSchema(ComandoCrearCompania))
 
         while True:
             mensaje = consumidor.receive()
+            valor = mensaje.value()
             print(f'Comando recibido: {mensaje.value().data}')
 
-            consumidor.acknowledge(mensaje)
+            fecha_creacion = utils.millis_a_datetime(valor.data.fecha_creacion).strftime('%Y-%m-%dT%H:%M:%SZ')
+            id_compania = str(uuid.uuid4())
+
+            try:
+                with app.app_context():
+                    comando = CrearCompania(fecha_creacion, fecha_creacion, id_compania, valor.data.nombre, valor.data.email, valor.data.identificacion)
+                    ejecutar_comando(comando)
+            except:
+                logging.error('ERROR: Procesando eventos!')
+                traceback.print_exc()
+
+            consumidor.acknowledge(mensaje)  
 
         cliente.close()
     except:
