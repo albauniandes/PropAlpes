@@ -40,6 +40,13 @@ avro_schema_str = '''
                                 "null",
                                 "string"
                             ]
+                        },
+                        {
+                            "name": "fecha_creacion",
+                            "type": [
+                                "null",
+                                "string"
+                            ]
                         }
                     ]
                 }
@@ -53,18 +60,12 @@ avro_schema = avro.schema.parse(avro_schema_str)
 #for i in range(1):
 print(f'Hola-Pulsar')
     #producer.send(('Hola-Pulsar-%d' % i).encode('utf-8'))
-# payload = {
-#         "data": {
-#             "nombre": "Nombre de la compañía",
-#             "email": "correo@compania.com",
-#             "identificacion": "identificador_de_la_compania"
-#         }
-#     }
 payload = {
   "data": {
-    "nombre": "Nombre de la compañía",
-    "email": "correo@compania.com",
-    "identificacion": "identificador_de_la_compania"
+    "nombre": "Nombre de la compañía5",
+    "email": "correo@compania.com5",
+    "identificacion": "identificador_de_la_compania5",
+    "fecha_creacion": "1709515009893"
   }
 }
 bytes_writer = io.BytesIO()

@@ -9,8 +9,9 @@ import datetime
 from companias.modulos.ingestion.infraestructura.schema.v1.eventos import EventoCompaniaCreada
 from companias.modulos.ingestion.infraestructura.schema.v1.comandos import ComandoCrearCompania
 
-#from companias.modulos.ingestion.infraestructura.proyecciones import ProyeccionReservasLista, ProyeccionReservasTotales
-#from companias.seedwork.infraestructura.proyecciones import ejecutar_proyeccion
+from companias.modulos.ingestion.aplicacion.comandos.crear_compania import CrearCompania
+from companias.seedwork.aplicacion.comandos import ejecutar_comando
+
 from companias.seedwork.infraestructura import utils
 
 
@@ -55,9 +56,23 @@ def suscribirse_a_comandos(app=None):
 
         while True:
             mensaje = consumidor.receive()
-            breakpoint()
             datos = mensaje.value().data
             print(f'Comando recibido: {mensaje.value().data}')
+
+            fecha_creacion = utils.millis_a_datetime(int(datos.fecha_creacion)).strftime('%Y-%m-%dT%H:%M:%SZ')
+            id_compania = str(uuid.uuid4())
+            try:
+                with app.app_context():
+
+                    comando = CrearCompania(fecha_creacion, fecha_creacion,
+                                            id_compania, datos.nombre, datos.email,
+                                            datos.identificacion)
+
+                    ejecutar_comando(comando)
+
+            except:
+                logging.error('ERROR: Procesando eventos!')
+                traceback.print_exc()
 
             consumidor.acknowledge(mensaje)
 

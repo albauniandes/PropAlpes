@@ -9,6 +9,8 @@ from companias.seedwork.infraestructura.uow import UnidadTrabajoPuerto
 from companias.modulos.ingestion.aplicacion.mapeadores import MapeadorCompania
 from companias.modulos.ingestion.infraestructura.repositorios import RepositorioCompanias, RepositorioEventosCompanias
 
+from pydispatch import dispatcher
+
 @dataclass
 class CrearCompania(Comando):
     fecha_creacion: str
@@ -37,10 +39,15 @@ class CrearCompaniaHandler(CrearCompaniaBaseHandler):
         repositorio_eventos = self.fabrica_repositorio.crear_objeto(RepositorioEventosCompanias)
 
         #UnidadTrabajoPuerto.registrar_batch(repositorio.agregar, compania)
-        UnidadTrabajoPuerto.registrar_batch(repositorio.agregar, compania, repositorio_eventos_func=repositorio_eventos.agregar)
+        #UnidadTrabajoPuerto.registrar_batch(repositorio.agregar, compania, repositorio_eventos_func=repositorio_eventos.agregar)
 
-        UnidadTrabajoPuerto.commit()
+        repositorio.agregar(compania)
 
+        for evento in compania.eventos:
+            dispatcher.send(signal=f'{type(evento).__name__}Integracion', evento=evento)
+        #UnidadTrabajoPuerto.commit()
+        from companias.config.db import db
+        db.session.commit()
 
 @comando.register(CrearCompania)
 def ejecutar_comando_crear_compania(comando: CrearCompania):

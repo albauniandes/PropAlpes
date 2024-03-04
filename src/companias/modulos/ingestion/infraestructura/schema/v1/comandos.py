@@ -9,6 +9,6 @@ class ComandoCrearCompaniaPayload(ComandoIntegracion):
     nombre = String()
     email = String()
     identificacion = String()
-
+    fecha_creacion = String()
 class ComandoCrearCompania(ComandoIntegracion):
     data = ComandoCrearCompaniaPayload()
