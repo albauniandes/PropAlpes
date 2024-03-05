@@ -21,7 +21,10 @@ Dentro de la carpeta src contamos con 4 microservicios:
     - **seedwork/infraestructura/uow.py**: La Unidad de Trabajo (UoW) mantiene una lista de objetos afectados por una transacción de negocio y coordina los cambios de escritura. Este objeto nos va ser de gran importancia, pues cuando comenzamos a usar eventos de dominio e interactuar con otros módulos, debemos ser capaces de garantizar consistencia entre los diferentes objetos y partes de nuestro sistema.
 
 ## Arquitectura para el experimento
-![Uploading Borrador_arquitectura.jpg…]()
+Para la etapa actual de la experimentación planteamos la siguiente arquitectura:
+![image](https://github.com/albauniandes/PropAlpes/assets/98788512/1ac73aec-ca5f-4a14-b79a-9c61be9aa9aa)
+
+El BFF se comunica con la capa UI a través de una API de GraphQL y envia los comandos de creación a los servicios compañías y geograficos usando un tópico de comandos. Cuando se crearon los registros de las compañías y de los datos gergráficos en las bases de datos de cada servicio, se envía un mensaje que informa el servicio de auditoría sobre la creación de dichos registros. Para este último paso se usa un tópico de eventos.
 
 
 ### Ejecutar Aplicación
