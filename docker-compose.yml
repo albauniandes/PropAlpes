@@ -122,6 +122,26 @@ services:
     volumes:
       - ./data/mysql:/var/lib/mysql
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+  
+  # MySQL8
+  geograficosdb:
+    image: mysql:8
+    hostname: geograficosdb
+    container_name: geograficosdb
+    cap_add:
+      - SYS_NICE
+    restart: always
+    environment:
+      - MYSQL_DATABASE=geograficos
+      - MYSQL_ROOT_PASSWORD=adminadmin
+    profiles: ["geograficosdb"]
+    networks:
+      - pulsar
+    ports:
+      - '3306:3306'
+    volumes:
+      - ./data/mysql:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
 
   # MySQL8
   auditoriadb:

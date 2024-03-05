@@ -1,0 +1,9 @@
+from pydispatch import dispatcher
+
+from .handlers import HandlerDatosGeograficosIntegracion
+
+from geograficos.modulos.ingestion.dominio.eventos import DatosGeograficosCreados, DatosGeograficosRechazados, DatosGeograficosAprobados
+
+dispatcher.connect(HandlerDatosGeograficosIntegracion.handle_datos_geograficos_creados, signal=f'{DatosGeograficosCreados.__name__}Integracion')
+dispatcher.connect(HandlerDatosGeograficosIntegracion.handle_datos_geograficos_cancelados, signal=f'{DatosGeograficosRechazados.__name__}Integracion')
+dispatcher.connect(HandlerDatosGeograficosIntegracion.handle_datos_geograficos_aprobados, signal=f'{DatosGeograficosAprobados.__name__}Integracion')
