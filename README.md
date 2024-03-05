@@ -51,9 +51,18 @@ Atributo de calidad: Escalabilidad
 ![image](https://github.com/albauniandes/PropAlpes/assets/98656753/12c1d88f-b766-43cc-bda1-c5a72e3c1a1f)
 
 Atributo de calidad: Modificabilidad
+
 ![image](https://github.com/albauniandes/PropAlpes/assets/98656753/c14ad867-a06a-4c7e-8160-9c54826e6360)
 
 
 Atributo de calidad: Disponibilidad
 ![image](https://github.com/albauniandes/PropAlpes/assets/98656753/8bd9ec40-b660-4f09-9f2f-2cb30ea4027d)
 
+# Documento con la descripción de actividades realizada por cada miembro.
+
+| Nombre          | Descripción de actividades         | 
+|-----------------|------------------------------------|
+| Alba Cardona    | Desarrollo de microservicio companias, con unidades de trabajo comandos, y API, la configuración de la base de datos de dicho microservicio y el desarrollo de algunas partes del microservicio de auditoría |
+| Patrick Mykoda          | Desarrollo de microservicio BFF, con su API, las consultas que ha realizar, los esquemas, mutaciones a través de GraphQL, router, los consumidores y despachadores, asi mismo la comunicación con los microservicios de geogáficos y compañias |
+| Carlos Villamil         | Implementación de Apache pulsar y asincronía en el microservicio compañias desarrollo del microservicio auditoria |
+| Christian Borrás Torres | Desarrollo microservicio geograficos, con API, y módulos |
