@@ -28,19 +28,49 @@ Dentro de la carpeta src contamos con 4 microservicios:
 
 Desde el directorio principal ejecute el siguiente comando.
 
+- Ejecucion DBs
 ```bash
-flask --app src/compania/api run
+ docker-compose --profile db up
+```
+
+- Ejecucion Apache Pulsar
+```bash
+ docker-compose --profile pulsar up
+```
+
+- Ejecucion Microservicio Compañias
+```bash
+flask --app src/companias/api run
 ```
 
 Siempre puede ejecutarlo en modo DEBUG:
 
 ```bash
-flask --app src/compania/api --debug run
+flask --app src/companias/api --debug run
+```
+
+- Ejecucion Microservicio Datos Geograficos
+```bash
+flask --app src/geograficos/api run
+```
+
+Siempre puede ejecutarlo en modo DEBUG:
+
+```bash
+flask --app src/geograficos/api --debug run
+```
+
+- Ejecucion Servicio BFF
+
+```bash
+uvicorn bff_web.main:app --host localhost --port 8003 --reload
 ```
 
 ### Crear imagen Docker
 
 Desde el directorio principal ejecute el siguiente comando.
+
+- Contenedor servicio Compañias
 
 ```bash
 docker build . -f companias.Dockerfile -t companias/flask
@@ -52,6 +82,20 @@ Desde el directorio principal ejecute el siguiente comando.
 
 ```bash
 docker run -p 5000:5000 companias/flask
+```
+
+- Contenedor servicio Datos Geograficos
+
+```bash
+docker build . -f companias.Dockerfile -t geograficos/flask
+```
+
+### Ejecutar contenedora (sin compose)
+
+Desde el directorio principal ejecute el siguiente comando.
+
+```bash
+docker run -p 5001:5000 geograficos/flask
 ```
 
 # Escenarios de calidad a probar
