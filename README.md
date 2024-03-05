@@ -127,9 +127,9 @@ docker run -p 5001:5000 geograficos/flask
 Atributo de calidad: Escalabilidad
 ![image](https://github.com/albauniandes/PropAlpes/assets/98656753/12c1d88f-b766-43cc-bda1-c5a72e3c1a1f)
 
-Atributo de calidad: Modificabilidad
+Atributo de calidad: Escalabilidad II
+![image](https://github.com/albauniandes/PropAlpes/assets/98788512/a237bd0a-a1c8-44d4-a911-cb46ddbea9b2)
 
-![image](https://github.com/albauniandes/PropAlpes/assets/98656753/c14ad867-a06a-4c7e-8160-9c54826e6360)
 
 
 Atributo de calidad: Disponibilidad
