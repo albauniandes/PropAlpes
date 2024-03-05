@@ -26,21 +26,20 @@ Para la etapa actual de la experimentación planteamos la siguiente arquitectura
 
 El BFF se comunica con la capa UI a través de una API de GraphQL y envia los comandos de creación a los servicios compañías y geograficos usando un tópico de comandos. Cuando se crearon los registros de las compañías y de los datos gergráficos en las bases de datos de cada servicio, se envía un mensaje que informa el servicio de auditoría sobre la creación de dichos registros. Para este último paso se usa un tópico de eventos.
 
-## Justificación de tipos de eventos a utilizar
+# Justificación de tipos de eventos a utilizar
 
 Para justificar las decisiones en nuestro proyecto, empezamos con el reconocimiento de que necesitábamos una arquitectura capaz de manejar datos y eventos eficientemente en un entorno distribuido. Aquí están las claves:
 
-# Elección de Eventos de Integración: 
+## Elección de Eventos de Integración: 
 Nos decidimos exclusivamente por eventos de integración porque nuestro sistema necesita comunicar acciones y cambios entre servicios de manera eficiente sin transferir estados completos. Esto simplifica la interacción entre microservicios, permitiendo que cada uno responda a eventos relevantes sin necesidad de conocer el estado completo del sistema. Es una estrategia que favorece la desacoplación y la escalabilidad, ya que los servicios pueden evolucionar de forma independiente.
 
-# Uso de Avro para la Serialización de Datos: 
+## Uso de Avro para la Serialización de Datos: 
 Elegimos Avro debido a su fuerte soporte para la evolución de esquemas y su eficiencia en la serialización de datos. En un entorno basado en eventos de integración, es vital poder adaptar los esquemas de los eventos sin interrumpir los servicios consumidores. Avro nos permite añadir, modificar o eliminar campos en nuestros esquemas de eventos sin romper la compatibilidad hacia atrás, garantizando que los servicios puedan comunicarse sin problemas a medida que nuestro sistema crece y cambia.
 
-# Implementación con Strawberry y GraphQL: 
+## Implementación con Strawberry y GraphQL: 
 La decisión de utilizar Strawberry para GraphQL se basa en la necesidad de exponer datos a nuestros clientes de una manera flexible y eficiente. Con eventos de integración llevando a cabo la comunicación interna entre servicios, GraphQL se convierte en la interfaz perfecta para que los clientes accedan a los datos que necesitan, permitiendo solicitudes específicas y minimizando el sobreenvío de datos.
 
-# Apache Pulsar como Sistema de Mensajería: 
-
+## Apache Pulsar como Sistema de Mensajería: 
 La elección de Apache Pulsar se justifica por su arquitectura distribuida y su capacidad para manejar grandes volúmenes de mensajes de manera eficiente. Pulsar nos permite manejar eventos de integración a gran escala, garantizando la entrega de mensajes entre servicios de forma confiable. Además, su soporte para esquemas integrados complementa nuestra elección de Avro, facilitando la gestión y evolución de esquemas en nuestro sistema de eventos.
 
 En conclusión, la adopción de eventos de integración refleja nuestro enfoque en mantener los servicios desacoplados y escalables. Al utilizar Avro y Pulsar, aseguramos que nuestros eventos son eficientes y evolutivos, mientras que con Strawberry y GraphQL, ofrecemos una interfaz optimizada para el acceso a datos. Estas decisiones tecnológicas están diseñadas para soportar un sistema dinámico y en crecimiento, donde la facilidad de integración y la capacidad de adaptación son clave.
