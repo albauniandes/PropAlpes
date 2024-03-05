@@ -46,7 +46,7 @@ En conclusión, la adopción de eventos de integración refleja nuestro enfoque 
 
 # Justificación topología de administración de datos
 
-Para las bases de datos de compañias y geográficos se utilizó una administración de datos descentralizada, toda vez que cada servicio tiene su propia base de datos, haciendo uso de Docker para desplegarlas, esta decisión se tomo por el desacoplamiento, ya que si cada microservicio tiene su propia base de datos permite que no se generen inconvenientes o inconsistencias, en el dado caso que alguna falle, lo que permite una mayor disponibilidad de los servicios.
+Para las bases de datos de compañias y geográficos se utilizó una administración de datos descentralizada, toda vez que cada servicio tiene su propia base de datos, haciendo uso de Docker para desplegarlas, esta decisión se tomo por el desacoplamiento, ya que si cada microservicio tiene su propia base de datos permite que no se generen inconvenientes o inconsistencias, en el dado caso que alguna falle, lo que permite una mayor disponibilidad de los servicios. Se manejo el modelo clásico CRUD para la comunicación de todos los micorservicios con sus base de datos, debido a la practicidad de esta solución.
 
 ### Ejecutar Aplicación
 
