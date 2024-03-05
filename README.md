@@ -1,4 +1,4 @@
-# PropAlpes
+# PropAlpes - PoC
 
 Repositorio con código base para el uso de un sistema usando el patrón CQRS y usando eventos de dominio e integración para la comunicación asíncrona entre componentes internos parte del mismo contexto acotado y sistemas externos.
 
@@ -10,14 +10,19 @@ Dentro de la carpeta src contamos con 4 microservicios:
 - auditoria (Se encarga de revisar los datos faltantes de compañías y propiedades)
 - bff_web (Se encarga de la comunicación de los componentes de la UI web)
 
-- El proyecto de PropAlpes tiene los siguientes modulos:
-    - **api**: En este módulo se agregaron los endpoint : `/compania-commando` y `/compani-query`, los cuales por detrás de escenas usan un patrón CQRS como la base de su comunicación.
+
+- Para los servicios companias, geograficos y auditoria se implementó una arquitectura hexagonal. Por eso, cuentan con los siguientes sub-módulos:
+    - **api**: En este módulo se agregaron los endpoint : Por ejemplo `/compania-commando` y `/compani-query`, los cuales por detrás de escenas usan un patrón CQRS como la base de su comunicación.
     - **modulos/../aplicacion**: Este módulo ahora considera los sub-módulos: `queries` y `comandos`. En dichos directorios podrá ver como se desacopló las diferentes operaciones lectura y escritura. 
     - **modulos/../aplicacion/handlers.py**: Estos son los handlers de aplicación que se encargan de oir y reaccionar a eventos. 
     - **modulos/../dominio/eventos.py**: Este archivo contiene todos los eventos de dominio que son disparados cuando una actividad de dominio es ejecutada de forma correcta.
     - **seedwork/aplicacion/comandos.py**: Definición general de los comandos, handlers e interface del despachador.
     - **seedwork/infraestructura/queries.py**: Definición general de los queries, handlers e interface del despachador.
     - **seedwork/infraestructura/uow.py**: La Unidad de Trabajo (UoW) mantiene una lista de objetos afectados por una transacción de negocio y coordina los cambios de escritura. Este objeto nos va ser de gran importancia, pues cuando comenzamos a usar eventos de dominio e interactuar con otros módulos, debemos ser capaces de garantizar consistencia entre los diferentes objetos y partes de nuestro sistema.
+
+## Arquitectura para el experimento
+![Uploading Borrador_arquitectura.jpg…]()
+
 
 ### Ejecutar Aplicación
 
