@@ -1,14 +1,14 @@
 import companias.seedwork.presentacion.api as api
 import json
 # from companias.modulos.companias.aplicacion.servicios import ServicioCompania
-from companias.modulos.ingestion.aplicacion.dto import CompaniaDTO
-from companias.seedwork.dominio.excepciones import ExcepcionDominio
+from auditoria.modulos.companias.aplicacion.dto import AuditoriaCompaniaDTO
+from auditoria.seedwork.dominio.excepciones import ExcepcionDominio
 
 from flask import redirect, render_template, request, session, url_for
 from flask import Response
 from auditoria.modulos.companias.aplicacion.mapeadores import MapeadorAuditoriaCompaniaDTOJson
 from auditoria.modulos.companias.aplicacion.comandos.auditar_compania import CrearAuditoriaCompania
-from auditoria.modulos.companias.aplicacion.queries.obtener_compania import ObtenerCompania
+from auditoria.modulos.companias.aplicacion.queries.obtener_compania import ObtenerAuditoriaCompania
 from auditoria.seedwork.aplicacion.comandos import ejecutar_comando
 from auditoria.seedwork.aplicacion.queries import ejecutar_query
 
@@ -49,11 +49,11 @@ def crear_auditoria_compania_asincrona():
 
 @bp.route('/auditoria-compania-query', methods=('GET',))
 @bp.route('/auditoria-compania-query/<id>', methods=('GET',))
-def dar_compania_usando_query(id=None):
+def dar_auditoria_compania_usando_query(id=None):
     if id:
-        query_resultado = ejecutar_query(ObtenerCompania(id))
-        map_compania = MapeadorCompaniaDTOJson()
+        query_resultado = ejecutar_query(ObtenerAuditoriaCompania(id))
+        map_auditoria_compania = MapeadorAuditoriaCompaniaDTOJson()
         
-        return map_compania.dto_a_externo(query_resultado.resultado)
+        return map_auditoria_compania.dto_a_externo(query_resultado.resultado)
     else:
         return [{'message': 'GET!'}]

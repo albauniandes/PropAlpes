@@ -74,6 +74,11 @@ def suscribirse_a_comandos(app=None):
 
                     ejecutar_comando(comando)
 
+                    # if len(datos.nombre) == 0 or len(datos.email) or len(datos.identificacion):
+                    #     despachador = Despachador()
+                    #     despachador.publicar_comando(evento, 'eventos-compania')
+
+
             except:
                 logging.error('ERROR: Procesando eventos!')
                 traceback.print_exc()

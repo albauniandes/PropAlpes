@@ -8,12 +8,9 @@ import datetime
 
 from auditoria.modulos.companias.infraestructura.schema.v1.eventos import EventoAuditoriaCompaniaCreada
 from auditoria.modulos.companias.infraestructura.schema.v1.comandos import ComandoCrearAuditoriaCompania
-from companias.modulos.ingestion.aplicacion.comandos.crear_compania import CrearCompania
+from auditoria.modulos.companias.aplicacion.comandos.auditar_compania import CrearAuditoriaCompania
 
-from companias.seedwork.aplicacion.comandos import ejecutar_comando
-
-from companias.modulos.ingestion.aplicacion.comandos.crear_compania import CrearCompania
-from companias.seedwork.aplicacion.comandos import ejecutar_comando
+from auditoria.seedwork.aplicacion.comandos import ejecutar_comando
 
 from companias.seedwork.infraestructura import utils
 
@@ -68,7 +65,7 @@ def suscribirse_a_comandos(app=None):
             try:
                 with app.app_context():
 
-                    comando = CrearCompania(fecha_creacion, fecha_creacion,
+                    comando = CrearAuditoriaCompania(fecha_creacion, fecha_creacion,
                                             id_compania, datos.nombre, datos.email,
                                             datos.identificacion)
 

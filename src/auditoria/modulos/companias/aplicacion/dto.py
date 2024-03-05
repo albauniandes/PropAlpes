@@ -3,7 +3,7 @@ from companias.seedwork.aplicacion.dto import DTO
 import uuid
 
 @dataclass(frozen=True)
-class CompaniaDTO(DTO):
+class AuditoriaCompaniaDTO(DTO):
     fecha_creacion: str = field(default_factory=str)
     fecha_actualizacion: str = field(default_factory=str)
     id: str = field(default_factory=str)

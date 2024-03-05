@@ -9,7 +9,7 @@ import uuid
 Base = db.declarative_base()
 
 class AuditoriaCompania(db.Model):
-    __tablename__ = "companias"
+    __tablename__ = "auditoria_compania"
     id = db.Column(db.String(40), primary_key=True)
     fecha_creacion = db.Column(db.DateTime, nullable=False)
     fecha_actualizacion = db.Column(db.DateTime, nullable=False)
@@ -19,7 +19,7 @@ class AuditoriaCompania(db.Model):
     motivo_auditoria = db.Column(db.String(255))
 
 class EventosAuditoriaCompania(db.Model):
-    __tablename__ = "eventos_compania"
+    __tablename__ = "eventos_auditoria_compania"
     id = db.Column(db.String(40), primary_key=True)
     id_entidad = db.Column(db.String(40), nullable=False)
     fecha_evento = db.Column(db.DateTime, nullable=False)

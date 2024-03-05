@@ -16,15 +16,15 @@ def comenzar_consumidor(app):
 
     import threading
     # import companias.modulos.validacion.infraestructura.consumidores as validacion
-    import companias.modulos.ingestion.infraestructura.consumidores as ingestion
+    import auditoria.modulos.companias.infraestructura.consumidores as companias
 
     # Suscripción a eventos
     # threading.Thread(target=validacion.suscribirse_a_eventos).start()
-    threading.Thread(target=ingestion.suscribirse_a_eventos, args=[app]).start()
+    threading.Thread(target=companias.suscribirse_a_eventos, args=[app]).start()
 
     # Suscripción a comandos
     # threading.Thread(target=validacion.suscribirse_a_comandos).start()
-    threading.Thread(target=ingestion.suscribirse_a_comandos, args=[app]).start()
+    threading.Thread(target=companias.suscribirse_a_comandos, args=[app]).start()
 
 def create_app(configuracion={}):
     # Init la aplicacion de Flask
@@ -35,11 +35,13 @@ def create_app(configuracion={}):
     app.config['TESTING'] = configuracion.get('TESTING')
 
     # Inicializa la DB
-    from companias.config.db import init_db, database_connection
+    from auditoria.config.db import init_db, database_connection
     
     # app.config['SQLALCHEMY_DATABASE_URI'] =\
     #         'sqlite:///' + os.path.join(basedir, 'database.db')
-    app.config['SQLALCHEMY_DATABASE_URI'] = database_connection(configuracion, basedir=basedir)
+    conn = database_connection(configuracion, basedir=basedir)
+    print(conn)
+    app.config['SQLALCHEMY_DATABASE_URI'] = conn
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 

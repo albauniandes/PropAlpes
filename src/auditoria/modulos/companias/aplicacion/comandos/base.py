@@ -1,17 +1,16 @@
-from companias.seedwork.aplicacion.comandos import ComandoHandler
-from companias.modulos.ingestion.infraestructura.fabricas import FabricaRepositorio
-from companias.modulos.ingestion.dominio.fabricas import FabricaIngestion
+from auditoria.seedwork.aplicacion.comandos import ComandoHandler
+from auditoria.modulos.companias.infraestructura.fabricas import FabricaRepositorio
+from auditoria.modulos.companias.dominio.fabricas import FabricaAuditoriaCompania
 
-class CrearCompaniaBaseHandler(ComandoHandler):
+class CrearAuditoriaCompaniaBaseHandler(ComandoHandler):
     def __init__(self):
         self._fabrica_repositorio: FabricaRepositorio = FabricaRepositorio()
-        self._fabrica_ingestion: FabricaIngestion = FabricaIngestion()
+        self._fabrica_auditoria_companias: FabricaAuditoriaCompania = FabricaAuditoriaCompania()
 
     @property
     def fabrica_repositorio(self):
         return self._fabrica_repositorio
     
     @property
-    def fabrica_ingestion(self):
-        return self._fabrica_ingestion    
-    
+    def fabrica_auditoria_compania(self):
+        return self._fabrica_auditoria_companias

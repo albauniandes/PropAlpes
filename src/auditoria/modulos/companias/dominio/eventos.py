@@ -8,6 +8,6 @@ class EventoAuditoriaCompania(EventoDominio):
 
 @dataclass
 class AuditoriaCompaniaCreada(EventoAuditoriaCompania):
-    id_compania: uuid.UUID = None
+    id_auditoria: uuid.UUID = None
     motivo_auditoria: str = None
     fecha_creacion: datetime = None

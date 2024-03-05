@@ -1,9 +1,9 @@
 from auditoria.seedwork.aplicacion.queries import Query, QueryHandler, QueryResultado
 from auditoria.seedwork.aplicacion.queries import ejecutar_query as query
-from auditoria.modulos.companias.infraestructura.repositorios import Repo
+from auditoria.modulos.companias.infraestructura.repositorios import RepositorioAuditoriaCompanias
 from dataclasses import dataclass
 from .base import CompaniaQueryBaseHandler
-from companias.modulos.ingestion.aplicacion.mapeadores import MapeadorCompania
+from auditoria.modulos.companias.aplicacion.mapeadores import MapeadorAuditoriaCompania
 import uuid
 
 
@@ -15,8 +15,8 @@ class ObtenerAuditoriaCompania(Query):
 class ObtenerAuditoriaCompaniaHandler(CompaniaQueryBaseHandler):
 
     def handle(self, query: ObtenerAuditoriaCompania) -> QueryResultado:
-        repositorio = self.fabrica_repositorio.crear_objeto(RepositorioCompanias.__class__)
-        compania = self.fabrica_ingestion.crear_objeto(repositorio.obtener_por_id(query.id), MapeadorCompania())
+        repositorio = self.fabrica_repositorio.crear_objeto(RepositorioAuditoriaCompanias.__class__)
+        compania = self.fabrica_ingestion.crear_objeto(repositorio.obtener_por_id(query.id), MapeadorAuditoriaCompania())
         return QueryResultado(resultado=compania)
 
 

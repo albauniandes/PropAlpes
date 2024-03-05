@@ -1,28 +1,13 @@
-from companias.modulos.ingestion.dominio.eventos import CompaniaCreada, CompaniaRechazada, CompaniaAprobada
-from companias.seedwork.aplicacion.handlers import Handler
-from companias.modulos.ingestion.infraestructura.despachadores import Despachador
+from auditoria.modulos.companias.dominio.eventos import AuditoriaCompaniaCreada
+from auditoria.seedwork.aplicacion.handlers import Handler
+from auditoria.modulos.companias.infraestructura.despachadores import Despachador
 
-class HandlerCompaniaIntegracion(Handler):
-
-    @staticmethod
-    def handle_compania_creada(evento):
-        despachador = Despachador()
-        despachador.publicar_evento(evento, 'eventos-compania')
+class HandlerAuditoriaCompaniaIntegracion(Handler):
 
     @staticmethod
-    def handle_compania_cancelada(evento):
+    def handle_auditoria_compania_creada(evento):
         despachador = Despachador()
-        despachador.publicar_evento(evento, 'eventos-compania')
-
-    @staticmethod
-    def handle_compania_aprobada(evento):
-        despachador = Despachador()
-        despachador.publicar_evento(evento, 'eventos-compania')
-
-    @staticmethod
-    def handle_compania_pagada(evento):
-        despachador = Despachador()
-        despachador.publicar_evento(evento, 'eventos-compania')
+        despachador.publicar_evento(evento, 'eventos-auditoria-compania')
 
 
     

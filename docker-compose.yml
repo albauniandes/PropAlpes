@@ -123,6 +123,27 @@ services:
       - ./data/mysql:/var/lib/mysql
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
 
+  # MySQL8
+  auditoriadb:
+    image: mysql:8
+    hostname: auditoriadb
+    container_name: auditoriadb
+    cap_add:
+      - SYS_NICE
+    restart: always
+    environment:
+      - MYSQL_DATABASE=auditoria
+      - MYSQL_ROOT_PASSWORD=adminadmin
+    profiles: [ "db" ]
+    networks:
+      - pulsar
+    ports:
+      - '3307:3306'
+#    volumes:
+#      - ./data/mysql:/var/lib/mysql
+#      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
+
   # Servicios de Companias
   companias:
     container_name: companias

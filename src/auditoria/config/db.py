@@ -5,7 +5,7 @@ db = None
 
 DB_USERNAME = os.getenv('DB_USERNAME', default="root")
 DB_PASSWORD = os.getenv('DB_PASSWORD', default="adminadmin")
-DB_HOSTNAME = os.getenv('DB_HOSTNAME', default="localhost")
+DB_HOSTNAME = os.getenv('DB_HOSTNAME', default="localhost:3307")
 
 
 class DatabaseConfigException(Exception):

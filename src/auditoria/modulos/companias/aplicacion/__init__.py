@@ -1,9 +1,7 @@
 from pydispatch import dispatcher
 
-from .handlers import HandlerCompaniaIntegracion
+from .handlers import HandlerAuditoriaCompaniaIntegracion
 
-from companias.modulos.ingestion.dominio.eventos import CompaniaCreada, CompaniaRechazada, CompaniaAprobada
+from auditoria.modulos.companias.dominio.eventos import AuditoriaCompaniaCreada
 
-dispatcher.connect(HandlerCompaniaIntegracion.handle_compania_creada, signal=f'{CompaniaCreada.__name__}Integracion')
-dispatcher.connect(HandlerCompaniaIntegracion.handle_compania_cancelada, signal=f'{CompaniaRechazada.__name__}Integracion')
-dispatcher.connect(HandlerCompaniaIntegracion.handle_compania_aprobada, signal=f'{CompaniaAprobada.__name__}Integracion')
+dispatcher.connect(HandlerAuditoriaCompaniaIntegracion.handle_auditoria_compania_creada, signal=f'{AuditoriaCompaniaCreada.__name__}Integracion')
