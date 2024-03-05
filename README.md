@@ -65,4 +65,4 @@ Atributo de calidad: Disponibilidad
 | Alba Cardona    | Desarrollo de microservicio companias, con unidades de trabajo comandos, y API, la configuración de la base de datos de dicho microservicio y el desarrollo de algunas partes del microservicio de auditoría |
 | Patrick Mykoda          | Desarrollo de microservicio BFF, con su API, las consultas que ha realizar, los esquemas, mutaciones a través de GraphQL, router, los consumidores y despachadores, asi mismo la comunicación con los microservicios de geogáficos y compañias |
 | Carlos Villamil         | Implementación de Apache pulsar y asincronía en el microservicio compañias desarrollo del microservicio auditoria |
-| Christian Borrás Torres | Desarrollo microservicio geograficos, con API, y módulos |
+| Christian Borrás Torres | Desarrollo microservicio geográficos, con API, módulos y eventos. |
