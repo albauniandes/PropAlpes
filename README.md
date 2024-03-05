@@ -44,6 +44,10 @@ La elección de Apache Pulsar se justifica por su arquitectura distribuida y su 
 
 En conclusión, la adopción de eventos de integración refleja nuestro enfoque en mantener los servicios desacoplados y escalables. Al utilizar Avro y Pulsar, aseguramos que nuestros eventos son eficientes y evolutivos, mientras que con Strawberry y GraphQL, ofrecemos una interfaz optimizada para el acceso a datos. Estas decisiones tecnológicas están diseñadas para soportar un sistema dinámico y en crecimiento, donde la facilidad de integración y la capacidad de adaptación son clave.
 
+# Justificación topología de administración de datos
+
+Para las bases de datos de compañias y geográficos se utilizó una administración de datos descentralizada, toda vez que cada servicio tiene su propia base de datos, haciendo uso de Docker para desplegarlas, esta decisión se tomo por el desacoplamiento, ya que si cada microservicio tiene su propia base de datos permite que no se generen inconvenientes o inconsistencias, en el dado caso que alguna falle, lo que permite una mayor disponibilidad de los servicios.
+
 ### Ejecutar Aplicación
 
 Desde el directorio principal ejecute el siguiente comando.
