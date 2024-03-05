@@ -10,3 +10,4 @@ class CompaniaDTO(DTO):
     nombre: str = field(default_factory=str)
     email: str = field(default_factory=str)
     identificacion: str = field(default_factory=str)
+    motivo_auditoria: str = field(default_factory=str)

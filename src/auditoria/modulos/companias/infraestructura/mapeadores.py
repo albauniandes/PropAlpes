@@ -1,16 +1,16 @@
 """ Mapeadores para la capa de infraestructura del dominio de companias"""
 
-from companias.seedwork.dominio.repositorios import Mapeador
-from companias.seedwork.infraestructura.utils import unix_time_millis
-from companias.modulos.ingestion.dominio.objetos_valor import EstadoCompania, Nombre, Email, Identificacion
-from companias.modulos.ingestion.dominio.entidades import Compania
-from .dto import Compania as CompaniaDTO
+from auditoria.seedwork.dominio.repositorios import Mapeador
+from auditoria.seedwork.infraestructura.utils import unix_time_millis
+from auditoria.modulos.companias.dominio.objetos_valor import Nombre, Email, Identificacion
+from auditoria.modulos.companias.dominio.entidades import AuditoriaCompania
+from .dto import AuditoriaCompania as AuditoriaCompaniaDTO
 
-from companias.modulos.ingestion.dominio.eventos import CompaniaAprobada, CompaniaRechazada, CompaniaCreada, EventoCompania
+from auditoria.modulos.companias.dominio.eventos import AuditoriaCompaniaCreada, EventoAuditoriaCompania
 from .excepciones import NoExisteImplementacionParaTipoFabricaExcepcion
 
 
-class MapadeadorEventosCompania(Mapeador):
+class MapadeadorEventosAuditoriaCompania(Mapeador):
     # Versiones aceptadas
     versions = ('v1',)
 
@@ -18,13 +18,11 @@ class MapadeadorEventosCompania(Mapeador):
 
     def __init__(self):
         self.router = {
-            CompaniaCreada: self._entidad_a_compania_creada,
-            CompaniaAprobada: self._entidad_a_compania_aprobada,
-            CompaniaRechazada: self._entidad_a_compania_rechazada,
+            AuditoriaCompaniaCreada: self._entidad_a_auditoria_compania_creada,
         }
 
     def obtener_tipo(self) -> type:
-        return EventoCompania.__class__
+        return EventoAuditoriaCompania.__class__
 
     def es_version_valida(self, version):
         for v in self.versions:
@@ -32,16 +30,16 @@ class MapadeadorEventosCompania(Mapeador):
                 return True
         return False
 
-    def _entidad_a_compania_creada(self, entidad: CompaniaCreada, version=LATEST_VERSION):
+    def _entidad_a_auditoria_compania_creada(self, entidad: AuditoriaCompaniaCreada, version=LATEST_VERSION):
         def v1(evento):
-            from .schema.v1.eventos import CompaniaCreadaPayload, EventoCompaniaCreada
+            from .schema.v1.eventos import AuditoriaCompaniaCreadaPayload, EventoAuditoriaCompaniaCreada
 
-            payload = CompaniaCreadaPayload(
+            payload = AuditoriaCompaniaCreadaPayload(
                 id_compania=str(evento.id_compania),
                 estado=str(evento.estado),
                 fecha_creacion=int(unix_time_millis(evento.fecha_creacion))
             )
-            evento_integracion = EventoCompaniaCreada(id=str(evento.id))
+            evento_integracion = EventoAuditoriaCompaniaCreada(id=str(evento.id))
             evento_integracion.id = str(evento.id)
             evento_integracion.time = int(unix_time_millis(evento.fecha_creacion))
             evento_integracion.specversion = str(version)
@@ -58,16 +56,7 @@ class MapadeadorEventosCompania(Mapeador):
         if version == 'v1':
             return v1(entidad)
 
-    def _entidad_a_compania_aprobada(self, entidad: CompaniaAprobada, version=LATEST_VERSION):
-        # TODO
-        raise NotImplementedError
-
-    def _entidad_a_compania_rechazada(self, entidad: CompaniaRechazada, version=LATEST_VERSION):
-        # TODO
-        raise NotImplementedError
-
-
-    def entidad_a_dto(self, entidad: EventoCompania, version=LATEST_VERSION) -> CompaniaDTO:
+    def entidad_a_dto(self, entidad: EventoAuditoriaCompania, version=LATEST_VERSION) -> AuditoriaCompaniaDTO:
         if not entidad:
             raise NoExisteImplementacionParaTipoFabricaExcepcion
         func = self.router.get(entidad.__class__, None)
@@ -77,35 +66,36 @@ class MapadeadorEventosCompania(Mapeador):
 
         return func(entidad, version=version)
 
-    def dto_a_entidad(self, dto: CompaniaDTO, version=LATEST_VERSION) -> Compania:
+    def dto_a_entidad(self, dto: AuditoriaCompaniaDTO, version=LATEST_VERSION) -> AuditoriaCompania:
         raise NotImplementedError
 
-class MapeadorCompania(Mapeador):
+
+class MapeadorAuditoriaCompania(Mapeador):
     _FORMATO_FECHA = '%Y-%m-%dT%H:%M:%SZ'
 
     def obtener_tipo(self) -> type:
-        return Compania.__class__
+        return AuditoriaCompania.__class__
 
-    def entidad_a_dto(self, entidad: Compania) -> CompaniaDTO:
-        
-        compania_dto = CompaniaDTO()
-        compania_dto.fecha_creacion = entidad.fecha_creacion
-        compania_dto.fecha_actualizacion = entidad.fecha_actualizacion
-        compania_dto.id = str(entidad.id)
-        compania_dto.nombre = str(entidad.nombre)
-        compania_dto.email = str(entidad.email)
-        compania_dto.identificacion = str(entidad.identificacion)
+    def entidad_a_dto(self, entidad: AuditoriaCompania) -> AuditoriaCompaniaDTO:
+        auditoria_compania_dto = AuditoriaCompaniaDTO()
+        auditoria_compania_dto.fecha_creacion = entidad.fecha_creacion
+        auditoria_compania_dto.fecha_actualizacion = entidad.fecha_actualizacion
+        auditoria_compania_dto.id = str(entidad.id)
+        auditoria_compania_dto.nombre = str(entidad.nombre)
+        auditoria_compania_dto.email = str(entidad.email)
+        auditoria_compania_dto.identificacion = str(entidad.identificacion)
+        auditoria_compania_dto.motivo_auditoria = str(entidad.motivo_auditoria)
 
-        return compania_dto
+        return auditoria_compania_dto
 
-    def dto_a_entidad(self, dto: CompaniaDTO) -> Compania:
+    def dto_a_entidad(self, dto: AuditoriaCompaniaDTO) -> AuditoriaCompania:
         # breakpoint()
-        compania = Compania(id=dto.id, 
-                            fecha_creacion=dto.fecha_creacion, 
-                            fecha_actualizacion=dto.fecha_actualizacion, 
-                            nombre=dto.nombre, 
-                            email=dto.email, 
-                            identificacion=dto.identificacion)
-        
-        return compania
-        
+        auditoria_compania = AuditoriaCompania(id=dto.id,
+                            fecha_creacion=dto.fecha_creacion,
+                            fecha_actualizacion=dto.fecha_actualizacion,
+                            nombre=dto.nombre,
+                            email=dto.email,
+                            identificacion=dto.identificacion,
+                            motivo_auditoria=dto.motivo_auditoria)
+
+        return auditoria_compania

@@ -6,11 +6,11 @@ from companias.seedwork.dominio.excepciones import ExcepcionDominio
 
 from flask import redirect, render_template, request, session, url_for
 from flask import Response
-from companias.modulos.ingestion.aplicacion.mapeadores import MapeadorCompaniaDTOJson
-from companias.modulos.ingestion.aplicacion.comandos.crear_compania import CrearCompania
-from companias.modulos.ingestion.aplicacion.queries.obtener_compania import ObtenerCompania
-from companias.seedwork.aplicacion.comandos import ejecutar_comando
-from companias.seedwork.aplicacion.queries import ejecutar_query
+from auditoria.modulos.companias.aplicacion.mapeadores import MapeadorAuditoriaCompaniaDTOJson
+from auditoria.modulos.companias.aplicacion.comandos.auditar_compania import CrearAuditoriaCompania
+from auditoria.modulos.companias.aplicacion.queries.obtener_compania import ObtenerCompania
+from auditoria.seedwork.aplicacion.comandos import ejecutar_comando
+from auditoria.seedwork.aplicacion.queries import ejecutar_query
 
 bp = api.crear_blueprint('auditoria', '/auditoria')
 
@@ -19,10 +19,16 @@ def crear_auditoria_compania_asincrona():
     try:
         auditoria_compania_dict = request.json
 
-        map_compania = MapeadorCompaniaDTOJson()
-        compania_dto = map_compania.externo_a_dto(compania_dict)
+        map_auditoria_compania = MapeadorAuditoriaCompaniaDTOJson()
+        auditoria_compania_dto = map_auditoria_compania.externo_a_dto(auditoria_compania_dict)
 
-        comando = CrearCompania(compania_dto.fecha_creacion, compania_dto.fecha_actualizacion, compania_dto.id, compania_dto.nombre, compania_dto.email, compania_dto.identificacion)
+        comando = CrearAuditoriaCompania(auditoria_compania_dto.fecha_creacion,
+                                auditoria_compania_dto.fecha_actualizacion,
+                                auditoria_compania_dto.id,
+                                auditoria_compania_dto.nombre,
+                                auditoria_compania_dto.email,
+                                auditoria_compania_dto.identificacion,
+                                auditoria_compania_dto.motivo_auditoria)
         
         ejecutar_comando(comando)
         
@@ -41,8 +47,8 @@ def crear_auditoria_compania_asincrona():
 #     else:
 #         return [{'message': 'GET!'}]
 
-@bp.route('/compania-query', methods=('GET',))
-@bp.route('/compania-query/<id>', methods=('GET',))
+@bp.route('/auditoria-compania-query', methods=('GET',))
+@bp.route('/auditoria-compania-query/<id>', methods=('GET',))
 def dar_compania_usando_query(id=None):
     if id:
         query_resultado = ejecutar_query(ObtenerCompania(id))

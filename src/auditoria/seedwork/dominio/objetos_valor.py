@@ -35,3 +35,8 @@ class Identificacion(ObjetoValor):
 @dataclass(frozen=True)
 class Email(ObjetoValor):
     email: str
+
+
+@dataclass(frozen=True)
+class MotivoAuditoria(ObjetoValor):
+    motivo_auditoria: str

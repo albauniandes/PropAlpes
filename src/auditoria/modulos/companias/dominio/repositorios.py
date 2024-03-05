@@ -3,8 +3,8 @@
 from abc import ABC
 from companias.seedwork.dominio.repositorios import Repositorio
 
-class RepositorioCompanias(Repositorio, ABC):
+class RepositorioAuditoriaCompanias(Repositorio, ABC):
     ...
 
-class RepositorioEventosCompanias(Repositorio, ABC):
+class RepositorioEventosAuditoriaCompanias(Repositorio, ABC):
     ...

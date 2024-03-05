@@ -8,7 +8,7 @@ import uuid
 
 Base = db.declarative_base()
 
-class Compania(db.Model):
+class AuditoriaCompania(db.Model):
     __tablename__ = "companias"
     id = db.Column(db.String(40), primary_key=True)
     fecha_creacion = db.Column(db.DateTime, nullable=False)
@@ -16,11 +16,9 @@ class Compania(db.Model):
     nombre = db.Column(db.String(40))
     email = db.Column(db.String(40))
     identificacion = db.Column(db.String(40))
-    __table_args__ = (
-        UniqueConstraint('nombre', 'identificacion', name='nombre_identificacion_unique'),
-    )
+    motivo_auditoria = db.Column(db.String(255))
 
-class EventosCompania(db.Model):
+class EventosAuditoriaCompania(db.Model):
     __tablename__ = "eventos_compania"
     id = db.Column(db.String(40), primary_key=True)
     id_entidad = db.Column(db.String(40), nullable=False)

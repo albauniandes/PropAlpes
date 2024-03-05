@@ -3,14 +3,11 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from companias.seedwork.dominio.objetos_valor import ObjetoValor, Codigo, Nombre, Identificacion, Email
+from auditoria.seedwork.dominio.objetos_valor import ObjetoValor, Codigo, Nombre, Identificacion, Email, MotivoAuditoria
 from datetime import datetime
 from enum import Enum
 
-class EstadoCompania(str, Enum):
-    APROBADA = "Aprobada"
-    PENDIENTE = "Pendiente"
-    RECHAZADA = "Rechazada"
+
 
 @dataclass(frozen=True)
 class Nombre(ObjetoValor):
@@ -24,3 +21,7 @@ class Email(ObjetoValor):
 class Identificacion(ObjetoValor):
     identificacion: str
 
+
+@dataclass(frozen=True)
+class MotivoAuditoria(ObjetoValor):
+    motivo_auditoria: str

@@ -1,17 +1,19 @@
 """ Repositorios para el manejo de persistencia de objetos de dominio en la capa de infraestructura del dominio de ingestión"""
 
-from companias.config.db import db
-from companias.modulos.ingestion.dominio.repositorios import RepositorioCompanias, RepositorioEventosCompanias
-from companias.modulos.ingestion.dominio.objetos_valor import EstadoCompania, Nombre, Email, Identificacion
-from companias.modulos.ingestion.dominio.entidades import Compania
-from companias.modulos.ingestion.dominio.fabricas import FabricaIngestion
-from .dto import Compania as CompaniaDTO
-from .dto import EventosCompania
+from auditoria.config.db import db
+from auditoria.modulos.companias.dominio.repositorios import (RepositorioAuditoriaCompanias,
+                                                              RepositorioEventosAuditoriaCompanias)
+from auditoria.modulos.companias.dominio.objetos_valor import EstadoCompania, Nombre, Email, Identificacion
+from auditoria.modulos.companias.dominio.entidades import AuditoriaCompania
+from auditoria.modulos.companias.dominio.fabricas import FabricaIngestion
+from .dto import AuditoriaCompania as AuditoriaCompaniaDTO
+from .dto import EventosAuditoriaCompania
 from .mapeadores import MapeadorCompania, MapadeadorEventosCompania
 from uuid import UUID
 from pulsar.schema import *
 
-class RepositorioCompaniasSQLAlchemy(RepositorioCompanias):
+
+class RepositorioAuditoriaCompaniasSQLAlchemy(RepositorioAuditoriaCompanias):
 
     def __init__(self):
         self._fabrica_ingestion: FabricaIngestion = FabricaIngestion()
@@ -20,9 +22,9 @@ class RepositorioCompaniasSQLAlchemy(RepositorioCompanias):
     def fabrica_ingestion(self):
         return self._fabrica_ingestion
 
-    def obtener_por_id(self, id: UUID) -> Compania:
-        compania_dto = db.session.query(CompaniaDTO).filter_by(id=str(id)).one()
-        return self.fabrica_ingestion.crear_objeto(compania_dto, MapeadorCompania())
+    def obtener_por_id(self, id: UUID) -> AuditoriaCompania:
+        auditoria_compania_dto = db.session.query(AuditoriaCompaniaDTO).filter_by(id=str(id)).one()
+        return self.fabrica_ingestion.crear_objeto(auditoria_compania_dto, MapeadorCompania())
 
     def obtener_todos(self) -> list[Compania]:
         # TODO
