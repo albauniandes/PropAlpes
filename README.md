@@ -133,7 +133,8 @@ Atributo de calidad: Modificabilidad
 
 
 Atributo de calidad: Disponibilidad
-![image](https://github.com/albauniandes/PropAlpes/assets/98656753/8bd9ec40-b660-4f09-9f2f-2cb30ea4027d)
+![image](https://github.com/albauniandes/PropAlpes/assets/98788512/3b76a4f0-2c71-4113-841b-80d85bdb4d74)
+
 
 # Descripción de actividades realizada por cada miembro.
 
