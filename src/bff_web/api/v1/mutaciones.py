@@ -48,7 +48,7 @@ class Mutation:
             id = str(uuid.uuid4()),
             time=utils.time_millis(),
             specversion = "v1",
-            type = "ComandoCreacionCompania",
+            type = "ComandoCreacionDatosGeograficos",
             ingestion=utils.time_millis(),
             datacontenttype="AVRO",
             service_name = "BFF Web",

@@ -6,7 +6,7 @@ import os
 
 from datetime import datetime
 
-
+GEOGRAFICOS_HOST = os.getenv("GEOGRAFICOS_ADDRESS", default="localhost")
 COMPANIAS_HOST = os.getenv("COMPANIAS_ADDRESS", default="localhost")
 FORMATO_FECHA = '%Y-%m-%dT%H:%M:%SZ'
 
@@ -38,8 +38,8 @@ def obtener_datos_geograficos(root) -> typing.List["DatosGeograficos"]:
                 fecha_creacion=datetime.strptime(datos_geograficos.get('fecha_creacion'), FORMATO_FECHA), 
                 fecha_actualizacion=datetime.strptime(datos_geograficos.get('fecha_actualizacion'), FORMATO_FECHA), 
                 id=datos_geograficos.get('id'), 
-                latitud=datos_geograficos.get('latitud'),
                 nombre_propiedad=datos_geograficos.get('nombre_propiedad'),
+                latitud=datos_geograficos.get('latitud'),
                 longitud=datos_geograficos.get('longitud')
             )
         )
