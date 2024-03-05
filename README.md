@@ -4,7 +4,11 @@ Repositorio con código base para el uso de un sistema usando el patrón CQRS y 
 
 ## Estructura del proyecto
 
-Este repositorio sigue en general la misma estructura del repositorio de origen. Sin embargo, hay un par de adiciones importante mencionar:
+Dentro de la carpeta src contamos con 4 microservicios:
+- companias (Se encarga de registrar los datos de las compañías)
+- geograficos (Se encarga de registrar los datod geográficos de las propiedades)
+- auditoria (Se encarga de revisar los datos faltantes de compañías y propiedades)
+- bff_web (Se encarga de la comunicación de los componentes de la UI web)
 
 - El proyecto de PropAlpes tiene los siguientes modulos:
     - **api**: En este módulo se agregaron los endpoint : `/compania-commando` y `/compani-query`, los cuales por detrás de escenas usan un patrón CQRS como la base de su comunicación.
