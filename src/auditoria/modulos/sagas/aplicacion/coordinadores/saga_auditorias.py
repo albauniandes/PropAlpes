@@ -1,6 +1,6 @@
-from aeroalpes.seedwork.aplicacion.sagas import CoordinadorOrquestacion, Transaccion, Inicio, Fin
-from aeroalpes.seedwork.aplicacion.comandos import Comando
-from aeroalpes.seedwork.dominio.eventos import EventoDominio
+from auditoria.seedwork.aplicacion.sagas import CoordinadorOrquestacion, Transaccion, Inicio, Fin
+from auditoria.seedwork.aplicacion.comandos import Comando
+from auditoria.seedwork.dominio.eventos import EventoDominio
 
 from auditoria.modulos.sagas.aplicacion.comandos.cliente import RegistrarUsuario, ValidarUsuario
 from auditoria.modulos.sagas.aplicacion.comandos.pagos import PagarReserva, RevertirPago
@@ -48,7 +48,7 @@ class CoordinadorAuditoria(CoordinadorOrquestacion):
         # TODO Transforma un evento en la entrada de un comando
         # Por ejemplo si el evento que llega es ReservaCreada y el tipo_comando es PagarReserva
         # Debemos usar los atributos de ReservaCreada para crear el comando PagarReserva
-        ...
+        comando = tipo_comando(evento.id)
 
 
 # TODO Agregue un Listener/Handler para que se puedan redireccionar eventos de dominio
