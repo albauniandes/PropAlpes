@@ -17,14 +17,21 @@ def comenzar_consumidor(app):
     import threading
     # import propiedades.modulos.validacion.infraestructura.consumidores as validacion
     import auditoria.modulos.propiedades.infraestructura.consumidores as propiedades
+    import auditoria.modulos.geograficos.infraestructura.consumidores as geograficos
+    import auditoria.modulos.sagas.infraestructura.consumidores as sagas
 
     # Suscripción a eventos
     # threading.Thread(target=validacion.suscribirse_a_eventos).start()
     threading.Thread(target=propiedades.suscribirse_a_eventos, args=[app]).start()
+    threading.Thread(target=geograficos.suscribirse_a_eventos, args=[app]).start()
+    threading.Thread(target=sagas.suscribirse_a_eventos, args=[app]).start()
+
 
     # Suscripción a comandos
     # threading.Thread(target=validacion.suscribirse_a_comandos).start()
     threading.Thread(target=propiedades.suscribirse_a_comandos, args=[app]).start()
+    threading.Thread(target=geograficos.suscribirse_a_comandos, args=[app]).start()
+    threading.Thread(target=sagas.suscribirse_a_comandos, args=[app]).start()
 
 def create_app(configuracion={}):
     # Init la aplicacion de Flask
