@@ -17,7 +17,7 @@ class Propiedad(AgregacionRaiz):
     def crear_propiedad(self, propiedad: Propiedad):
         self.estado = propiedad.estado
         
-        self.agregar_evento(PropiedadCreada(id_propiedad=self.id, estado=self.estado.name, fecha_creacion=self.fecha_creacion))
+        self.agregar_evento(PropiedadCreada(id_propiedad=self.id, estado=self.estado.name, fecha_creacion=self.fecha_creacion, identificacion_catastral=self.identificacion_catastral, nit=self.nit, nombre=self.nombre))
 
     def aprobar_propiedad(self):
         self.estado = ov.EstadoPropiedad.APROBADA

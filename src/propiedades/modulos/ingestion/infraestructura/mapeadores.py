@@ -39,7 +39,10 @@ class MapadeadorEventosPropiedad(Mapeador):
             payload = PropiedadCreadaPayload(
                 id_propiedad=str(evento.id_propiedad),
                 estado=str(evento.estado),
-                fecha_creacion=int(unix_time_millis(evento.fecha_creacion))
+                fecha_creacion=int(unix_time_millis(evento.fecha_creacion)),
+                identificacion_catastral = str(evento.identificacion_catastral),
+                nit = str(evento.nit),
+                nombre = str(evento.nombre)
             )
             evento_integracion = EventoPropiedadCreada(id=str(evento.id))
             evento_integracion.id = str(evento.id)

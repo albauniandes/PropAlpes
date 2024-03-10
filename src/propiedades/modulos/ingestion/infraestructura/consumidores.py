@@ -71,7 +71,6 @@ def suscribirse_a_comandos(app=None):
                     comando = CrearPropiedad(fecha_creacion, fecha_creacion,
                                             id_propiedad, datos.identificacion_catastral, datos.nit,
                                             datos.nombre)
-
                     ejecutar_comando(comando)
 
                     # if len(datos.nombre) == 0 or len(datos.email) or len(datos.identificacion):

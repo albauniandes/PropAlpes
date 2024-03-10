@@ -1,3 +1,4 @@
+from propiedades.modulos.ingestion.infraestructura.despachadores import Despachador
 from propiedades.seedwork.aplicacion.comandos import Comando
 from propiedades.modulos.ingestion.aplicacion.dto import PropiedadDTO
 from .base import CrearPropiedadBaseHandler
@@ -31,7 +32,7 @@ class CrearPropiedadHandler(CrearPropiedadBaseHandler):
             ,   identificacion_catastral=comando.identificacion_catastral
             ,   nit=comando.nit
             ,   nombre=comando.nombre)
-        #breakpoint()
+
         propiedad: Propiedad = self.fabrica_ingestion.crear_objeto(propiedad_dto, MapeadorPropiedad())
         propiedad.crear_propiedad(propiedad)
         #breakpoint()
@@ -46,6 +47,10 @@ class CrearPropiedadHandler(CrearPropiedadBaseHandler):
         for evento in propiedad.eventos:
             dispatcher.send(signal=f'{type(evento).__name__}Integracion', evento=evento)
         #UnidadTrabajoPuerto.commit()
+            
+            despachador = Despachador()
+            despachador.publicar_evento(evento, "eventos-propiedad-creada")
+        
         from propiedades.config.db import db
         db.session.commit()
 

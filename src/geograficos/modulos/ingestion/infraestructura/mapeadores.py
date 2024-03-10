@@ -39,7 +39,10 @@ class MapadeadorEventosDatosGeograficos(Mapeador):
             payload = DatosGeograficosCreadosPayload(
                 id_geograficos=str(evento.id_geograficos),
                 estado=str(evento.estado),
-                fecha_creacion=int(unix_time_millis(evento.fecha_creacion))
+                fecha_creacion=int(unix_time_millis(evento.fecha_creacion)),
+                nombre_propiedad = str(evento.nombre_propiedad),
+                latitud = str(evento.latitud),
+                longitud = str(evento.longitud),
             )
             evento_integracion = EventoDatosGeograficosCreados(id=str(evento.id))
             evento_integracion.id = str(evento.id)

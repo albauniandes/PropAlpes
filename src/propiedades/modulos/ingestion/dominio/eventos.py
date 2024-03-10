@@ -11,6 +11,9 @@ class PropiedadCreada(EventoPropiedad):
     id_propiedad: uuid.UUID = None
     estado: str = None
     fecha_creacion: datetime = None
+    identificacion_catastral: str = None
+    nit: str = None
+    nombre: str = None
     
 @dataclass
 class PropiedadRechazada(EventoPropiedad):
