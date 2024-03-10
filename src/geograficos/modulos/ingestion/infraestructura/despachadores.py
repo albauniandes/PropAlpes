@@ -1,7 +1,7 @@
 import pulsar
 from pulsar.schema import *
 
-from geograficos.modulos.ingestion.infraestructura.schema.v1.eventos import EventoDatosGeograficosCreada, DatosGeograficosCreadaPayload
+from geograficos.modulos.ingestion.infraestructura.schema.v1.eventos import EventoDatosGeograficosCreados, DatosGeograficosCreadosPayload
 from geograficos.modulos.ingestion.infraestructura.schema.v1.comandos import ComandoCrearDatosGeograficos, ComandoCrearDatosGeograficosPayload
 from geograficos.seedwork.infraestructura import utils
 
@@ -13,7 +13,7 @@ class Despachador:
 
     def _publicar_mensaje(self, mensaje, topico, schema):
         cliente = pulsar.Client(f'pulsar://{utils.broker_host()}:6650')
-        publicador = cliente.create_producer(topico, schema=AvroSchema(EventoDatosGeograficosCreada))
+        publicador = cliente.create_producer(topico, schema=AvroSchema(EventoDatosGeograficosCreados))
         publicador.send(mensaje)
         cliente.close()
 

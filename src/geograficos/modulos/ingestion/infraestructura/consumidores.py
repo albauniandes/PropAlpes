@@ -6,7 +6,7 @@ import logging
 import traceback
 import datetime
 
-from geograficos.modulos.ingestion.infraestructura.schema.v1.eventos import EventoDatosGeograficosCreada
+from geograficos.modulos.ingestion.infraestructura.schema.v1.eventos import EventoDatosGeograficosCreados
 from geograficos.modulos.ingestion.infraestructura.schema.v1.comandos import ComandoCrearDatosGeograficos
 from geograficos.modulos.ingestion.aplicacion.comandos.crear_datos_geograficos import CrearDatosGeograficos
 
@@ -24,7 +24,7 @@ def suscribirse_a_eventos(app=None):
         cliente = pulsar.Client(f'pulsar://{utils.broker_host()}:6650')
         consumidor = cliente.subscribe('eventos-datos-geograficos', consumer_type=_pulsar.ConsumerType.Shared,
                                        subscription_name='datos-geograficos-sub-eventos',
-                                       schema=AvroSchema(EventoDatosGeograficosCreada))
+                                       schema=AvroSchema(EventoDatosGeograficosCreados))
 
         while True:
             mensaje = consumidor.receive()

@@ -34,14 +34,14 @@ class MapadeadorEventosDatosGeograficos(Mapeador):
 
     def _entidad_a_datos_geograficos_creada(self, entidad: DatosGeograficosCreados, version=LATEST_VERSION):
         def v1(evento):
-            from .schema.v1.eventos import DatosGeograficosCreadaPayload, EventoDatosGeograficosCreada
+            from .schema.v1.eventos import DatosGeograficosCreadosPayload, EventoDatosGeograficosCreados
 
-            payload = DatosGeograficosCreadaPayload(
+            payload = DatosGeograficosCreadosPayload(
                 id_geograficos=str(evento.id_geograficos),
                 estado=str(evento.estado),
                 fecha_creacion=int(unix_time_millis(evento.fecha_creacion))
             )
-            evento_integracion = EventoDatosGeograficosCreada(id=str(evento.id))
+            evento_integracion = EventoDatosGeograficosCreados(id=str(evento.id))
             evento_integracion.id = str(evento.id)
             evento_integracion.time = int(unix_time_millis(evento.fecha_creacion))
             evento_integracion.specversion = str(version)

@@ -4,7 +4,7 @@ from geograficos.seedwork.infraestructura.utils import time_millis
 import uuid
 
 
-class DatosGeograficosCreadaPayload(Record):
+class DatosGeograficosCreadosPayload(Record):
     id_geograficos = String()
     estado = String()
     fecha_creacion = Long()
@@ -13,7 +13,7 @@ class DatosGeograficosCreadaPayload(Record):
     longitud = String()
 
 
-class EventoDatosGeograficosCreada(EventoIntegracion):
+class EventoDatosGeograficosCreados(EventoIntegracion):
     # NOTE La librería Record de Pulsar no es capaz de reconocer campos heredados, 
     # por lo que los mensajes al ser codificados pierden sus valores
     # Dupliqué el los cambios que ya se encuentran en la clase Mensaje
@@ -24,7 +24,7 @@ class EventoDatosGeograficosCreada(EventoIntegracion):
     type = String()
     datacontenttype = String()
     service_name = String()
-    data = DatosGeograficosCreadaPayload()
+    data = DatosGeograficosCreadosPayload()
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
