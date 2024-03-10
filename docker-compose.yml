@@ -134,14 +134,14 @@ services:
     environment:
       - MYSQL_DATABASE=geograficos
       - MYSQL_ROOT_PASSWORD=adminadmin
-    profiles: ["geograficosdb"]
+    profiles: ["db"]
     networks:
       - pulsar
     ports:
-      - '3306:3306'
-    volumes:
-      - ./data/mysql:/var/lib/mysql
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - '3308:3306'
+#    volumes:
+#      - ./data/mysql:/var/lib/mysql
+#      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
 
   # MySQL8
   auditoriadb:
@@ -163,6 +163,25 @@ services:
 #      - ./data/mysql:/var/lib/mysql
 #      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
 
+  # MySQL8
+  propiedadesdb:
+    image: mysql:8
+    hostname: propiedadesdb
+    container_name: propiedadesdb
+    cap_add:
+      - SYS_NICE
+    restart: always
+    environment:
+      - MYSQL_DATABASE=propiedades
+      - MYSQL_ROOT_PASSWORD=adminadmin
+    profiles: [ "db" ]
+    networks:
+      - pulsar
+    ports:
+      - '3309:3306'
+#    volumes:
+#      - ./data/mysql:/var/lib/mysql
+#      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
 
   # Servicios de Companias
   companias:

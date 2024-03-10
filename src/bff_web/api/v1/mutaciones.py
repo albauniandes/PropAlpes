@@ -35,16 +35,23 @@ class Mutation:
         return CreacionCompaniaRespuesa(mensaje="Procesando Mensaje", codigo=203)
     
     @strawberry.mutation
-    async def crear_datos_geograficos(self, nombre_propiedad: str, latitud: str, longitud: str, info: Info) -> CreacionDatosGeograficosRespuesta:
-        print(f"Nombre Propiedad: {nombre_propiedad}, latitud: {latitud}, longitud: {longitud}")
-        payload = dict(
+    async def crear_propiedad(self, nombre_propiedad: str, identificacion_catastral: str, nit: str, latitud: str, longitud: str, info: Info) -> CreacionDatosPropiedadRespuesta:
+        print(f"Nombre Propiedad: {nombre_propiedad}, latitud: {latitud}, longitud: {longitud}, nit: {nit}, identificacion_catastral: {identificacion_catastral}")
+        payload_geograficos = dict(
             nombre_propiedad = nombre_propiedad,
             latitud = latitud,
             longitud = longitud,
             fecha_creacion = str(utils.time_millis())
         )
-        print(payload)
-        comando = dict(
+        payload_propiedad = dict(
+            nombre = nombre_propiedad,
+            nit = nit,
+            identificacion_catastral = identificacion_catastral,
+            fecha_creacion = str(utils.time_millis())
+        )
+        print(payload_geograficos)
+        print(payload_propiedad)
+        comando_geograficos = dict(
             id = str(uuid.uuid4()),
             time=utils.time_millis(),
             specversion = "v1",
@@ -52,11 +59,24 @@ class Mutation:
             ingestion=utils.time_millis(),
             datacontenttype="AVRO",
             service_name = "BFF Web",
-            data = payload
+            data = payload_geograficos
         )
-        print(comando)
+        comando_propiedad = dict(
+            id = str(uuid.uuid4()),
+            time=utils.time_millis(),
+            specversion = "v1",
+            type = "ComandoCreacionPropiedad",
+            ingestion=utils.time_millis(),
+            datacontenttype="AVRO",
+            service_name = "BFF Web",
+            data = payload_propiedad
+        )
+        print(comando_geograficos)
+        print(comando_propiedad)
         despachador = Despachador()
-        info.context["background_tasks"].add_task(despachador.publicar_mensaje, comando, "comando-crear-datos-geograficos", "public/default/comando-crear-datos-geograficos")
+        ### Envio del comando para registrar los datos geograficos
+        info.context["background_tasks"].add_task(despachador.publicar_mensaje, comando_geograficos, "comando-crear-datos-geograficos", "public/default/comando-crear-datos-geograficos")
+        ### Envio del comando para registrar los datos de la propiedad
+        info.context["background_tasks"].add_task(despachador.publicar_mensaje, comando_propiedad, "comando-crear-propiedad", "public/default/comando-crear-propiedad")
         
-        
-        return CreacionDatosGeograficosRespuesta(mensaje="Procesando Mensaje", codigo=203)
+        return CreacionDatosPropiedadRespuesta(mensaje="Procesando Mensaje", codigo=203)
