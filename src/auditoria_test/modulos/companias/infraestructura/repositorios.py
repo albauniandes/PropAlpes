@@ -1,11 +1,11 @@
 """ Repositorios para el manejo de persistencia de objetos de dominio en la capa de infraestructura del dominio de ingestión"""
 
-from auditoria.config.db import db
-from auditoria.modulos.companias.dominio.repositorios import (RepositorioAuditoriaCompanias,
+from auditoria_test.config.db import db
+from auditoria_test.modulos.companias.dominio.repositorios import (RepositorioAuditoriaCompanias,
                                                               RepositorioEventosAuditoriaCompanias)
-from auditoria.modulos.companias.dominio.objetos_valor import MotivoAuditoria, Nombre, Email, Identificacion
-from auditoria.modulos.companias.dominio.entidades import AuditoriaCompania
-from auditoria.modulos.companias.dominio.fabricas import FabricaAuditoriaCompania
+from auditoria_test.modulos.companias.dominio.objetos_valor import MotivoAuditoria, Nombre, Email, Identificacion
+from auditoria_test.modulos.companias.dominio.entidades import AuditoriaCompania
+from auditoria_test.modulos.companias.dominio.fabricas import FabricaAuditoriaCompania
 from .dto import AuditoriaCompania as AuditoriaCompaniaDTO
 from .dto import EventosAuditoriaCompania
 from .mapeadores import MapeadorAuditoriaCompania, MapadeadorEventosAuditoriaCompania

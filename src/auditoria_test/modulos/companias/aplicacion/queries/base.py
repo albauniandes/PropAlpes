@@ -1,6 +1,6 @@
-from auditoria.seedwork.aplicacion.queries import QueryHandler
-from auditoria.modulos.companias.infraestructura.fabricas import FabricaRepositorio
-from auditoria.modulos.companias.dominio.fabricas import FabricaAuditoriaCompania
+from auditoria_test.seedwork.aplicacion.queries import QueryHandler
+from auditoria_test.modulos.companias.infraestructura.fabricas import FabricaRepositorio
+from auditoria_test.modulos.companias.dominio.fabricas import FabricaAuditoriaCompania
 
 class CompaniaQueryBaseHandler(QueryHandler):
     def __init__(self):

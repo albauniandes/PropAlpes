@@ -2,10 +2,10 @@
 
 from .entidades import AuditoriaCompania
 from .excepciones import TipoObjetoNoExisteEnDominioCompaniasExcepcion
-from auditoria.seedwork.dominio.repositorios import Mapeador, Repositorio
-from auditoria.seedwork.dominio.fabricas import Fabrica
-from auditoria.seedwork.dominio.entidades import Entidad
-from auditoria.seedwork.dominio.eventos import EventoDominio
+from auditoria_test.seedwork.dominio.repositorios import Mapeador, Repositorio
+from auditoria_test.seedwork.dominio.fabricas import Fabrica
+from auditoria_test.seedwork.dominio.entidades import Entidad
+from auditoria_test.seedwork.dominio.eventos import EventoDominio
 from dataclasses import dataclass
 
 @dataclass

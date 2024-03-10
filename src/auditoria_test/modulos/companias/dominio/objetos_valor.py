@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from auditoria.seedwork.dominio.objetos_valor import ObjetoValor, Codigo, Nombre, Identificacion, Email, MotivoAuditoria
+from auditoria_test.seedwork.dominio.objetos_valor import ObjetoValor, Codigo, Nombre, Identificacion, Email, MotivoAuditoria
 from datetime import datetime
 from enum import Enum
 

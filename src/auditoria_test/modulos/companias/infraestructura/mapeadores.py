@@ -1,12 +1,12 @@
 """ Mapeadores para la capa de infraestructura del dominio de companias"""
 
-from auditoria.seedwork.dominio.repositorios import Mapeador
-from auditoria.seedwork.infraestructura.utils import unix_time_millis
-from auditoria.modulos.companias.dominio.objetos_valor import Nombre, Email, Identificacion
-from auditoria.modulos.companias.dominio.entidades import AuditoriaCompania
+from auditoria_test.seedwork.dominio.repositorios import Mapeador
+from auditoria_test.seedwork.infraestructura.utils import unix_time_millis
+from auditoria_test.modulos.companias.dominio.objetos_valor import Nombre, Email, Identificacion
+from auditoria_test.modulos.companias.dominio.entidades import AuditoriaCompania
 from .dto import AuditoriaCompania as AuditoriaCompaniaDTO
 
-from auditoria.modulos.companias.dominio.eventos import AuditoriaCompaniaCreada, EventoAuditoriaCompania
+from auditoria_test.modulos.companias.dominio.eventos import AuditoriaCompaniaCreada, EventoAuditoriaCompania
 from .excepciones import NoExisteImplementacionParaTipoFabricaExcepcion
 
 

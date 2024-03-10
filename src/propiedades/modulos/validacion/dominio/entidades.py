@@ -1,7 +1,7 @@
 """Entidades del dominio de validación y autorización"""
 
 from datetime import datetime
-from auditoria.seedwork.dominio.entidades import AgregacionRaiz
+from auditoria_test.seedwork.dominio.entidades import AgregacionRaiz
 from propiedades.seedwork.dominio.entidades import Entidad
 from propiedades.seedwork.dominio.objetos_valor import EstadoPropiedad, IdentificacionCatastral, Nit, Nombre
 from dataclasses import dataclass, field

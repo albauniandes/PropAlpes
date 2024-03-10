@@ -6,11 +6,11 @@ import logging
 import traceback
 import datetime
 
-from auditoria.modulos.companias.infraestructura.schema.v1.eventos import EventoAuditoriaCompaniaCreada, EventoDatosGeograficosCreados
-from auditoria.modulos.companias.infraestructura.schema.v1.comandos import ComandoCrearAuditoriaCompania
-from auditoria.modulos.companias.aplicacion.comandos.auditar_compania import CrearAuditoriaCompania
+from auditoria_test.modulos.companias.infraestructura.schema.v1.eventos import EventoAuditoriaCompaniaCreada, EventoDatosGeograficosCreados
+from auditoria_test.modulos.companias.infraestructura.schema.v1.comandos import ComandoCrearAuditoriaCompania
+from auditoria_test.modulos.companias.aplicacion.comandos.auditar_compania import CrearAuditoriaCompania
 
-from auditoria.seedwork.aplicacion.comandos import ejecutar_comando
+from auditoria_test.seedwork.aplicacion.comandos import ejecutar_comando
 
 from companias.seedwork.infraestructura import utils
 

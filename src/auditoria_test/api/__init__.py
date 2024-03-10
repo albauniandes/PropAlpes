@@ -7,16 +7,16 @@ from flask_swagger import swagger
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 def registrar_handlers():
-    import auditoria.modulos.companias.aplicacion
+    import auditoria_test.modulos.companias.aplicacion
 
 def importar_modelos_alchemy():
-    import auditoria.modulos.companias.infraestructura.dto
+    import auditoria_test.modulos.companias.infraestructura.dto
 
 def comenzar_consumidor(app):
 
     import threading
     # import companias.modulos.validacion.infraestructura.consumidores as validacion
-    import auditoria.modulos.companias.infraestructura.consumidores as consumidor
+    import auditoria_test.modulos.companias.infraestructura.consumidores as consumidor
 
     # Suscripción a eventos
     # threading.Thread(target=validacion.suscribirse_a_eventos).start()
@@ -37,7 +37,7 @@ def create_app(configuracion={}):
     app.config['TESTING'] = configuracion.get('TESTING')
 
     # Inicializa la DB
-    from auditoria.config.db import init_db, database_connection
+    from auditoria_test.config.db import init_db, database_connection
     
     # app.config['SQLALCHEMY_DATABASE_URI'] =\
     #         'sqlite:///' + os.path.join(basedir, 'database.db')

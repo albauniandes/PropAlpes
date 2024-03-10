@@ -1,6 +1,6 @@
-from auditoria.modulos.companias.dominio.eventos import AuditoriaCompaniaCreada
-from auditoria.seedwork.aplicacion.handlers import Handler
-from auditoria.modulos.companias.infraestructura.despachadores import Despachador
+from auditoria_test.modulos.companias.dominio.eventos import AuditoriaCompaniaCreada
+from auditoria_test.seedwork.aplicacion.handlers import Handler
+from auditoria_test.modulos.companias.infraestructura.despachadores import Despachador
 
 class HandlerAuditoriaCompaniaIntegracion(Handler):
 

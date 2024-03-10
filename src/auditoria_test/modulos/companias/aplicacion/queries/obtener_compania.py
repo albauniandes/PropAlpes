@@ -1,9 +1,9 @@
-from auditoria.seedwork.aplicacion.queries import Query, QueryHandler, QueryResultado
-from auditoria.seedwork.aplicacion.queries import ejecutar_query as query
-from auditoria.modulos.companias.infraestructura.repositorios import RepositorioAuditoriaCompanias
+from auditoria_test.seedwork.aplicacion.queries import Query, QueryHandler, QueryResultado
+from auditoria_test.seedwork.aplicacion.queries import ejecutar_query as query
+from auditoria_test.modulos.companias.infraestructura.repositorios import RepositorioAuditoriaCompanias
 from dataclasses import dataclass
 from .base import CompaniaQueryBaseHandler
-from auditoria.modulos.companias.aplicacion.mapeadores import MapeadorAuditoriaCompania
+from auditoria_test.modulos.companias.aplicacion.mapeadores import MapeadorAuditoriaCompania
 import uuid
 
 

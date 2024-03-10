@@ -1,9 +1,9 @@
 """ Fábricas para la creación de objetos en la capa de infraestructura del dominio de companias"""
 
 from dataclasses import dataclass, field
-from auditoria.seedwork.dominio.fabricas import Fabrica
-from auditoria.seedwork.dominio.repositorios import Repositorio
-from auditoria.modulos.companias.dominio.repositorios import RepositorioAuditoriaCompanias, RepositorioEventosAuditoriaCompanias
+from auditoria_test.seedwork.dominio.fabricas import Fabrica
+from auditoria_test.seedwork.dominio.repositorios import Repositorio
+from auditoria_test.modulos.companias.dominio.repositorios import RepositorioAuditoriaCompanias, RepositorioEventosAuditoriaCompanias
 from .repositorios import RepositorioAuditoriaCompaniasSQLAlchemy, RepositorioEventosAuditoriaCompaniasSQLAlchemy
 from .excepciones import ExcepcionFabrica
 

@@ -1,16 +1,16 @@
 import companias.seedwork.presentacion.api as api
 import json
 # from companias.modulos.companias.aplicacion.servicios import ServicioCompania
-from auditoria.modulos.companias.aplicacion.dto import AuditoriaCompaniaDTO
-from auditoria.seedwork.dominio.excepciones import ExcepcionDominio
+from auditoria_test.modulos.companias.aplicacion.dto import AuditoriaCompaniaDTO
+from auditoria_test.seedwork.dominio.excepciones import ExcepcionDominio
 
 from flask import redirect, render_template, request, session, url_for
 from flask import Response
-from auditoria.modulos.companias.aplicacion.mapeadores import MapeadorAuditoriaCompaniaDTOJson
-from auditoria.modulos.companias.aplicacion.comandos.auditar_compania import CrearAuditoriaCompania
-from auditoria.modulos.companias.aplicacion.queries.obtener_compania import ObtenerAuditoriaCompania
-from auditoria.seedwork.aplicacion.comandos import ejecutar_comando
-from auditoria.seedwork.aplicacion.queries import ejecutar_query
+from auditoria_test.modulos.companias.aplicacion.mapeadores import MapeadorAuditoriaCompaniaDTOJson
+from auditoria_test.modulos.companias.aplicacion.comandos.auditar_compania import CrearAuditoriaCompania
+from auditoria_test.modulos.companias.aplicacion.queries.obtener_compania import ObtenerAuditoriaCompania
+from auditoria_test.seedwork.aplicacion.comandos import ejecutar_comando
+from auditoria_test.seedwork.aplicacion.queries import ejecutar_query
 
 bp = api.crear_blueprint('auditoria', '/auditoria')
 

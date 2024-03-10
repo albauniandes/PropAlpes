@@ -1,11 +1,11 @@
 import pulsar
 from pulsar.schema import *
 
-from auditoria.modulos.companias.infraestructura.schema.v1.eventos import EventoAuditoriaCompaniaCreada, AuditoriaCompaniaCreadaPayload
-from auditoria.modulos.companias.infraestructura.schema.v1.comandos import ComandoCrearAuditoriaCompania, ComandoCrearAuditoriaCompaniaPayload
+from auditoria_test.modulos.companias.infraestructura.schema.v1.eventos import EventoAuditoriaCompaniaCreada, AuditoriaCompaniaCreadaPayload
+from auditoria_test.modulos.companias.infraestructura.schema.v1.comandos import ComandoCrearAuditoriaCompania, ComandoCrearAuditoriaCompaniaPayload
 from companias.seedwork.infraestructura import utils
 
-from auditoria.modulos.companias.infraestructura.mapeadores import MapadeadorEventosAuditoriaCompania
+from auditoria_test.modulos.companias.infraestructura.mapeadores import MapadeadorEventosAuditoriaCompania
 
 class Despachador:
     def __init__(self):

@@ -1,6 +1,6 @@
-from auditoria.seedwork.aplicacion.comandos import ComandoHandler
-from auditoria.modulos.companias.infraestructura.fabricas import FabricaRepositorio
-from auditoria.modulos.companias.dominio.fabricas import FabricaAuditoriaCompania
+from auditoria_test.seedwork.aplicacion.comandos import ComandoHandler
+from auditoria_test.modulos.companias.infraestructura.fabricas import FabricaRepositorio
+from auditoria_test.modulos.companias.dominio.fabricas import FabricaAuditoriaCompania
 
 class CrearAuditoriaCompaniaBaseHandler(ComandoHandler):
     def __init__(self):

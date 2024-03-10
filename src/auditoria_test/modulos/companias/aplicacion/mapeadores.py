@@ -1,7 +1,7 @@
 from companias.seedwork.aplicacion.dto import Mapeador as AppMap
 from companias.seedwork.dominio.repositorios import Mapeador as RepMap
-from auditoria.modulos.companias.dominio.entidades import AuditoriaCompania
-from auditoria.modulos.companias.dominio.objetos_valor import MotivoAuditoria, Nombre, Email, Identificacion
+from auditoria_test.modulos.companias.dominio.entidades import AuditoriaCompania
+from auditoria_test.modulos.companias.dominio.objetos_valor import MotivoAuditoria, Nombre, Email, Identificacion
 from .dto import AuditoriaCompaniaDTO
 
 from datetime import datetime
