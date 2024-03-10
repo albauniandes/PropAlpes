@@ -7,24 +7,24 @@ from flask_swagger import swagger
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 def registrar_handlers():
-    import auditoria.modulos.companias.aplicacion
+    import auditoria.modulos.propiedades.aplicacion
 
 def importar_modelos_alchemy():
-    import auditoria.modulos.companias.infraestructura.dto
+    import auditoria.modulos.propiedades.infraestructura.dto
 
 def comenzar_consumidor(app):
 
     import threading
-    # import companias.modulos.validacion.infraestructura.consumidores as validacion
-    import auditoria.modulos.companias.infraestructura.consumidores as companias
+    # import propiedades.modulos.validacion.infraestructura.consumidores as validacion
+    import auditoria.modulos.propiedades.infraestructura.consumidores as propiedades
 
     # Suscripción a eventos
     # threading.Thread(target=validacion.suscribirse_a_eventos).start()
-    threading.Thread(target=companias.suscribirse_a_eventos, args=[app]).start()
+    threading.Thread(target=propiedades.suscribirse_a_eventos, args=[app]).start()
 
     # Suscripción a comandos
     # threading.Thread(target=validacion.suscribirse_a_comandos).start()
-    threading.Thread(target=companias.suscribirse_a_comandos, args=[app]).start()
+    threading.Thread(target=propiedades.suscribirse_a_comandos, args=[app]).start()
 
 def create_app(configuracion={}):
     # Init la aplicacion de Flask

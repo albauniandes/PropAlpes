@@ -1,0 +1,7 @@
+
+class CrearPropiedad():
+    ...
+
+class EliminarPropiedad():
+    ...
+

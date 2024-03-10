@@ -112,7 +112,7 @@ services:
       - SYS_NICE
     restart: always
     environment:
-      - MYSQL_DATABASE=companias
+      - MYSQL_DATABASE=propiedades
       - MYSQL_ROOT_PASSWORD=adminadmin
     profiles: ["db"]
     networks:
@@ -166,10 +166,10 @@ services:
 
   # Servicios de Companias
   companias:
-    container_name: companias
-    hostname: companias
-    image: companias/flask
-    profiles: ["companias"]
+    container_name: propiedades
+    hostname: propiedades
+    image: propiedades/flask
+    profiles: ["propiedades"]
     networks:
       - sidecar
       - pulsar
@@ -179,7 +179,7 @@ services:
       - broker
       - companiasdb
     environment:
-      - COMPANIAS_ADDRESS=companias
+      - COMPANIAS_ADDRESS=propiedades
       - PULSAR_ADDRESS=broker
     ports:
       - "5000:5000"
@@ -193,7 +193,7 @@ services:
     depends_on:
       - broker
     environment:
-      - COMPANIAS_ADDRESS=companias
+      - COMPANIAS_ADDRESS=propiedades
       - BROKER_HOST=broker
     networks:
       - pulsar

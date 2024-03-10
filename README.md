@@ -40,13 +40,13 @@ Desde el directorio principal ejecute el siguiente comando.
 
 - Ejecucion Microservicio Compañias
 ```bash
-flask --app src/companias/api run
+flask --app src/propiedades/api run
 ```
 
 Siempre puede ejecutarlo en modo DEBUG:
 
 ```bash
-flask --app src/companias/api --debug run
+flask --app src/propiedades/api --debug run
 ```
 
 - Ejecucion Microservicio Datos Geograficos
@@ -73,7 +73,7 @@ Desde el directorio principal ejecute el siguiente comando.
 - Contenedor servicio Compañias
 
 ```bash
-docker build . -f companias.Dockerfile -t companias/flask
+docker build . -f propiedades.Dockerfile -t propiedades/flask
 ```
 
 ### Ejecutar contenedora (sin compose)
@@ -81,13 +81,13 @@ docker build . -f companias.Dockerfile -t companias/flask
 Desde el directorio principal ejecute el siguiente comando.
 
 ```bash
-docker run -p 5000:5000 companias/flask
+docker run -p 5000:5000 propiedades/flask
 ```
 
 - Contenedor servicio Datos Geograficos
 
 ```bash
-docker build . -f companias.Dockerfile -t geograficos/flask
+docker build . -f propiedades.Dockerfile -t geograficos/flask
 ```
 
 ### Ejecutar contenedora (sin compose)
