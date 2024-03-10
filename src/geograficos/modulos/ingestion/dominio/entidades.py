@@ -17,7 +17,7 @@ class DatosGeograficos(AgregacionRaiz):
     def crear_datos_geograficos(self, datos_geograficos: DatosGeograficos):
         self.estado = datos_geograficos.estado
         
-        self.agregar_evento(DatosGeograficosCreados(id_geograficos=self.id, estado=self.estado.name, fecha_creacion=self.fecha_creacion))
+        self.agregar_evento(DatosGeograficosCreados(id_geograficos=self.id, estado=self.estado.name, fecha_creacion=self.fecha_creacion, nombre_propiedad=self.nombre_propiedad, latitud=self.latitud, longitud=self.longitud))
 
     def aprobar_datos_geograficos(self):
         self.estado = ov.EstadoDatosGeograficos.APROBADA

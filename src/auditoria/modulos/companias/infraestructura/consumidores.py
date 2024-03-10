@@ -6,7 +6,7 @@ import logging
 import traceback
 import datetime
 
-from auditoria.modulos.companias.infraestructura.schema.v1.eventos import EventoAuditoriaCompaniaCreada
+from auditoria.modulos.companias.infraestructura.schema.v1.eventos import EventoAuditoriaCompaniaCreada, EventoAuditoriaDatosGeograficosCreados
 from auditoria.modulos.companias.infraestructura.schema.v1.comandos import ComandoCrearAuditoriaCompania
 from auditoria.modulos.companias.aplicacion.comandos.auditar_compania import CrearAuditoriaCompania
 
@@ -15,13 +15,43 @@ from auditoria.seedwork.aplicacion.comandos import ejecutar_comando
 from companias.seedwork.infraestructura import utils
 
 
-def suscribirse_a_eventos(app=None):
+"""def suscribirse_a_eventos(app=None):
     cliente = None
     try:
         cliente = pulsar.Client(f'pulsar://{utils.broker_host()}:6650')
         consumidor = cliente.subscribe('eventos-auditoria-compania', consumer_type=_pulsar.ConsumerType.Shared,
                                        subscription_name='auditoria-sub-eventos',
                                        schema=AvroSchema(EventoAuditoriaCompaniaCreada))
+
+        while True:
+            mensaje = consumidor.receive()
+            datos = mensaje.value().data
+            print(f'Evento recibido: {datos}')
+
+
+            # TODO Identificar el tipo de CRUD del evento: Creacion, actualización o eliminación.
+            # ejecutar_proyeccion(ProyeccionReservasTotales(datos.fecha_creacion, ProyeccionReservasTotales.ADD), app=app)
+            # ejecutar_proyeccion(
+            #     ProyeccionReservasLista(datos.id_reserva, datos.id_cliente, datos.estado, datos.fecha_creacion,
+            #                             datos.fecha_creacion), app=app)
+
+            consumidor.acknowledge(mensaje)
+
+        cliente.close()
+    except:
+        logging.error('ERROR: Suscribiendose al tópico de eventos!')
+        traceback.print_exc()
+        if cliente:
+            cliente.close()"""
+
+
+def suscribirse_a_eventos_geograficos(app=None):
+    cliente = None
+    try:
+        cliente = pulsar.Client(f'pulsar://{utils.broker_host()}:6650')
+        consumidor = cliente.subscribe('eventos-datos-geograficos-creados', consumer_type=_pulsar.ConsumerType.Shared,
+                                       subscription_name='auditoria-sub-eventos-geograficos',
+                                       schema=AvroSchema(EventoAuditoriaDatosGeograficosCreados))
 
         while True:
             mensaje = consumidor.receive()

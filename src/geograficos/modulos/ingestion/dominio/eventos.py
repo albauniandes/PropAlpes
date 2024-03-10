@@ -11,6 +11,9 @@ class DatosGeograficosCreados(EventoDatosGeograficos):
     id_geograficos: uuid.UUID = None
     estado: str = None
     fecha_creacion: datetime = None
+    nombre_propiedad: str = None
+    latitud: str = None
+    longitud: str = None
     
 @dataclass
 class DatosGeograficosRechazados(EventoDatosGeograficos):
