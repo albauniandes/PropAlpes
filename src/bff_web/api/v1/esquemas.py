@@ -71,7 +71,16 @@ class DatosGeograficos:
     fecha_actualizacion: datetime
 
 @strawberry.type
-class CreacionDatosGeograficosRespuesta:
+class DatosPropiedad:
+    id: str
+    nombre: str
+    nit: str
+    identificacion_catastral: str
+    fecha_creacion: datetime
+    fecha_actualizacion: datetime
+
+@strawberry.type
+class CreacionDatosPropiedadRespuesta:
     mensaje: str
     codigo: int
 
