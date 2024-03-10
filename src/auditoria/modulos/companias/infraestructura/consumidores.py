@@ -6,7 +6,7 @@ import logging
 import traceback
 import datetime
 
-from auditoria.modulos.companias.infraestructura.schema.v1.eventos import EventoAuditoriaCompaniaCreada, EventoAuditoriaDatosGeograficosCreados
+from auditoria.modulos.companias.infraestructura.schema.v1.eventos import EventoAuditoriaCompaniaCreada, EventoDatosGeograficosCreados
 from auditoria.modulos.companias.infraestructura.schema.v1.comandos import ComandoCrearAuditoriaCompania
 from auditoria.modulos.companias.aplicacion.comandos.auditar_compania import CrearAuditoriaCompania
 
@@ -51,7 +51,7 @@ def suscribirse_a_eventos_geograficos(app=None):
         cliente = pulsar.Client(f'pulsar://{utils.broker_host()}:6650')
         consumidor = cliente.subscribe('eventos-datos-geograficos-creados', consumer_type=_pulsar.ConsumerType.Shared,
                                        subscription_name='auditoria-sub-eventos-geograficos',
-                                       schema=AvroSchema(EventoAuditoriaDatosGeograficosCreados))
+                                       schema=AvroSchema(EventoDatosGeograficosCreados))
 
         while True:
             mensaje = consumidor.receive()

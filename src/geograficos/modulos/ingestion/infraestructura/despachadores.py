@@ -21,11 +21,11 @@ class Despachador:
         evento = self.mapper.entidad_a_dto(evento)
         self._publicar_mensaje(evento, topico, AvroSchema(evento.__class__))
 
-    def publicar_comando(self, comando, topico):
+    """def publicar_comando(self, comando, topico):
         # TODO Debe existir un forma de crear el Payload en Avro con base al tipo del comando
         payload = ComandoCrearDatosGeograficosPayload(
             id_geograficos=str(comando.id_geograficos)
             # agregar itinerarios
         )
         comando_integracion = ComandoCrearDatosGeograficos(data=payload)
-        self._publicar_mensaje(comando_integracion, topico, AvroSchema(ComandoCrearDatosGeograficos))
+        self._publicar_mensaje(comando_integracion, topico, AvroSchema(ComandoCrearDatosGeograficos))"""
