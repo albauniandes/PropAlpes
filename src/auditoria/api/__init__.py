@@ -1,4 +1,5 @@
 import os
+import threading
 
 from flask import Flask, render_template, request, url_for, redirect, jsonify, session
 from flask_swagger import swagger
@@ -14,7 +15,6 @@ def importar_modelos_alchemy():
 
 def comenzar_consumidor(app):
 
-    import threading
     # import propiedades.modulos.validacion.infraestructura.consumidores as validacion
     import auditoria.modulos.propiedades.infraestructura.consumidores as propiedades
     import auditoria.modulos.geograficos.infraestructura.consumidores as geograficos
