@@ -1,11 +1,11 @@
 from auditoria.seedwork.aplicacion.comandos import ComandoHandler
 from auditoria.modulos.geograficos.infraestructura.fabricas import FabricaRepositorio
-from auditoria.modulos.geograficos.dominio.fabricas import FabricaAuditoriaPropiedad
+from auditoria.modulos.geograficos.dominio.fabricas import FabricaAuditoriaGeografico
 
 class CrearAuditoriaPropiedadBaseHandler(ComandoHandler):
     def __init__(self):
         self._fabrica_repositorio: FabricaRepositorio = FabricaRepositorio()
-        self._fabrica_auditoria_propiedad: FabricaAuditoriaPropiedad = FabricaAuditoriaPropiedad()
+        self._fabrica_auditoria_geografico: FabricaAuditoriaGeografico = FabricaAuditoriaGeografico()
 
     @property
     def fabrica_repositorio(self):
@@ -19,7 +19,7 @@ class CrearAuditoriaPropiedadBaseHandler(ComandoHandler):
 class EliminarAuditoriaPropiedadBaseHandler(ComandoHandler):
     def __init__(self):
         self._fabrica_repositorio: FabricaRepositorio = FabricaRepositorio()
-        self._fabrica_auditoria_propiedad: FabricaAuditoriaPropiedad = FabricaAuditoriaPropiedad()
+        self._fabrica_auditoria_propiedad: FabricaAuditoriaGeografico = FabricaAuditoriaGeografico()
 
     @property
     def fabrica_repositorio(self):

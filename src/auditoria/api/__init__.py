@@ -24,14 +24,16 @@ def comenzar_consumidor(app):
     # threading.Thread(target=validacion.suscribirse_a_eventos).start()
     threading.Thread(target=propiedades.suscribirse_a_eventos, args=[app]).start()
     threading.Thread(target=geograficos.suscribirse_a_eventos, args=[app]).start()
-    threading.Thread(target=sagas.suscribirse_a_eventos, args=[app]).start()
+    threading.Thread(target=sagas.suscribirse_a_eventos_geograficos, args=[app]).start()
+    threading.Thread(target=sagas.suscribirse_a_eventos_propiedades, args=[app]).start()
 
 
-    # Suscripción a comandos
+    # Suscripción a comandos_
     # threading.Thread(target=validacion.suscribirse_a_comandos).start()
     threading.Thread(target=propiedades.suscribirse_a_comandos, args=[app]).start()
     threading.Thread(target=geograficos.suscribirse_a_comandos, args=[app]).start()
-    threading.Thread(target=sagas.suscribirse_a_comandos, args=[app]).start()
+    threading.Thread(target=sagas.suscribirse_a_comandos_geograficos, args=[app]).start()
+    threading.Thread(target=sagas.suscribirse_a_comandos_propiedades, args=[app]).start()
 
 def create_app(configuracion={}):
     # Init la aplicacion de Flask

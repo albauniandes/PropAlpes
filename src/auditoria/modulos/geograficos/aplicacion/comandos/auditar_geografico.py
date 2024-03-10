@@ -4,7 +4,7 @@ from .base import CrearAuditoriaPropiedadBaseHandler
 from dataclasses import dataclass, field
 from auditoria.seedwork.aplicacion.comandos import ejecutar_comando as comando
 
-from auditoria.modulos.geograficos.dominio.entidades import AuditoriaPropiedad
+from auditoria.modulos.geograficos.dominio.entidades import AuditoriaGeografico
 from auditoria.seedwork.infraestructura.uow import UnidadTrabajoPuerto
 from auditoria.modulos.propiedades.aplicacion.mapeadores import MapeadorAuditoriaPropiedad
 from auditoria.modulos.propiedades.infraestructura.repositorios import RepositorioAuditoriaPropiedads, RepositorioEventosAuditoriaPropiedads

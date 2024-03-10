@@ -5,7 +5,6 @@ from geograficos.seedwork.infraestructura.schema.v1.comandos import (ComandoInte
 
 class ComandoCrearDatosGeograficosPayload(ComandoIntegracion):
     #id_compania = String()
-    # TODO Cree los records para itinerarios
     nombre_propiedad = String()
     latitud = String()
     longitud = String()
@@ -13,3 +12,12 @@ class ComandoCrearDatosGeograficosPayload(ComandoIntegracion):
 
 class ComandoCrearDatosGeograficos(ComandoIntegracion):
     data = ComandoCrearDatosGeograficosPayload()
+
+class ComandoCrearPropiedadPayload(ComandoIntegracion):
+    id_propiedad = String()
+    identificacion_catastral = String()
+    nit = String()
+    nombre = String()
+    fecha_creacion = String()
+class ComandoCrearPropiedad(ComandoIntegracion):
+    data = ComandoCrearPropiedadPayload()
