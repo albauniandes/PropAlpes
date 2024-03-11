@@ -4,11 +4,16 @@ from geograficos.seedwork.infraestructura.schema.v1.comandos import (ComandoInte
 
 
 class ComandoCrearDatosGeograficosPayload(ComandoIntegracion):
-    #id_compania = String()
-    # TODO Cree los records para itinerarios
     nombre_propiedad = String()
     latitud = String()
     longitud = String()
     fecha_creacion = String()
 class ComandoCrearDatosGeograficos(ComandoIntegracion):
     data = ComandoCrearDatosGeograficosPayload()
+
+
+class ComandoRechazarDatosGeograficosPayload(ComandoIntegracion):
+    geograficos_id = String()
+
+class ComandoRechazarDatosGeograficos(ComandoIntegracion):
+    data = ComandoRechazarDatosGeograficosPayload()

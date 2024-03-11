@@ -12,3 +12,9 @@ class ComandoCrearPropiedadPayload(ComandoIntegracion):
     fecha_creacion = String()
 class ComandoCrearPropiedad(ComandoIntegracion):
     data = ComandoCrearPropiedadPayload()
+
+
+class ComandoRechazarPropiedadPayload(ComandoIntegracion):
+    id_propiedad = String()
+class ComandoRechazarPropiedad(ComandoIntegracion):
+    data = ComandoRechazarPropiedadPayload()

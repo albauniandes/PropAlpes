@@ -14,3 +14,11 @@ class ComandoCrearAuditoriaCompaniaPayload(ComandoIntegracion):
 
 class ComandoCrearAuditoriaCompania(ComandoIntegracion):
     data = ComandoCrearAuditoriaCompaniaPayload()
+
+class ComandoRechazarDatosGeograficosPayload(ComandoIntegracion):
+    geograficos_id = String()
+
+class ComandoRechazarDatosGeograficos(ComandoIntegracion):
+    data = ComandoRechazarDatosGeograficosPayload()
+
+

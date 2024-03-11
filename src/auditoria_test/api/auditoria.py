@@ -1,3 +1,4 @@
+from auditoria_test.modulos.companias.infraestructura.despachadores import Despachador
 import companias.seedwork.presentacion.api as api
 import json
 # from companias.modulos.companias.aplicacion.servicios import ServicioCompania
@@ -33,6 +34,18 @@ def crear_auditoria_compania_asincrona():
         ejecutar_comando(comando)
         
         return Response('{}', status=202, mimetype='application/json')
+    except ExcepcionDominio as e:
+        return Response(json.dumps(dict(error=str(e))), status=400, mimetype='application/json')
+
+@bp.route('/auditoria-rechazar-geograficos-comando', methods=('POST',))
+def rechazar_auditoria_geograficos_asincrona():
+    try:
+        json_request = request.json
+        despachador = Despachador()
+        print(json_request)
+        id_geograficos = json_request["id_geograficos"]
+        despachador.rechazar_datos_geograficos(id_geograficos)
+        return Response('Rollback', status=202, mimetype='application/json')
     except ExcepcionDominio as e:
         return Response(json.dumps(dict(error=str(e))), status=400, mimetype='application/json')
 
