@@ -202,6 +202,46 @@ services:
       - PULSAR_ADDRESS=broker
     ports:
       - "5000:5000"
+  
+  # Servicios de Propiedades
+  propiedades:
+    container_name: propiedades
+    hostname: propiedades
+    image: propiedades/flask
+    profiles: ["propiedades"]
+    networks:
+      - sidecar
+      - pulsar
+    labels:
+      SidecarDiscover: "false"
+    depends_on:
+      - broker
+      - propiedadesdb
+    environment:
+      - PROPIEDADES_ADDRESS=propiedades
+      - PULSAR_ADDRESS=broker
+    ports:
+      - "5001:5000"
+  
+  # Servicios de Geograficos
+  geograficos:
+    container_name: geograficos
+    hostname: geograficos
+    image: geograficos/flask
+    profiles: ["geograficos"]
+    networks:
+      - sidecar
+      - pulsar
+    labels:
+      SidecarDiscover: "false"
+    depends_on:
+      - broker
+      - geograficosdb
+    environment:
+      - GEOGRAFICOS_ADDRESS=geograficos
+      - PULSAR_ADDRESS=broker
+    ports:
+      - "5002:5000"
 
   # Servicio BFF
   bff:
