@@ -19,8 +19,8 @@ def suscribirse_a_eventos(app=None):
     cliente = None
     try:
         cliente = pulsar.Client(f'pulsar://{utils.broker_host()}:6650')
-        consumidor = cliente.subscribe('eventos-auditoria-geografico', consumer_type=_pulsar.ConsumerType.Shared,
-                                       subscription_name='auditoria-sub-eventos',
+        consumidor = cliente.subscribe('topic-eventos-auditoria-geografico', consumer_type=_pulsar.ConsumerType.Shared,
+                                       subscription_name='sub-propalpes',
                                        schema=AvroSchema(EventoAuditoriaGeograficoCreada))
 
         while True:
@@ -50,8 +50,8 @@ def suscribirse_a_comandos(app=None):
     try:
         cliente = pulsar.Client(f'pulsar://{utils.broker_host()}:6650')
 
-        consumidor = cliente.subscribe('comando-crear-auditoria-geografico', consumer_type=_pulsar.ConsumerType.Shared,
-                                       subscription_name='auditoria-sub-comandos',
+        consumidor = cliente.subscribe('topic-comando-crear-auditoria-geografico', consumer_type=_pulsar.ConsumerType.Shared,
+                                       subscription_name='sub-propalpes',
                                        schema=AvroSchema(ComandoCrearAuditoriaGeografico)
                                        )
 

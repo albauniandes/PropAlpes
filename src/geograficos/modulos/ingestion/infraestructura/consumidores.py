@@ -22,8 +22,8 @@ def suscribirse_a_eventos(app=None):
     cliente = None
     try:
         cliente = pulsar.Client(f'pulsar://{utils.broker_host()}:6650')
-        consumidor = cliente.subscribe('eventos-datos-geograficos', consumer_type=_pulsar.ConsumerType.Shared,
-                                       subscription_name='datos-geograficos-sub-eventos',
+        consumidor = cliente.subscribe('topic-eventos-datos-geograficos', consumer_type=_pulsar.ConsumerType.Shared,
+                                       subscription_name='sub-propalpes',
                                        schema=AvroSchema(EventoDatosGeograficosCreada))
 
         while True:
@@ -53,8 +53,8 @@ def suscribirse_a_comandos(app=None):
     try:
         cliente = pulsar.Client(f'pulsar://{utils.broker_host()}:6650')
 
-        consumidor = cliente.subscribe('comando-crear-datos-geograficos', consumer_type=_pulsar.ConsumerType.Shared,
-                                       subscription_name='datos-geograficos-sub-comandos',
+        consumidor = cliente.subscribe('topic-comando-crear-datos-geograficos', consumer_type=_pulsar.ConsumerType.Shared,
+                                       subscription_name='sub-propalpes',
                                        schema=AvroSchema(ComandoCrearDatosGeograficos)
                                        )
 

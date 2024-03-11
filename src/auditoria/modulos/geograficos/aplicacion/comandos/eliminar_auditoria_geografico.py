@@ -12,7 +12,7 @@ from auditoria.modulos.propiedades.infraestructura.repositorios import Repositor
 from pydispatch import dispatcher
 
 @dataclass
-class EliminarAuditoriaPropiedad(Comando):
+class EliminarAuditoriaGeografico(Comando):
     fecha_creacion: str
     fecha_actualizacion: str
     id: str
@@ -22,7 +22,7 @@ class EliminarAuditoriaPropiedad(Comando):
     motivo_auditoria: str
 
 
-class EliminarAuditoriaPropiedadHandler(EliminarAuditoriaPropiedadBaseHandler):
+class EliminarAuditoriaGeograficoHandler(EliminarAuditoriaPropiedadBaseHandler):
     ...
     
 #     def handle(self, comando: CrearAuditoriaPropiedad):
@@ -52,7 +52,7 @@ class EliminarAuditoriaPropiedadHandler(EliminarAuditoriaPropiedadBaseHandler):
 #         from auditoria.config.db import db
 #         db.session.commit()
 #
-@comando.register(EliminarAuditoriaPropiedad)
-def ejecutar_comando_eliminar_auditoria_propiedad(comando: EliminarAuditoriaPropiedad):
-    handler = EliminarAuditoriaPropiedadHandler()
+@comando.register(EliminarAuditoriaGeografico)
+def ejecutar_comando_eliminar_auditoria_propiedad(comando: EliminarAuditoriaGeografico):
+    handler = EliminarAuditoriaGeograficoHandler()
     handler.handle(comando)

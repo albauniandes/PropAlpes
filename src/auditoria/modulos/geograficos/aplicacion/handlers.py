@@ -7,7 +7,7 @@ class HandlerAuditoriaPropiedadIntegracion(Handler):
     @staticmethod
     def handle_auditoria_compania_creada(evento):
         despachador = Despachador()
-        despachador.publicar_evento(evento, 'eventos-auditoria-compania')
+        despachador.publicar_evento(evento, 'topic-eventos-auditoria-compania')
 
 
     

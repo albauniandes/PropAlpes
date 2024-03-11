@@ -15,16 +15,55 @@ from auditoria.modulos.sagas.infraestructura.schema.v1.comandos import ComandoCr
 
 #from geograficos.modulos.ingestion.aplicacion.comandos.crear_datos_geograficos import CrearDatosGeograficos
 #from auditoria.seedwork.aplicacion.comandos import ejecutar_comando
+from auditoria.modulos.sagas.aplicacion.coordinadores.saga_auditorias import oir_mensaje
 
 from auditoria.seedwork.infraestructura import utils
 
+def suscribirse_a_topicos(app=None):
+    import re
+    cliente = None
+    try:
+        #breakpoint()
+        cliente = pulsar.Client(f'pulsar://{utils.broker_host()}:6650')
+        topic_pattern = re.compile('persistent://public/default/topic-.*')
+        consumer = cliente.subscribe(topic_pattern, 'sub-auditoria')
+        while True:
+            msg = consumer.receive()
+            try:
+                schema_list = [EventoDatosGeograficosCreada,EventoPropiedadCreada,ComandoCrearDatosGeograficos,ComandoCrearPropiedad]
+                data_decoded = None
+                decoded_schema = None
+                for schema in schema_list:
+                    try:
+                        data_decoded = AvroSchema(schema).decode(msg.data())
+                        print("Decoded message:", data_decoded)
+                        decoded_schema = schema
+                        break
+                    except Exception as e:
+                        print("Error decoding message:", e)
+
+                print(decoded_schema)
+                print(f"RECEIVED MESSAGE / SCHEMA {data_decoded.data.__dict__}/{decoded_schema}")
+                # Acknowledge successful processing of the message
+                #breakpoint()
+                oir_mensaje(data_decoded.data.__dict__)
+                consumer.acknowledge(msg)
+            except Exception:
+                # Message failed to be processed
+                consumer.negative_acknowledge(msg)
+        client.close()
+    except:
+        logging.error('ERROR: Suscribiendose a topicos!')
+        traceback.print_exc()
+        if cliente:
+            cliente.close()
 
 def suscribirse_a_eventos_geograficos(app=None):
     cliente = None
     try:
         cliente = pulsar.Client(f'pulsar://{utils.broker_host()}:6650')
-        consumidor = cliente.subscribe('eventos-datos-geograficos', consumer_type=_pulsar.ConsumerType.Shared,
-                                       subscription_name='datos-geograficos-sub-eventos',
+        consumidor = cliente.subscribe('topic-eventos-datos-geograficos', consumer_type=_pulsar.ConsumerType.Shared,
+                                       subscription_name='sub-propalpes',
                                        schema=AvroSchema(EventoDatosGeograficosCreada))
 
         while True:
@@ -53,8 +92,8 @@ def suscribirse_a_comandos_geograficos(app=None):
     try:
         cliente = pulsar.Client(f'pulsar://{utils.broker_host()}:6650')
 
-        consumidor = cliente.subscribe('comando-crear-datos-geograficos', consumer_type=_pulsar.ConsumerType.Shared,
-                                       subscription_name='datos-geograficos-sub-comandos',
+        consumidor = cliente.subscribe('topic-comando-crear-datos-geograficos', consumer_type=_pulsar.ConsumerType.Shared,
+                                       subscription_name='sub-propalpes',
                                        schema=AvroSchema(ComandoCrearDatosGeograficos)
                                        )
 
@@ -94,8 +133,8 @@ def suscribirse_a_eventos_propiedades(app=None):
     cliente = None
     try:
         cliente = pulsar.Client(f'pulsar://{utils.broker_host()}:6650')
-        consumidor = cliente.subscribe('eventos-propiedad', consumer_type=_pulsar.ConsumerType.Shared,
-                                       subscription_name='propiedad-sub-eventos',
+        consumidor = cliente.subscribe('topic-eventos-propiedad', consumer_type=_pulsar.ConsumerType.Shared,
+                                       subscription_name='sub-propalpes',
                                        schema=AvroSchema(EventoPropiedadCreada))
 
         while True:
@@ -125,8 +164,8 @@ def suscribirse_a_comandos_propiedades(app=None):
     try:
         cliente = pulsar.Client(f'pulsar://{utils.broker_host()}:6650')
 
-        consumidor = cliente.subscribe('comando-crear-propiedad', consumer_type=_pulsar.ConsumerType.Shared,
-                                       subscription_name='propiedad-sub-comandos',
+        consumidor = cliente.subscribe('topic-comando-crear-propiedad', consumer_type=_pulsar.ConsumerType.Shared,
+                                       subscription_name='sub-propalpes',
                                        schema=AvroSchema(ComandoCrearPropiedad)
                                        )
 

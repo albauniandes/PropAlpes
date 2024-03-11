@@ -8,18 +8,19 @@ import uuid
 
 Base = db.declarative_base()
 
-class AuditoriaPropiedad(db.Model):
-    __tablename__ = "auditoria_compania"
+class Auditoria(db.Model):
+    __tablename__ = "auditoria"
     id = db.Column(db.String(40), primary_key=True)
     fecha_creacion = db.Column(db.DateTime, nullable=False)
     fecha_actualizacion = db.Column(db.DateTime, nullable=False)
-    nombre = db.Column(db.String(40))
-    email = db.Column(db.String(40))
-    identificacion = db.Column(db.String(40))
+    nombre_propiedad = db.Column(db.String(40))
+    latitud = db.Column(db.String(40))
+    identificacion_catastral = db.Column(db.String(40))
+    nit = db.Column(db.String(40))
     motivo_auditoria = db.Column(db.String(255))
 
 class EventosAuditoriaPropiedad(db.Model):
-    __tablename__ = "eventos_auditoria_compania"
+    __tablename__ = "eventos_auditoria"
     id = db.Column(db.String(40), primary_key=True)
     id_entidad = db.Column(db.String(40), nullable=False)
     fecha_evento = db.Column(db.DateTime, nullable=False)

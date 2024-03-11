@@ -1,8 +1,8 @@
 from abc import ABC, abstractmethod
-from aeroalpes.seedwork.aplicacion.comandos import Comando
-from aeroalpes.seedwork.dominio.eventos import EventoDominio
+from auditoria.seedwork.aplicacion.comandos import Comando
+from auditoria.seedwork.dominio.eventos import EventoDominio
 from dataclasses import dataclass
-from .comandos import ejecutar_commando
+from .comandos import ejecutar_comando
 import uuid
 import datetime
 
@@ -19,8 +19,8 @@ class CoordinadorSaga(ABC):
         ...
 
     def publicar_comando(self, evento: EventoDominio, tipo_comando: type):
-        comando = construir_comando(evento, tipo_comando)
-        ejecutar_commando(comando)
+        comando = self.construir_comando(evento, tipo_comando)
+        self.ejecutar_commando(comando)
 
     @abstractmethod
     def inicializar_pasos(self):
@@ -31,11 +31,11 @@ class CoordinadorSaga(ABC):
         ...
 
     @abstractmethod
-    def iniciar():
+    def iniciar(self):
         ...
 
     @abstractmethod
-    def terminar():
+    def terminar(self):
         ...
 
 
