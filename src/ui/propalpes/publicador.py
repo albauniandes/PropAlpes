@@ -3,7 +3,7 @@ import avro.schema
 from avro.io import DatumWriter, BinaryEncoder
 import io
 client = pulsar.Client('pulsar://localhost:6650')
-producer = client.create_producer('comando-crear-compania')
+producer = client.create_producer('topic-comando-crear-compania')
 
 
 # Define Avro schema

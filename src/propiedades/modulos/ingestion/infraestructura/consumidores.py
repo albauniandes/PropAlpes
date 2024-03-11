@@ -23,8 +23,8 @@ def suscribirse_a_eventos(app=None):
     cliente = None
     try:
         cliente = pulsar.Client(f'pulsar://{utils.broker_host()}:6650')
-        consumidor = cliente.subscribe('eventos-propiedad', consumer_type=_pulsar.ConsumerType.Shared,
-                                       subscription_name='propiedad-sub-eventos',
+        consumidor = cliente.subscribe('topic-eventos-propiedad', consumer_type=_pulsar.ConsumerType.Shared,
+                                       subscription_name='sub-propalpes',
                                        schema=AvroSchema(EventoPropiedadCreada))
 
         while True:
@@ -54,8 +54,8 @@ def suscribirse_a_comandos(app=None):
     try:
         cliente = pulsar.Client(f'pulsar://{utils.broker_host()}:6650')
 
-        consumidor = cliente.subscribe('comando-crear-propiedad', consumer_type=_pulsar.ConsumerType.Shared,
-                                       subscription_name='propiedad-sub-comandos',
+        consumidor = cliente.subscribe('topic-comando-crear-propiedad', consumer_type=_pulsar.ConsumerType.Shared,
+                                       subscription_name='sub-propalpes',
                                        schema=AvroSchema(ComandoCrearPropiedad)
                                        )
 
@@ -76,7 +76,7 @@ def suscribirse_a_comandos(app=None):
 
                     # if len(datos.nombre) == 0 or len(datos.email) or len(datos.identificacion):
                     #     despachador = Despachador()
-                    #     despachador.publicar_comando(evento, 'eventos-compania')
+                    #     despachador.publicar_comando(evento, 'topic-eventos-compania')
 
 
             except:
@@ -99,8 +99,8 @@ def suscribirse_a_comandos_rollback(app=None):
     try:
         cliente = pulsar.Client(f'pulsar://{utils.broker_host()}:6650')
 
-        consumidor = cliente.subscribe('comando-rollback-propiedad', consumer_type=_pulsar.ConsumerType.Shared,
-                                       subscription_name='propiedad-sub-comandos-rollback',
+        consumidor = cliente.subscribe('topic-comando-rollback-propiedad', consumer_type=_pulsar.ConsumerType.Shared,
+                                       subscription_name='sub-propalpes',
                                        schema=AvroSchema(ComandoRechazarPropiedad)
                                        )
 

@@ -75,9 +75,9 @@ class Mutation:
         print(comando_propiedad)
         despachador = Despachador()
         ### Envio del comando para registrar los datos geograficos
-        info.context["background_tasks"].add_task(despachador.publicar_mensaje, comando_geograficos, "comando-crear-datos-geograficos", "public/default/comando-crear-datos-geograficos")
+        info.context["background_tasks"].add_task(despachador.publicar_mensaje, comando_geograficos, "topic-comando-crear-datos-geograficos", "public/default/topic-comando-crear-datos-geograficos")
         ### Envio del comando para registrar los datos de la propiedad
-        info.context["background_tasks"].add_task(despachador.publicar_mensaje, comando_propiedad, "comando-crear-propiedad", "public/default/comando-crear-propiedad")
+        info.context["background_tasks"].add_task(despachador.publicar_mensaje, comando_propiedad, "topic-comando-crear-propiedad", "public/default/topic-comando-crear-propiedad")
         
         return CreacionDatosPropiedadRespuesta(mensaje="Procesando Mensaje", codigo=203)
     

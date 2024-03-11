@@ -187,7 +187,7 @@ def suscribirse_a_comandos_propiedades(app=None):
             #
             #         # if len(datos.nombre) == 0 or len(datos.email) or len(datos.identificacion):
             #         #     despachador = Despachador()
-            #         #     despachador.publicar_comando(evento, 'eventos-compania')
+            #         #     despachador.publicar_comando(evento, 'topic-eventos-compania')
             #
             #
             # except:

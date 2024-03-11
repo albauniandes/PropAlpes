@@ -22,8 +22,8 @@ def suscribirse_a_eventos(app=None):
     cliente = None
     try:
         cliente = pulsar.Client(f'pulsar://{utils.broker_host()}:6650')
-        consumidor = cliente.subscribe('eventos-compania', consumer_type=_pulsar.ConsumerType.Shared,
-                                       subscription_name='compania-sub-eventos',
+        consumidor = cliente.subscribe('topic-eventos-compania', consumer_type=_pulsar.ConsumerType.Shared,
+                                       subscription_name='sub-propalpes',
                                        schema=AvroSchema(EventoCompaniaCreada))
 
         while True:
@@ -53,8 +53,8 @@ def suscribirse_a_comandos(app=None):
     try:
         cliente = pulsar.Client(f'pulsar://{utils.broker_host()}:6650')
 
-        consumidor = cliente.subscribe('comando-crear-compania', consumer_type=_pulsar.ConsumerType.Shared,
-                                       subscription_name='compania-sub-comandos',
+        consumidor = cliente.subscribe('topic-comando-crear-compania', consumer_type=_pulsar.ConsumerType.Shared,
+                                       subscription_name='sub-propalpes',
                                        schema=AvroSchema(ComandoCrearCompania)
                                        )
 
@@ -76,7 +76,7 @@ def suscribirse_a_comandos(app=None):
 
                     # if len(datos.nombre) == 0 or len(datos.email) or len(datos.identificacion):
                     #     despachador = Despachador()
-                    #     despachador.publicar_comando(evento, 'eventos-compania')
+                    #     despachador.publicar_comando(evento, 'topic-eventos-compania')
 
 
             except:
