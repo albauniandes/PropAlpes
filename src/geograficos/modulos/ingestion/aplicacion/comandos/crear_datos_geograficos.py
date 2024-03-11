@@ -52,7 +52,7 @@ class CrearDatosGeograficosHandler(CrearDatosGeograficosBaseHandler):
         #UnidadTrabajoPuerto.commit()
             
             despachador = Despachador()
-            despachador.publicar_evento(evento, "eventos-datos-geograficos-creados")
+            despachador.publicar_evento(evento, "topic-eventos-datos-geograficos-creados")
 
         from geograficos.config.db import db
         db.session.commit()

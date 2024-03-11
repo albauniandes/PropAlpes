@@ -28,10 +28,10 @@ def comenzar_consumidor(app):
 
 
     # Suscripción a eventos
-    threading.Thread(target=sagas.suscribirse_a_topicos()).start()
+    #threading.Thread(target=sagas.suscribirse_a_topicos()).start()
     # threading.Thread(target=propiedades.suscribirse_a_eventos, args=[app]).start()
     # threading.Thread(target=geograficos.suscribirse_a_eventos, args=[app]).start()
-    # threading.Thread(target=sagas.suscribirse_a_eventos_geograficos, args=[app]).start()
+    threading.Thread(target=sagas.suscribirse_a_eventos_geograficos, args=[app]).start()
     # threading.Thread(target=sagas.suscribirse_a_eventos_propiedades, args=[app]).start()
 
 

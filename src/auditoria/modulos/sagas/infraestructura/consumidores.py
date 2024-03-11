@@ -5,14 +5,16 @@ import time
 import logging
 import traceback
 import datetime
+from auditoria.modulos.sagas.aplicacion.comandos.geograficos import RechazarDatosGeograficos
 
-from auditoria.modulos.sagas.infraestructura.schema.v1.eventos import EventoDatosGeograficosCreada, EventoPropiedadCreada
+from auditoria.modulos.sagas.infraestructura.schema.v1.eventos import EventoDatosGeograficosCreados, EventoPropiedadCreada
 from auditoria.modulos.sagas.infraestructura.schema.v1.comandos import (ComandoCrearDatosGeograficos,
                                                                         ComandoCrearPropiedad,
                                                                         ComandoRechazarPropiedad,
                                                                         ComandoRechazarDatosGeograficos)
 
 from auditoria.modulos.sagas.aplicacion.coordinadores.saga_auditorias import oir_mensaje, almacenar_mensaje
+from auditoria.seedwork.aplicacion.comandos import ejecutar_comando
 
 from auditoria.seedwork.infraestructura import utils
 
@@ -30,7 +32,7 @@ def suscribirse_a_topicos(app=None):
                 schema_list = [ComandoCrearPropiedad,
                                ComandoCrearDatosGeograficos,
                                EventoPropiedadCreada,
-                               EventoDatosGeograficosCreada,
+                               EventoDatosGeograficosCreados,
                                ComandoRechazarPropiedad,
                                ComandoRechazarDatosGeograficos]
 
@@ -51,6 +53,33 @@ def suscribirse_a_topicos(app=None):
                 almacenar_mensaje(data_decoded.data.__dict__, decoded_schema)
                 # Acknowledge successful processing of the message
                 consumer.acknowledge(msg)
+
+                print("##########################################")
+                print(decoded_schema.__name__)
+                print("##########################################")
+                
+                if decoded_schema.__name__ == "EventoPropiedadCreada":
+                    print("-----------------------")
+                    print(decoded_schema.data.__dict__)
+                    propiedad = decoded_schema.data.__dict__
+                    print(propiedad["nombre"])
+                    print("-----------------------")
+                    if decoded_schema.data.nombre == "invalid_name":
+                        time.sleep(15)
+                        comando = RechazarDatosGeograficos(data_decoded.data.id_propiedad)
+                        ejecutar_comando(comando)
+
+                if decoded_schema.__name__ == "EventoDatosGeograficosCreados":
+                    print("-----------------------")
+                    print(decoded_schema.data.__dict__)
+                    propiedad = decoded_schema.data.__dict__
+                    print(propiedad["nombre_propiedad"])
+                    print("-----------------------")
+                    if decoded_schema.data.nombre == "invalid_name":
+                        time.sleep(15)
+                        comando = RechazarDatosGeograficos(data_decoded.data.id_propiedad)
+                        ejecutar_comando(comando)
+
             except Exception:
                 # Message failed to be processed
                 consumer.negative_acknowledge(msg)
@@ -67,7 +96,7 @@ def suscribirse_a_eventos_geograficos(app=None):
         cliente = pulsar.Client(f'pulsar://{utils.broker_host()}:6650')
         consumidor = cliente.subscribe('topic-eventos-datos-geograficos', consumer_type=_pulsar.ConsumerType.Shared,
                                        subscription_name='sub-propalpes',
-                                       schema=AvroSchema(EventoDatosGeograficosCreada))
+                                       schema=AvroSchema(EventoDatosGeograficosCreados))
 
         while True:
             mensaje = consumidor.receive()
@@ -81,6 +110,13 @@ def suscribirse_a_eventos_geograficos(app=None):
             #                             datos.fecha_creacion), app=app)
 
             consumidor.acknowledge(mensaje)
+            print("##################")
+            print(datos.nombre_propiedad)
+            if datos.nombre_propiedad == "invalid_name":
+                time.sleep(15)
+                comando = RechazarDatosGeograficos()
+                comando.geograficos_id = datos.id_geograficos
+                ejecutar_comando(comando)
 
         cliente.close()
     except:
