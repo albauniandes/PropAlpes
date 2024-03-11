@@ -36,9 +36,9 @@ class RepositorioPropiedadSQLAlchemy(RepositorioPropiedad):
         # TODO
         raise NotImplementedError
 
-    def eliminar(self, propiedad_id: UUID):
-        # TODO
-        raise NotImplementedError
+    def eliminar(self, propiedad_id: str):
+        datos_propiedad_dto = db.session.query(PropiedadDTO).filter_by(id=str(propiedad_id)).one()
+        db.session.delete(datos_propiedad_dto)
 
 
 class RepositorioEventosPropiedadSQLAlchemy(RepositorioEventosPropiedad):

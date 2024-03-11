@@ -5,9 +5,10 @@ import time
 import logging
 import traceback
 import datetime
+from propiedades.modulos.ingestion.aplicacion.comandos.rechazar_propiedad import RechazarPropiedad
 
 from propiedades.modulos.ingestion.infraestructura.schema.v1.eventos import EventoPropiedadCreada
-from propiedades.modulos.ingestion.infraestructura.schema.v1.comandos import ComandoCrearPropiedad
+from propiedades.modulos.ingestion.infraestructura.schema.v1.comandos import ComandoCrearPropiedad, ComandoRechazarPropiedad
 from propiedades.modulos.ingestion.aplicacion.comandos.crear_propiedad import CrearPropiedad
 
 from propiedades.seedwork.aplicacion.comandos import ejecutar_comando
@@ -77,6 +78,47 @@ def suscribirse_a_comandos(app=None):
                     #     despachador = Despachador()
                     #     despachador.publicar_comando(evento, 'eventos-compania')
 
+
+            except:
+                logging.error('ERROR: Procesando eventos!')
+                traceback.print_exc()
+
+
+            consumidor.acknowledge(mensaje)
+
+
+        cliente.close()
+    except:
+        logging.error('ERROR: Suscribiendose al tópico de comandos!')
+        traceback.print_exc()
+        if cliente:
+            cliente.close()
+
+def suscribirse_a_comandos_rollback(app=None):
+    cliente = None
+    try:
+        cliente = pulsar.Client(f'pulsar://{utils.broker_host()}:6650')
+
+        consumidor = cliente.subscribe('comando-rollback-propiedad', consumer_type=_pulsar.ConsumerType.Shared,
+                                       subscription_name='propiedad-sub-comandos-rollback',
+                                       schema=AvroSchema(ComandoRechazarPropiedad)
+                                       )
+
+        while True:
+            mensaje = consumidor.receive()
+            datos = mensaje.value().data
+            print(f'Comando recibido: {mensaje.value().data}')
+
+            try:
+                with app.app_context():
+                    print("#####################")
+                    print(datos.propiedad_id)
+                    ##########
+                    comando = RechazarPropiedad()
+                    comando.propiedad_id = datos.propiedad_id
+                    print(f'Ejecutando comando: {comando}')
+                    ejecutar_comando(comando)
+                    print("Datos propiedad fueron eliminados")
 
             except:
                 logging.error('ERROR: Procesando eventos!')

@@ -15,6 +15,6 @@ class ComandoCrearPropiedad(ComandoIntegracion):
 
 
 class ComandoRechazarPropiedadPayload(ComandoIntegracion):
-    id_propiedad = String()
+    propiedad_id = String()
 class ComandoRechazarPropiedad(ComandoIntegracion):
     data = ComandoRechazarPropiedadPayload()

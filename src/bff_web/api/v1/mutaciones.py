@@ -100,3 +100,23 @@ class Mutation:
         info.context["background_tasks"].add_task(despachador.publicar_mensaje, comando, "comando-rollback-datos-geograficos", "public/default/comando-rollback-datos-geograficos")
         
         return CreacionCompaniaRespuesa(mensaje="Procesando Mensaje", codigo=203)
+    
+    @strawberry.mutation
+    async def eliminar_propiedad(self, propiedad_id: str, info: Info) -> CreacionCompaniaRespuesa:
+        payload = dict(
+            propiedad_id = propiedad_id
+        )
+        comando = dict(
+            id = str(uuid.uuid4()),
+            time=utils.time_millis(),
+            specversion = "v1",
+            type = "ComandoRollback",
+            ingestion=utils.time_millis(),
+            datacontenttype="AVRO",
+            service_name = "BFF Web",
+            data = payload
+        )
+        despachador = Despachador()
+        info.context["background_tasks"].add_task(despachador.publicar_mensaje, comando, "comando-rollback-propiedad", "public/default/comando-rollback-propiedad")
+        
+        return CreacionCompaniaRespuesa(mensaje="Procesando Mensaje", codigo=203)

@@ -16,3 +16,6 @@ class FabricaRepositorio(Fabrica):
             return RepositorioEventosPropiedadSQLAlchemy()
         else:
             raise ExcepcionFabrica(f'No existe fábrica para el objeto {obj}')
+        
+    def eliminar_objeto(self) -> Repositorio:
+        return RepositorioPropiedadSQLAlchemy()
