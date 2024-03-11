@@ -27,33 +27,34 @@ def suscribirse_a_topicos(app=None):
         while True:
             msg = consumer.receive()
             try:
-                schema_list = [EventoDatosGeograficosCreada,
-                               EventoPropiedadCreada,
+                schema_list = [ComandoCrearPropiedad,
                                ComandoCrearDatosGeograficos,
-                               ComandoCrearPropiedad,
+                               EventoPropiedadCreada,
+                               EventoDatosGeograficosCreada,
                                ComandoRechazarPropiedad,
                                ComandoRechazarDatosGeograficos]
+
                 data_decoded = None
                 decoded_schema = None
                 for schema in schema_list:
+                    print(schema.__name__)
                     try:
                         data_decoded = AvroSchema(schema).decode(msg.data())
-                        print("Decoded message:", data_decoded)
+                        print("Original message", msg.data())
+                        print("Decoded message:", data_decoded.data.__dict__)
                         decoded_schema = schema
                         break
                     except Exception as e:
                         print("Error decoding message:", e)
 
-                print(decoded_schema)
-                print(f"RECEIVED MESSAGE / SCHEMA {data_decoded.data.__dict__}/{decoded_schema}")
+                print(f"RECEIVED MESSAGE / SCHEMA {data_decoded.data.__dict__}/{decoded_schema.__name__}")
+                almacenar_mensaje(data_decoded.data.__dict__, decoded_schema)
                 # Acknowledge successful processing of the message
-                breakpoint()
-                almacenar_mensaje(data_decoded.data.__dict__)
                 consumer.acknowledge(msg)
             except Exception:
                 # Message failed to be processed
                 consumer.negative_acknowledge(msg)
-        client.close()
+        cliente.close()
     except:
         logging.error('ERROR: Suscribiendose a topicos!')
         traceback.print_exc()

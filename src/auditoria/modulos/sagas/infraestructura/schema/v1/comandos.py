@@ -14,10 +14,9 @@ class ComandoCrearDatosGeograficos(ComandoIntegracion):
     data = ComandoCrearDatosGeograficosPayload()
 
 class ComandoCrearPropiedadPayload(ComandoIntegracion):
-    id_propiedad = String()
-    identificacion_catastral = String()
-    nit = String()
     nombre = String()
+    nit = String()
+    identificacion_catastral = String()
     fecha_creacion = String()
 class ComandoCrearPropiedad(ComandoIntegracion):
     data = ComandoCrearPropiedadPayload()

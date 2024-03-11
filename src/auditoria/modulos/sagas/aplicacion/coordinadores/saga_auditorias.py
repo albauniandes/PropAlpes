@@ -35,10 +35,18 @@ class CoordinadorAuditoria(CoordinadorOrquestacion):
     def terminar(self):
         self.persistir_en_saga_log(self.pasos[-1])
 
-    def persistir_en_saga_log(self, mensaje):
+    def persistir_en_saga_log(self, mensaje, schema):
         # TODO Persistir estado en DB
         # Probablemente usted podría usar un repositorio para ello
-        ...
+        from auditoria.config.db import db
+        from auditoria.modulos.sagas.infraestructura.dto import Sagalog
+        import json
+        contenido_json = json.dumps(mensaje)
+        breakpoint()
+        id_entidad = mensaje.get('id_geograficos')
+        mensaje_log = Sagalog(id_entidad=id_entidad, tipo_accion=schema.__name__, contenido=contenido_json)
+        db.session.add(mensaje_log)
+        db.session.commit()
 
     def construir_comando(self, evento: EventoDominio, tipo_comando: type):
         # TODO Transforma un evento en la entrada de un comando
@@ -51,9 +59,10 @@ class CoordinadorAuditoria(CoordinadorOrquestacion):
 
 
 # TODO Agregue un Listener/Handler para que se puedan redireccionar eventos de dominio
-def almacenar_mensaje(mensaje):
+def almacenar_mensaje(mensaje, schema):
     coordinador = CoordinadorAuditoria()
-    coordinador.persistir_en_saga_log(mensaje)
+    coordinador.persistir_en_saga_log(mensaje, schema)
+
 def oir_mensaje(mensaje):
     if isinstance(mensaje, EventoDominio):
         coordinador = CoordinadorAuditoria()
