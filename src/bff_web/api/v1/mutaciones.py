@@ -97,7 +97,7 @@ class Mutation:
             data = payload
         )
         despachador = Despachador()
-        info.context["background_tasks"].add_task(despachador.publicar_mensaje, comando, "comando-rollback-datos-geograficos", "public/default/comando-rollback-datos-geograficos")
+        info.context["background_tasks"].add_task(despachador.publicar_mensaje, comando, "topic-comando-rollback-datos-geograficos", "public/default/topic-comando-rollback-datos-geograficos")
         
         return CreacionCompaniaRespuesa(mensaje="Procesando Mensaje", codigo=203)
     
@@ -117,6 +117,6 @@ class Mutation:
             data = payload
         )
         despachador = Despachador()
-        info.context["background_tasks"].add_task(despachador.publicar_mensaje, comando, "comando-rollback-propiedad", "public/default/comando-rollback-propiedad")
+        info.context["background_tasks"].add_task(despachador.publicar_mensaje, comando, "topic-comando-rollback-propiedad", "public/default/topic-comando-rollback-propiedad")
         
         return CreacionCompaniaRespuesa(mensaje="Procesando Mensaje", codigo=203)
