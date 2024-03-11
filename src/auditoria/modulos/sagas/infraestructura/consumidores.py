@@ -7,15 +7,12 @@ import traceback
 import datetime
 
 from auditoria.modulos.sagas.infraestructura.schema.v1.eventos import EventoDatosGeograficosCreada, EventoPropiedadCreada
-from auditoria.modulos.sagas.infraestructura.schema.v1.comandos import ComandoCrearDatosGeograficos, ComandoCrearPropiedad
+from auditoria.modulos.sagas.infraestructura.schema.v1.comandos import (ComandoCrearDatosGeograficos,
+                                                                        ComandoCrearPropiedad,
+                                                                        ComandoRechazarPropiedad,
+                                                                        ComandoRechazarDatosGeograficos)
 
-#from geograficos.modulos.ingestion.aplicacion.comandos.crear_datos_geograficos import CrearDatosGeograficos
-
-#from geograficos.seedwork.aplicacion.comandos import ejecutar_comando
-
-#from geograficos.modulos.ingestion.aplicacion.comandos.crear_datos_geograficos import CrearDatosGeograficos
-#from auditoria.seedwork.aplicacion.comandos import ejecutar_comando
-from auditoria.modulos.sagas.aplicacion.coordinadores.saga_auditorias import oir_mensaje
+from auditoria.modulos.sagas.aplicacion.coordinadores.saga_auditorias import oir_mensaje, almacenar_mensaje
 
 from auditoria.seedwork.infraestructura import utils
 
@@ -30,7 +27,12 @@ def suscribirse_a_topicos(app=None):
         while True:
             msg = consumer.receive()
             try:
-                schema_list = [EventoDatosGeograficosCreada,EventoPropiedadCreada,ComandoCrearDatosGeograficos,ComandoCrearPropiedad]
+                schema_list = [EventoDatosGeograficosCreada,
+                               EventoPropiedadCreada,
+                               ComandoCrearDatosGeograficos,
+                               ComandoCrearPropiedad,
+                               ComandoRechazarPropiedad,
+                               ComandoRechazarDatosGeograficos]
                 data_decoded = None
                 decoded_schema = None
                 for schema in schema_list:
@@ -45,8 +47,8 @@ def suscribirse_a_topicos(app=None):
                 print(decoded_schema)
                 print(f"RECEIVED MESSAGE / SCHEMA {data_decoded.data.__dict__}/{decoded_schema}")
                 # Acknowledge successful processing of the message
-                #breakpoint()
-                oir_mensaje(data_decoded.data.__dict__)
+                breakpoint()
+                almacenar_mensaje(data_decoded.data.__dict__)
                 consumer.acknowledge(msg)
             except Exception:
                 # Message failed to be processed

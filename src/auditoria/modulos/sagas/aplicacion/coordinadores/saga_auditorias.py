@@ -51,6 +51,9 @@ class CoordinadorAuditoria(CoordinadorOrquestacion):
 
 
 # TODO Agregue un Listener/Handler para que se puedan redireccionar eventos de dominio
+def almacenar_mensaje(mensaje):
+    coordinador = CoordinadorAuditoria()
+    coordinador.persistir_en_saga_log(mensaje)
 def oir_mensaje(mensaje):
     if isinstance(mensaje, EventoDominio):
         coordinador = CoordinadorAuditoria()

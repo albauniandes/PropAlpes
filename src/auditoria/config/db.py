@@ -22,6 +22,8 @@ def database_connection(config, basedir=os.path.abspath(os.path.dirname(__file__
         return f'sqlite:///{os.path.join(basedir, "database.db")}'
     else:
         return f'mysql+pymysql://{DB_USERNAME}:{DB_PASSWORD}@{DB_HOSTNAME}/auditoria'
+
+
 def init_db(app: Flask):
     global db 
     db = SQLAlchemy(app)

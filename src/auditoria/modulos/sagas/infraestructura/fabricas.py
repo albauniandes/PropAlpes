@@ -1,8 +1,8 @@
 """ Fábricas para la creación de objetos en la capa de infraestructura del dominio de ingestion"""
 
 from dataclasses import dataclass, field
-from geograficos.seedwork.dominio.fabricas import Fabrica
-from geograficos.seedwork.dominio.repositorios import Repositorio
+from auditoria.seedwork.dominio.fabricas import Fabrica
+from auditoria.seedwork.dominio.repositorios import Repositorio
 from geograficos.modulos.ingestion.dominio.repositorios import RepositorioDatosGeograficos, RepositorioEventosDatosGeograficos
 from .repositorios import RepositorioDatosGeograficosSQLAlchemy, RepositorioEventosDatosGeograficosSQLAlchemy
 from .excepciones import ExcepcionFabrica

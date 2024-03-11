@@ -1,6 +1,6 @@
 """DTOs para la capa de infraestructura del dominio de propiedades"""
 
-from companias.config.db import db
+from auditoria.config.db import db
 from sqlalchemy.orm import declarative_base, relationship
 from sqlalchemy import Column, ForeignKey, Integer, Table, UniqueConstraint
 

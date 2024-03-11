@@ -1,10 +1,11 @@
 """ Repositorios para el manejo de persistencia de objetos de dominio en la capa de infraestructura del dominio de ingestión"""
 
-from geograficos.config.db import db
-from geograficos.modulos.ingestion.dominio.repositorios import RepositorioDatosGeograficos, RepositorioEventosDatosGeograficos
-from geograficos.modulos.ingestion.dominio.objetos_valor import EstadoDatosGeograficos, NombrePropiedad, Latitud, Longitud
-from geograficos.modulos.ingestion.dominio.entidades import DatosGeograficos
-from geograficos.modulos.ingestion.dominio.fabricas import FabricaIngestion
+from auditoria.config.db import db
+
+from auditoria.modulos.sagas.dominio.repositorios import RepositorioDatosGeograficos, RepositorioEventosDatosGeograficos
+from auditoria.modulos.sagas.dominio.objetos_valor import EstadoDatosGeograficos, NombrePropiedad, Latitud, Longitud
+from auditoria.modulos.sagas.dominio.entidades import DatosGeograficos
+from auditoria.modulos.sagas.dominio.fabricas import FabricaIngestion
 
 from .dto import DatosGeograficos as DatosGeograficosDTO
 from .dto import EventosDatosGeograficos

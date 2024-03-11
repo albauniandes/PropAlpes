@@ -1,9 +1,9 @@
 """DTOs para la capa de infraestructura del dominio de ingestion"""
 
-from geograficos.config.db import db
+from auditoria.config.db import db
 from sqlalchemy.orm import declarative_base, relationship
 from sqlalchemy import Column, ForeignKey, Integer, Table, UniqueConstraint
-import datetime
+from datetime import datetime
 import uuid
 
 Base = db.declarative_base()

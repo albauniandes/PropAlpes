@@ -1,6 +1,6 @@
 """DTOs para la capa de infraestructura del dominio de propiedades"""
 
-from companias.config.db import db
+from auditoria.config.db import db
 from sqlalchemy.orm import declarative_base, relationship
 from sqlalchemy import Column, ForeignKey, Integer, Table, UniqueConstraint
 
@@ -15,6 +15,7 @@ class AuditoriaPropiedad(db.Model):
     fecha_actualizacion = db.Column(db.DateTime, nullable=False)
     nombre_propiedad = db.Column(db.String(40))
     latitud = db.Column(db.String(40))
+    longitud = db.Column(db.String(40))
     identificacion_catastral = db.Column(db.String(40))
     nit = db.Column(db.String(40))
     motivo_auditoria = db.Column(db.String(255))

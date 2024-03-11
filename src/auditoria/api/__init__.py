@@ -12,9 +12,12 @@ import threading
 
 def registrar_handlers():
     import auditoria.modulos.propiedades.aplicacion
-
+    import auditoria.modulos.sagas.aplicacion
+    import auditoria.modulos.geograficos.aplicacion
 def importar_modelos_alchemy():
     import auditoria.modulos.propiedades.infraestructura.dto
+    import auditoria.modulos.geograficos.infraestructura.dto
+    import auditoria.modulos.sagas.infraestructura.dto
 
 def comenzar_consumidor(app):
 
@@ -60,10 +63,9 @@ def create_app(configuracion={}):
 
 
      # Inicializa la DB
-    from companias.config.db import init_db
     init_db(app)
 
-    from companias.config.db import db
+    from auditoria.config.db import db
 
     importar_modelos_alchemy()
     registrar_handlers()
