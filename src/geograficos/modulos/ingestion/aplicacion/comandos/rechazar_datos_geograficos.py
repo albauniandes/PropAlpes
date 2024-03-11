@@ -3,14 +3,15 @@ from geograficos.seedwork.aplicacion.comandos import ejecutar_comando as comando
 from .base import EliminarDatosGeograficosBaseHandler
 
 class RechazarDatosGeograficos(Comando):
-    id_geograficos: str
+    geograficos_id: str
 
 class RechazarDatosGeograficosHandler(EliminarDatosGeograficosBaseHandler):
     def handle(self, comando: RechazarDatosGeograficos):
-        id_geograficos = comando.id_geograficos
+        geograficos_id = comando.geograficos_id
         
-        repositorio = self.fabrica_repositorio()
-        repositorio.eliminar(id_geograficos)
+        repositorio = self.fabrica_repositorio
+        repositorio_alchemy = repositorio.eliminar_objeto()
+        repositorio_alchemy.eliminar(geograficos_id)
 
         from geograficos.config.db import db
         db.session.commit()

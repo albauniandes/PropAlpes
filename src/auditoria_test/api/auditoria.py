@@ -43,8 +43,8 @@ def rechazar_auditoria_geograficos_asincrona():
         json_request = request.json
         despachador = Despachador()
         print(json_request)
-        id_geograficos = json_request["id_geograficos"]
-        despachador.rechazar_datos_geograficos(id_geograficos)
+        geograficos_id = json_request["geograficos_id"]
+        despachador.rechazar_datos_geograficos(geograficos_id)
         return Response('Rollback', status=202, mimetype='application/json')
     except ExcepcionDominio as e:
         return Response(json.dumps(dict(error=str(e))), status=400, mimetype='application/json')

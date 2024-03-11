@@ -80,3 +80,23 @@ class Mutation:
         info.context["background_tasks"].add_task(despachador.publicar_mensaje, comando_propiedad, "comando-crear-propiedad", "public/default/comando-crear-propiedad")
         
         return CreacionDatosPropiedadRespuesta(mensaje="Procesando Mensaje", codigo=203)
+    
+    @strawberry.mutation
+    async def eliminar_datos_geograficos(self, geograficos_id: str, info: Info) -> CreacionCompaniaRespuesa:
+        payload = dict(
+            geograficos_id = geograficos_id
+        )
+        comando = dict(
+            id = str(uuid.uuid4()),
+            time=utils.time_millis(),
+            specversion = "v1",
+            type = "ComandoCreacionCompania",
+            ingestion=utils.time_millis(),
+            datacontenttype="AVRO",
+            service_name = "BFF Web",
+            data = payload
+        )
+        despachador = Despachador()
+        info.context["background_tasks"].add_task(despachador.publicar_mensaje, comando, "comando-rollback-datos-geograficos", "public/default/comando-rollback-datos-geograficos")
+        
+        return CreacionCompaniaRespuesa(mensaje="Procesando Mensaje", codigo=203)

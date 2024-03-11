@@ -30,12 +30,12 @@ class Despachador:
         comando_integracion = ComandoCrearAuditoriaCompania(data=payload)
         self._publicar_mensaje(comando_integracion, topico, AvroSchema(ComandoCrearAuditoriaCompania))
 
-    def rechazar_datos_geograficos(self, id_geograficos):
+    def rechazar_datos_geograficos(self, geograficos_id):
         payload = dict(
-            id_geograficos = id_geograficos,
+            geograficos_id = geograficos_id,
         )
         comando = dict(
-            id = str(id_geograficos+"1"),
+            id = str(geograficos_id+"1"),
             time=utils.time_millis(),
             specversion = "v1",
             type = "ComandoRechazoGeograficos",
@@ -44,4 +44,14 @@ class Despachador:
             service_name = "BFF Web",
             data = payload
         )
-        self._publicar_mensaje(comando, "comando-rollback-datos-geograficos", AvroSchema(ComandoRechazarDatosGeograficos))
+        self.publicar_mensaje_dos(comando, "comando-rollback-datos-geograficos", "public/default/comando-rollback-datos-geograficos")
+    
+    async def publicar_mensaje_dos(self, mensaje, topico, schema):
+        json_schema = utils.consultar_schema_registry(schema)
+        avro_schema = utils.obtener_schema_avro_de_diccionario(json_schema)
+        # breakpoint()
+        print(mensaje, topico)
+        cliente = pulsar.Client(f'pulsar://{utils.broker_host()}:6650')
+        publicador = cliente.create_producer(topico, schema=avro_schema)
+        publicador.send(mensaje)
+        cliente.close()

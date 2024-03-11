@@ -100,8 +100,11 @@ def suscribirse_a_comandos_rollback(app=None):
 
             try:
                 with app.app_context():
+                    print("#####################")
+                    print(datos.geograficos_id)
                     ##########
-                    comando = RechazarDatosGeograficos(datos.id_geograficos)
+                    comando = RechazarDatosGeograficos()
+                    comando.geograficos_id = datos.geograficos_id
                     print(f'Ejecutando comando: {comando}')
                     ejecutar_comando(comando)
                     print("Datos geograficos fueron eliminados")

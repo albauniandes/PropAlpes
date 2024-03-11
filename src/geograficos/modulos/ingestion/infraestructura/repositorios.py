@@ -36,8 +36,8 @@ class RepositorioDatosGeograficosSQLAlchemy(RepositorioDatosGeograficos):
         # TODO
         raise NotImplementedError
 
-    def eliminar(self, datos_geograficos_id: UUID):
-        datos_geograficos_dto = db.session.query(DatosGeograficosDTO).filter_by(id=str(datos_geograficos_id)).one()
+    def eliminar(self, geograficos_id: str):
+        datos_geograficos_dto = db.session.query(DatosGeograficosDTO).filter_by(id=str(geograficos_id)).one()
         db.session.delete(datos_geograficos_dto)
 
 
