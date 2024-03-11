@@ -44,7 +44,7 @@ class CoordinadorAuditoria(CoordinadorOrquestacion):
         # TODO Transforma un evento en la entrada de un comando
         # Por ejemplo si el evento que llega es ReservaCreada y el tipo_comando es PagarReserva
         # Debemos usar los atributos de ReservaCreada para crear el comando PagarReserva
-        ...
+        comando = tipo_comando(evento.id)
 
     def procesar_evento(self, evento: EventoDominio):
         ...
