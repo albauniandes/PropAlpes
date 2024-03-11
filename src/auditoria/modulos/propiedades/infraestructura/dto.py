@@ -8,7 +8,7 @@ import uuid
 
 Base = db.declarative_base()
 
-class Auditoria(db.Model):
+class AuditoriaPropiedad(db.Model):
     __tablename__ = "auditoria"
     id = db.Column(db.String(40), primary_key=True)
     fecha_creacion = db.Column(db.DateTime, nullable=False)
