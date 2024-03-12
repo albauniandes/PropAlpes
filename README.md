@@ -20,7 +20,7 @@ Dentro de la carpeta src contamos con 4 microservicios:
     - **seedwork/infraestructura/queries.py**: Definición general de los queries, handlers e interface del despachador.
     - **seedwork/infraestructura/uow.py**: La Unidad de Trabajo (UoW) mantiene una lista de objetos afectados por una transacción de negocio y coordina los cambios de escritura. Este objeto nos va ser de gran importancia, pues cuando comenzamos a usar eventos de dominio e interactuar con otros módulos, debemos ser capaces de garantizar consistencia entre los diferentes objetos y partes de nuestro sistema.
 
-## Arquitectura para el experimento
+## Arquitectura para el experimento - Diagrama de contexto Refinado
 Para la etapa final de la experimentación implementamos la siguiente arquitectura:
 ![Borrador_arquitectura drawio_final](https://github.com/albauniandes/PropAlpes/assets/98788512/14268ab5-9e72-4343-99a2-b19f23b30ded)
 
@@ -156,6 +156,10 @@ Atributo de calidad: Escalabilidad II
 
 Atributo de calidad: Disponibilidad
 ![image](https://github.com/albauniandes/PropAlpes/assets/98788512/3b76a4f0-2c71-4113-841b-80d85bdb4d74)
+
+# Documentación de resultados y conclusiones de los experimentos
+[Resultados y Conclusiones Experimentos Semana 7.pdf](https://github.com/albauniandes/PropAlpes/files/14567183/Resultados.y.Conclusiones.Experimentos.Semana.7.pdf)
+
 
 
 # Descripción de actividades realizada por cada miembro.
