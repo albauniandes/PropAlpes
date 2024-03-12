@@ -13,8 +13,8 @@ from auditoria.modulos.propiedades.aplicacion.comandos.eliminar_auditoria_propie
 from auditoria.modulos.geograficos.aplicacion.comandos.auditar_geografico import CrearAuditoriaGeografico
 from auditoria.modulos.geograficos.aplicacion.comandos.eliminar_auditoria_geografico import EliminarAuditoriaGeografico
 
-from auditoria.modulos.sagas.aplicacion.comandos.propiedades import CrearPropiedad, EliminarPropiedad
-from auditoria.modulos.sagas.aplicacion.comandos.geograficos import CrearGeografico, EliminarGeografico
+from auditoria.modulos.sagas.aplicacion.comandos.propiedades import CrearPropiedad, EliminarPropiedad, RechazarPropiedad, EliminarPropiedad
+from auditoria.modulos.sagas.aplicacion.comandos.geograficos import CrearGeografico, EliminarGeografico, RechazarDatosGeograficos, EliminarGeografico
 
 
 class CoordinadorAuditoria(CoordinadorOrquestacion):

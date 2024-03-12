@@ -35,6 +35,7 @@ def comenzar_consumidor(app):
     # threading.Thread(target=sagas.suscribirse_a_eventos_propiedades, args=[app]).start()
 
 
+
     # Suscripción a comandos_
     # threading.Thread(target=validacion.suscribirse_a_comandos).start()
     # threading.Thread(target=propiedades.suscribirse_a_comandos, args=[app]).start()
