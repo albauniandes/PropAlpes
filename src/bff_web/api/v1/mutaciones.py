@@ -35,16 +35,23 @@ class Mutation:
         return CreacionCompaniaRespuesa(mensaje="Procesando Mensaje", codigo=203)
     
     @strawberry.mutation
-    async def crear_datos_geograficos(self, nombre_propiedad: str, latitud: str, longitud: str, info: Info) -> CreacionDatosGeograficosRespuesta:
-        print(f"Nombre Propiedad: {nombre_propiedad}, latitud: {latitud}, longitud: {longitud}")
-        payload = dict(
+    async def crear_propiedad(self, nombre_propiedad: str, identificacion_catastral: str, nit: str, latitud: str, longitud: str, info: Info) -> CreacionDatosPropiedadRespuesta:
+        print(f"Nombre Propiedad: {nombre_propiedad}, latitud: {latitud}, longitud: {longitud}, nit: {nit}, identificacion_catastral: {identificacion_catastral}")
+        payload_geograficos = dict(
             nombre_propiedad = nombre_propiedad,
             latitud = latitud,
             longitud = longitud,
             fecha_creacion = str(utils.time_millis())
         )
-        print(payload)
-        comando = dict(
+        payload_propiedad = dict(
+            nombre = nombre_propiedad,
+            nit = nit,
+            identificacion_catastral = identificacion_catastral,
+            fecha_creacion = str(utils.time_millis())
+        )
+        print(payload_geograficos)
+        print(payload_propiedad)
+        comando_geograficos = dict(
             id = str(uuid.uuid4()),
             time=utils.time_millis(),
             specversion = "v1",
@@ -52,11 +59,64 @@ class Mutation:
             ingestion=utils.time_millis(),
             datacontenttype="AVRO",
             service_name = "BFF Web",
+            data = payload_geograficos
+        )
+        comando_propiedad = dict(
+            id = str(uuid.uuid4()),
+            time=utils.time_millis(),
+            specversion = "v1",
+            type = "ComandoCreacionPropiedad",
+            ingestion=utils.time_millis(),
+            datacontenttype="AVRO",
+            service_name = "BFF Web",
+            data = payload_propiedad
+        )
+        print(comando_geograficos)
+        print(comando_propiedad)
+        despachador = Despachador()
+        ### Envio del comando para registrar los datos geograficos
+        info.context["background_tasks"].add_task(despachador.publicar_mensaje, comando_geograficos, "topic-comando-crear-datos-geograficos", "public/default/topic-comando-crear-datos-geograficos")
+        ### Envio del comando para registrar los datos de la propiedad
+        info.context["background_tasks"].add_task(despachador.publicar_mensaje, comando_propiedad, "topic-comando-crear-propiedad", "public/default/topic-comando-crear-propiedad")
+        
+        return CreacionDatosPropiedadRespuesta(mensaje="Procesando Mensaje", codigo=203)
+    
+    @strawberry.mutation
+    async def eliminar_datos_geograficos(self, geograficos_id: str, info: Info) -> CreacionCompaniaRespuesa:
+        payload = dict(
+            geograficos_id = geograficos_id
+        )
+        comando = dict(
+            id = str(uuid.uuid4()),
+            time=utils.time_millis(),
+            specversion = "v1",
+            type = "ComandoCreacionCompania",
+            ingestion=utils.time_millis(),
+            datacontenttype="AVRO",
+            service_name = "BFF Web",
             data = payload
         )
-        print(comando)
         despachador = Despachador()
-        info.context["background_tasks"].add_task(despachador.publicar_mensaje, comando, "comando-crear-datos-geograficos", "public/default/comando-crear-datos-geograficos")
+        info.context["background_tasks"].add_task(despachador.publicar_mensaje, comando, "topic-comando-rollback-datos-geograficos", "public/default/topic-comando-rollback-datos-geograficos")
         
+        return CreacionCompaniaRespuesa(mensaje="Procesando Mensaje", codigo=203)
+    
+    @strawberry.mutation
+    async def eliminar_propiedad(self, propiedad_id: str, info: Info) -> CreacionCompaniaRespuesa:
+        payload = dict(
+            propiedad_id = propiedad_id
+        )
+        comando = dict(
+            id = str(uuid.uuid4()),
+            time=utils.time_millis(),
+            specversion = "v1",
+            type = "ComandoRollback",
+            ingestion=utils.time_millis(),
+            datacontenttype="AVRO",
+            service_name = "BFF Web",
+            data = payload
+        )
+        despachador = Despachador()
+        info.context["background_tasks"].add_task(despachador.publicar_mensaje, comando, "topic-comando-rollback-propiedad", "public/default/topic-comando-rollback-propiedad")
         
-        return CreacionDatosGeograficosRespuesta(mensaje="Procesando Mensaje", codigo=203)
+        return CreacionCompaniaRespuesa(mensaje="Procesando Mensaje", codigo=203)

@@ -1,1 +1,0 @@
-"""Mixins del dominio de companias"""

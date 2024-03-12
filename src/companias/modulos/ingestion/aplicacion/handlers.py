@@ -7,22 +7,22 @@ class HandlerCompaniaIntegracion(Handler):
     @staticmethod
     def handle_compania_creada(evento):
         despachador = Despachador()
-        despachador.publicar_evento(evento, 'eventos-compania')
+        despachador.publicar_evento(evento, 'topic-eventos-compania')
 
     @staticmethod
     def handle_compania_cancelada(evento):
         despachador = Despachador()
-        despachador.publicar_evento(evento, 'eventos-compania')
+        despachador.publicar_evento(evento, 'topic-eventos-compania')
 
     @staticmethod
     def handle_compania_aprobada(evento):
         despachador = Despachador()
-        despachador.publicar_evento(evento, 'eventos-compania')
+        despachador.publicar_evento(evento, 'topic-eventos-compania')
 
     @staticmethod
     def handle_compania_pagada(evento):
         despachador = Despachador()
-        despachador.publicar_evento(evento, 'eventos-compania')
+        despachador.publicar_evento(evento, 'topic-eventos-compania')
 
 
     

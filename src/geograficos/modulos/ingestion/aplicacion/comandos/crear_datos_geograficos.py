@@ -1,3 +1,4 @@
+from geograficos.modulos.ingestion.infraestructura.despachadores import Despachador
 from geograficos.seedwork.aplicacion.comandos import Comando
 from geograficos.modulos.ingestion.aplicacion.dto import DatosGeograficosDTO
 from .base import CrearDatosGeograficosBaseHandler
@@ -44,8 +45,15 @@ class CrearDatosGeograficosHandler(CrearDatosGeograficosBaseHandler):
         repositorio.agregar(datos_geograficos)
 
         for evento in datos_geograficos.eventos:
+            print("-------------------------------------------------------------------")
+            print(evento)
+            print("-------------------------------------------------------------------")
             dispatcher.send(signal=f'{type(evento).__name__}Integracion', evento=evento)
         #UnidadTrabajoPuerto.commit()
+            
+            despachador = Despachador()
+            despachador.publicar_evento(evento, "topic-eventos-datos-geograficos-creados")
+
         from geograficos.config.db import db
         db.session.commit()
 

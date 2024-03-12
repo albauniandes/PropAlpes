@@ -7,22 +7,22 @@ class HandlerDatosGeograficosIntegracion(Handler):
     @staticmethod
     def handle_datos_geograficos_creados(evento):
         despachador = Despachador()
-        despachador.publicar_evento(evento, 'eventos-datos-geograficos')
+        despachador.publicar_evento(evento, 'topic-eventos-datos-geograficos')
 
     @staticmethod
     def handle_datos_geograficos_cancelados(evento):
         despachador = Despachador()
-        despachador.publicar_evento(evento, 'eventos-datos-geograficos')
+        despachador.publicar_evento(evento, 'topic-eventos-datos-geograficos')
 
     @staticmethod
     def handle_datos_geograficos_aprobados(evento):
         despachador = Despachador()
-        despachador.publicar_evento(evento, 'eventos-datos-geograficos')
+        despachador.publicar_evento(evento, 'topic-eventos-datos-geograficos')
 
     @staticmethod
     def handle_datos_geograficos_pagados(evento):
         despachador = Despachador()
-        despachador.publicar_evento(evento, 'eventos-datos-geograficos')
+        despachador.publicar_evento(evento, 'topic-eventos-datos-geograficos')
 
 
     

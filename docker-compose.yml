@@ -134,14 +134,14 @@ services:
     environment:
       - MYSQL_DATABASE=geograficos
       - MYSQL_ROOT_PASSWORD=adminadmin
-    profiles: ["geograficosdb"]
+    profiles: ["db"]
     networks:
       - pulsar
     ports:
-      - '3306:3306'
-    volumes:
-      - ./data/mysql:/var/lib/mysql
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - '3308:3306'
+#    volumes:
+#      - ./data/mysql:/var/lib/mysql
+#      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
 
   # MySQL8
   auditoriadb:
@@ -163,6 +163,25 @@ services:
 #      - ./data/mysql:/var/lib/mysql
 #      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
 
+  # MySQL8
+  propiedadesdb:
+    image: mysql:8
+    hostname: propiedadesdb
+    container_name: propiedadesdb
+    cap_add:
+      - SYS_NICE
+    restart: always
+    environment:
+      - MYSQL_DATABASE=propiedades
+      - MYSQL_ROOT_PASSWORD=adminadmin
+    profiles: [ "db" ]
+    networks:
+      - pulsar
+    ports:
+      - '3309:3306'
+#    volumes:
+#      - ./data/mysql:/var/lib/mysql
+#      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
 
   # Servicios de Companias
   companias:
@@ -183,6 +202,46 @@ services:
       - PULSAR_ADDRESS=broker
     ports:
       - "5000:5000"
+  
+  # Servicios de Propiedades
+  propiedades:
+    container_name: propiedades
+    hostname: propiedades
+    image: propiedades/flask
+    profiles: ["propiedades"]
+    networks:
+      - sidecar
+      - pulsar
+    labels:
+      SidecarDiscover: "false"
+    depends_on:
+      - broker
+      - propiedadesdb
+    environment:
+      - PROPIEDADES_ADDRESS=propiedades
+      - PULSAR_ADDRESS=broker
+    ports:
+      - "5001:5000"
+  
+  # Servicios de Geograficos
+  geograficos:
+    container_name: geograficos
+    hostname: geograficos
+    image: geograficos/flask
+    profiles: ["geograficos"]
+    networks:
+      - sidecar
+      - pulsar
+    labels:
+      SidecarDiscover: "false"
+    depends_on:
+      - broker
+      - geograficosdb
+    environment:
+      - GEOGRAFICOS_ADDRESS=geograficos
+      - PULSAR_ADDRESS=broker
+    ports:
+      - "5002:5000"
 
   # Servicio BFF
   bff:
