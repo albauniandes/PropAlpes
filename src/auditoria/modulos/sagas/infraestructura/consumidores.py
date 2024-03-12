@@ -7,7 +7,8 @@ import traceback
 import datetime
 from auditoria.modulos.sagas.aplicacion.comandos.geograficos import RechazarDatosGeograficos
 
-from auditoria.modulos.sagas.infraestructura.schema.v1.eventos import EventoDatosGeograficosCreados, EventoPropiedadCreada
+from auditoria.modulos.sagas.infraestructura.schema.v1.eventos import EventoDatosGeograficosCreados, \
+    EventoPropiedadCreada
 from auditoria.modulos.sagas.infraestructura.schema.v1.comandos import (ComandoCrearDatosGeograficos,
                                                                         ComandoCrearPropiedad,
                                                                         ComandoRechazarPropiedad,
@@ -18,17 +19,26 @@ from auditoria.seedwork.aplicacion.comandos import ejecutar_comando
 
 from auditoria.seedwork.infraestructura import utils
 
+
 def suscribirse_a_topicos(app=None):
     import re
     cliente = None
     try:
-        #breakpoint()
+        # breakpoint()
         cliente = pulsar.Client(f'pulsar://{utils.broker_host()}:6650')
         topic_pattern = re.compile('persistent://public/default/topic-.*')
         consumer = cliente.subscribe(topic_pattern, 'sub-auditoria')
         while True:
             msg = consumer.receive()
             try:
+                topic_schema_dict = {
+                    'topic-comando-crear-datos-geograficos': ComandoCrearDatosGeograficos,
+                    'topic-eventos-datos-geograficos': EventoDatosGeograficosCreados,
+                    'topic-comando-crear-propiedad': ComandoCrearPropiedad,
+                    'topic-eventos-propiedad-creada': EventoPropiedadCreada,
+                }
+                print(f'!!!!!!!!!!!!TOPICO: {msg.topic_name()}')
+
                 schema_list = [ComandoCrearPropiedad,
                                ComandoCrearDatosGeograficos,
                                EventoPropiedadCreada,
@@ -36,46 +46,52 @@ def suscribirse_a_topicos(app=None):
                                ComandoRechazarPropiedad,
                                ComandoRechazarDatosGeograficos]
 
-                data_decoded = None
                 decoded_schema = None
-                for schema in schema_list:
-                    print(schema.__name__)
-                    try:
-                        data_decoded = AvroSchema(schema).decode(msg.data())
-                        print("Original message", msg.data())
-                        print("Decoded message:", data_decoded.data.__dict__)
-                        decoded_schema = schema
-                        break
-                    except Exception as e:
-                        print("Error decoding message:", e)
 
-                print(f"RECEIVED MESSAGE / SCHEMA {data_decoded.data.__dict__}/{decoded_schema.__name__}")
-                almacenar_mensaje(data_decoded.data.__dict__, decoded_schema)
+                topic_without_prefix = msg.topic_name().replace("persistent://public/default/", "")
+                print(topic_without_prefix)
+                schema = topic_schema_dict[topic_without_prefix]
+
+                data_decoded = AvroSchema(schema).decode(msg.data())
+
+                # for schema in schema_list:
+                #     print(schema.__name__)
+                #     try:
+                #         data_decoded = AvroSchema(schema).decode(msg.data())
+                #         print("Original message", msg.data())
+                #         print("Decoded message:", data_decoded.data.__dict__)
+                #         decoded_schema = schema
+                #         break
+                #     except Exception as e:
+                #         print("Error decoding message:", e)
+                #
+                # print(f"RECEIVED MESSAGE / SCHEMA {data_decoded.data.__dict__}/{decoded_schema.__name__}")
+                # almacenar_mensaje(data_decoded.data.__dict__, decoded_schema)
+                almacenar_mensaje(data_decoded.data.__dict__, schema)
                 # Acknowledge successful processing of the message
                 consumer.acknowledge(msg)
-
                 print("##########################################")
-                print(decoded_schema.__name__)
+                print(schema.__name__)
                 print("##########################################")
-                
-                if decoded_schema.__name__ == "EventoPropiedadCreada":
+                if schema.__name__ == "EventoPropiedadCreada":
+                    breakpoint()
                     print("-----------------------")
-                    print(decoded_schema.data.__dict__)
-                    propiedad = decoded_schema.data.__dict__
+                    print(data_decoded.data.__dict__)
+                    propiedad = data_decoded.data.__dict__
                     print(propiedad["nombre"])
                     print("-----------------------")
-                    if decoded_schema.data.nombre == "invalid_name":
+                    if schema.data.nombre == "invalid_name":
                         time.sleep(15)
                         comando = RechazarDatosGeograficos(data_decoded.data.id_propiedad)
                         ejecutar_comando(comando)
 
-                if decoded_schema.__name__ == "EventoDatosGeograficosCreados":
+                if schema.__name__ == "EventoDatosGeograficosCreados":
                     print("-----------------------")
-                    print(decoded_schema.data.__dict__)
-                    propiedad = decoded_schema.data.__dict__
+                    print(schema.data.__dict__)
+                    propiedad = schema.data.__dict__
                     print(propiedad["nombre_propiedad"])
                     print("-----------------------")
-                    if decoded_schema.data.nombre == "invalid_name":
+                    if schema.data.nombre == "invalid_name":
                         time.sleep(15)
                         comando = RechazarDatosGeograficos(data_decoded.data.id_propiedad)
                         ejecutar_comando(comando)
@@ -89,6 +105,7 @@ def suscribirse_a_topicos(app=None):
         traceback.print_exc()
         if cliente:
             cliente.close()
+
 
 def suscribirse_a_eventos_geograficos(app=None):
     cliente = None
@@ -131,7 +148,8 @@ def suscribirse_a_comandos_geograficos(app=None):
     try:
         cliente = pulsar.Client(f'pulsar://{utils.broker_host()}:6650')
 
-        consumidor = cliente.subscribe('topic-comando-crear-datos-geograficos', consumer_type=_pulsar.ConsumerType.Shared,
+        consumidor = cliente.subscribe('topic-comando-crear-datos-geograficos',
+                                       consumer_type=_pulsar.ConsumerType.Shared,
                                        subscription_name='sub-propalpes',
                                        schema=AvroSchema(ComandoCrearDatosGeograficos)
                                        )
@@ -156,9 +174,7 @@ def suscribirse_a_comandos_geograficos(app=None):
             #     logging.error('ERROR: Procesando eventos!')
             #     traceback.print_exc()
 
-
             consumidor.acknowledge(mensaje)
-
 
         cliente.close()
     except:
@@ -180,7 +196,6 @@ def suscribirse_a_eventos_propiedades(app=None):
             mensaje = consumidor.receive()
             datos = mensaje.value().data
             print(f'Evento Propiedades recibido: {datos}')
-
 
             # TODO Identificar el tipo de CRUD del evento: Creacion, actualización o eliminación.
             # ejecutar_proyeccion(ProyeccionReservasTotales(datos.fecha_creacion, ProyeccionReservasTotales.ADD), app=app)
@@ -233,9 +248,7 @@ def suscribirse_a_comandos_propiedades(app=None):
             #     logging.error('ERROR: Procesando eventos!')
             #     traceback.print_exc()
 
-
             consumidor.acknowledge(mensaje)
-
 
         cliente.close()
     except:

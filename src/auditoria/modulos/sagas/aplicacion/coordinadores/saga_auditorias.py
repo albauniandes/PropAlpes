@@ -42,8 +42,7 @@ class CoordinadorAuditoria(CoordinadorOrquestacion):
         from auditoria.modulos.sagas.infraestructura.dto import Sagalog
         import json
         contenido_json = json.dumps(mensaje)
-        #breakpoint()
-        id_entidad = mensaje.get('id_geograficos')
+        id_entidad = mensaje.get('id_geograficos') or mensaje.get('id_propiedad') or None
         mensaje_log = Sagalog(id_entidad=id_entidad, tipo_accion=schema.__name__, contenido=contenido_json)
         db.session.add(mensaje_log)
         db.session.commit()

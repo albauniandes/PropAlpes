@@ -49,7 +49,7 @@ class CrearPropiedadHandler(CrearPropiedadBaseHandler):
         #UnidadTrabajoPuerto.commit()
             
             despachador = Despachador()
-            despachador.publicar_evento(evento, "eventos-propiedad-creada")
+            despachador.publicar_evento(evento, "topic-eventos-propiedad-creada")
         
         from propiedades.config.db import db
         db.session.commit()
