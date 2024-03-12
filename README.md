@@ -84,9 +84,32 @@ Siempre puede ejecutarlo en modo DEBUG:
 flask --app src/geograficos/api --debug run
 ```
 
+- Ejecucion Microservicio Propiedades
+```bash
+flask --app src/propiedades/api run
+```
+
+Siempre puede ejecutarlo en modo DEBUG:
+
+```bash
+flask --app src/propiedades/api --debug run
+```
+
+- Ejecucion Microservicio Auditoría
+```bash
+flask --app src/auditoria/api run
+```
+
+Siempre puede ejecutarlo en modo DEBUG:
+
+```bash
+flask --app src/auditoria/api --debug run
+```
+
 - Ejecucion Servicio BFF
 
 ```bash
+cd src
 uvicorn bff_web.main:app --host localhost --port 8003 --reload
 ```
 
