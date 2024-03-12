@@ -151,8 +151,7 @@ Atributo de calidad: Escalabilidad
 ![image](https://github.com/albauniandes/PropAlpes/assets/98788512/3f098113-75d5-4008-b6ab-8deb5b54201c)
 
 Atributo de calidad: Escalabilidad II
-![image](https://github.com/albauniandes/PropAlpes/assets/98788512/a237bd0a-a1c8-44d4-a911-cb46ddbea9b2)
-
+![image](https://github.com/albauniandes/PropAlpes/assets/98788512/eeaca79e-5429-4948-a1a5-cbe388fcd811)
 
 
 Atributo de calidad: Disponibilidad
