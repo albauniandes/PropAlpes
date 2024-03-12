@@ -163,7 +163,23 @@ Atributo de calidad: Disponibilidad
 # Documentación de resultados y conclusiones de los experimentos
 ## [Resultados y Conclusiones Experimentos Semana 7.pdf](https://github.com/albauniandes/PropAlpes/files/14567219/Resultados.y.Conclusiones.Experimentos.Semana.7.pdf)
 
+# Diagramas Refinados 
+## Contexto
 
+![PROPUESTA_ARQUITECTURA_PDA_ALBA-Contexto drawio](https://github.com/albauniandes/PropAlpes/assets/98656753/b04f1604-8e79-4da2-9e65-a10ab01d2c8a)
+
+## Funcional Módulo
+
+
+
+## C&C
+
+![PROPUESTA_ARQUITECTURA_PDA_ALBA-Vista Funcional drawio (4)](https://github.com/albauniandes/PropAlpes/assets/98656753/35b66b8a-5735-4703-aa99-f8fdcb603bc8)
+
+
+## Información Módulo
+
+![PROPUESTA_ARQUITECTURA_PDA_ALBA-Vista Informacion drawio](https://github.com/albauniandes/PropAlpes/assets/98656753/a0dadce3-688b-436c-90a0-d7173dc1e224)
 
 # Descripción de actividades realizada por cada miembro.
 
