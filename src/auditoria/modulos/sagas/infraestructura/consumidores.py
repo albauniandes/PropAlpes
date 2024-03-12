@@ -13,7 +13,8 @@ from auditoria.modulos.sagas.infraestructura.schema.v1.eventos import EventoDato
 from auditoria.modulos.sagas.infraestructura.schema.v1.comandos import (ComandoCrearDatosGeograficos,
                                                                         ComandoCrearPropiedad,
                                                                         ComandoRechazarPropiedad,
-                                                                        ComandoRechazarDatosGeograficos)
+                                                                        ComandoRechazarDatosGeograficos,
+                                                                        )
 
 from auditoria.modulos.sagas.aplicacion.coordinadores.saga_auditorias import oir_mensaje, almacenar_mensaje
 from auditoria.seedwork.aplicacion.comandos import ejecutar_comando
@@ -37,6 +38,8 @@ def suscribirse_a_topicos(app=None):
                     'topic-eventos-datos-geograficos': EventoDatosGeograficosCreados,
                     'topic-comando-crear-propiedad': ComandoCrearPropiedad,
                     'topic-eventos-propiedad-creada': EventoPropiedadCreada,
+                    'topic-comando-rollback-propiedad' : ComandoRechazarPropiedad,
+                    'topic-comando-rollback-datos-geograficos' : ComandoRechazarDatosGeograficos
                 }
                 print(f'!!!!!!!!!!!!TOPICO: {msg.topic_name()}')
 
@@ -75,26 +78,29 @@ def suscribirse_a_topicos(app=None):
                 print(schema.__name__)
                 print("##########################################")
                 if schema.__name__ == "EventoPropiedadCreada":
-                    breakpoint()
+
                     print("-----------------------")
                     print(data_decoded.data.__dict__)
                     propiedad = data_decoded.data.__dict__
                     print(propiedad["nombre"])
                     print("-----------------------")
-                    if schema.data.nombre == "invalid_name":
+                    if propiedad["nombre"] == "invalid_name":
                         time.sleep(15)
-                        comando = RechazarPropiedad(data_decoded.data.id_propiedad)
+                        comando = RechazarPropiedad()
+                        comando.propiedad_id = propiedad['id_propiedad']
                         ejecutar_comando(comando)
 
                 if schema.__name__ == "EventoDatosGeograficosCreados":
+
                     print("-----------------------")
                     print(schema.data.__dict__)
-                    propiedad = schema.data.__dict__
-                    print(propiedad["nombre_propiedad"])
+                    geograficos = data_decoded.data.__dict__
+                    print(geograficos["nombre_propiedad"])
                     print("-----------------------")
-                    if schema.data.nombre == "invalid_name":
+                    if geograficos["nombre_propiedad"] == "invalid_name":
                         time.sleep(15)
-                        comando = RechazarDatosGeograficos(data_decoded.data.id_propiedad)
+                        comando = RechazarDatosGeograficos()
+                        comando.geograficos_id = geograficos['id_geograficos']
                         ejecutar_comando(comando)
 
             except Exception:
