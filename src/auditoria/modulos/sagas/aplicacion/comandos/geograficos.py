@@ -1,5 +1,5 @@
 from auditoria.modulos.sagas.aplicacion.comandos.base import RechazarDatosGeograficosBaseHandler
-from auditoria.modulos.sagas.infraestructura.despachadores import Despachador
+from auditoria.modulos.sagas.infraestructura.despachadores import DespachadorGeograficos
 from auditoria.seedwork.aplicacion.comandos import Comando, ComandoHandler
 from auditoria.seedwork.aplicacion.comandos import ejecutar_comando as comando
 
@@ -16,7 +16,7 @@ class RechazarDatosGeograficosHandler(RechazarDatosGeograficosBaseHandler):
     def handle(self, comando: RechazarDatosGeograficos):
         geograficos_id = comando.geograficos_id
         
-        despachador = Despachador()
+        despachador = DespachadorGeograficos()
         despachador.publicar_comando_rechazar_geograficos(geograficos_id)
 
 @comando.register(RechazarDatosGeograficos)

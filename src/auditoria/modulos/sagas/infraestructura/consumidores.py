@@ -6,6 +6,7 @@ import logging
 import traceback
 import datetime
 from auditoria.modulos.sagas.aplicacion.comandos.geograficos import RechazarDatosGeograficos
+from auditoria.modulos.sagas.aplicacion.comandos.propiedades import RechazarPropiedad
 
 from auditoria.modulos.sagas.infraestructura.schema.v1.eventos import EventoDatosGeograficosCreados, EventoPropiedadCreada
 from auditoria.modulos.sagas.infraestructura.schema.v1.comandos import (ComandoCrearDatosGeograficos,
@@ -66,7 +67,7 @@ def suscribirse_a_topicos(app=None):
                     print("-----------------------")
                     if decoded_schema.data.nombre == "invalid_name":
                         time.sleep(15)
-                        comando = RechazarDatosGeograficos(data_decoded.data.id_propiedad)
+                        comando = RechazarPropiedad(data_decoded.data.id_propiedad)
                         ejecutar_comando(comando)
 
                 if decoded_schema.__name__ == "EventoDatosGeograficosCreados":
@@ -189,8 +190,15 @@ def suscribirse_a_eventos_propiedades(app=None):
             #                             datos.fecha_creacion), app=app)
 
             consumidor.acknowledge(mensaje)
+            print(datos.nombre_propiedad)
+            if datos.nombre_propiedad == "invalid_name":
+                time.sleep(15)
+                comando = RechazarPropiedad
+                comando.propiedad_id = datos.id_propiedad
+                ejecutar_comando(comando)
 
         cliente.close()
+
     except:
         logging.error('ERROR: Suscribiendose al tópico de eventos!')
         traceback.print_exc()
