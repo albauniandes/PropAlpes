@@ -19,6 +19,9 @@ Dentro de la carpeta src contamos con 4 microservicios:
     - **seedwork/aplicacion/comandos.py**: Definición general de los comandos, handlers e interface del despachador.
     - **seedwork/infraestructura/queries.py**: Definición general de los queries, handlers e interface del despachador.
     - **seedwork/infraestructura/uow.py**: La Unidad de Trabajo (UoW) mantiene una lista de objetos afectados por una transacción de negocio y coordina los cambios de escritura. Este objeto nos va ser de gran importancia, pues cuando comenzamos a usar eventos de dominio e interactuar con otros módulos, debemos ser capaces de garantizar consistencia entre los diferentes objetos y partes de nuestro sistema.
+ 
+## Link, documentación y colección de Postman
+### https://documenter.getpostman.com/view/20308430/2sA2xiWsJT
 
 ## Arquitectura para el experimento - Diagrama de contexto Refinado
 Para la etapa final de la experimentación implementamos la siguiente arquitectura:
