@@ -6,7 +6,7 @@ from auditoria.seedwork.aplicacion.comandos import ComandoHandler
 
 class RechazarDatosGeograficosBaseHandler(ComandoHandler):
     def __init__(self):
-        self._fabrica_repositorio: FabricaRepositorioGeograficos = FabricaRepositorio()
+        self._fabrica_repositorio: FabricaRepositorioGeograficos = FabricaRepositorioGeograficos()
         self._fabrica_ingestion: FabricaIngestion = FabricaIngestion()
 
     @property
@@ -20,7 +20,7 @@ class RechazarDatosGeograficosBaseHandler(ComandoHandler):
 
 class EliminarDatosGeograficosBaseHandler(ComandoHandler):
     def __init__(self):
-        self._fabrica_repositorio: FabricaRepositorioGeograficos = FabricaRepositorio()
+        self._fabrica_repositorio: FabricaRepositorioGeograficos = FabricaRepositorioGeograficos()
         self._fabrica_ingestion: FabricaIngestion = FabricaIngestion()
 
     @property
@@ -34,7 +34,7 @@ class EliminarDatosGeograficosBaseHandler(ComandoHandler):
 
 class RechazarPropiedadBaseHandler(ComandoHandler):
     def __init__(self):
-        self._fabrica_repositorio: FabricaRepositorioPropiedades = FabricaRepositorio()
+        self._fabrica_repositorio: FabricaRepositorioPropiedades = FabricaRepositorioPropiedades()
         self._fabrica_ingestion: FabricaIngestion = FabricaIngestion()
 
     @property
@@ -48,7 +48,7 @@ class RechazarPropiedadBaseHandler(ComandoHandler):
 
 class EliminarPropiedadBaseHandler(ComandoHandler):
     def __init__(self):
-        self._fabrica_repositorio: FabricaRepositorioPropiedades = FabricaRepositorio()
+        self._fabrica_repositorio: FabricaRepositorioPropiedades = FabricaRepositorioPropiedades()
         self._fabrica_ingestion: FabricaIngestion = FabricaIngestion()
 
     @property

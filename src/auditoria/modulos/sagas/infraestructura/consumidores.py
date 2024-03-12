@@ -190,11 +190,13 @@ def suscribirse_a_eventos_propiedades(app=None):
             #                             datos.fecha_creacion), app=app)
 
             consumidor.acknowledge(mensaje)
-            print(datos.nombre_propiedad)
-            if datos.nombre_propiedad == "invalid_name":
+            print(datos.nombre)
+            if datos.nombre == "invalid_name":
                 time.sleep(15)
-                comando = RechazarPropiedad
+                comando = RechazarPropiedad()
                 comando.propiedad_id = datos.id_propiedad
+                print("$$$$$$$$$$$$$$$$$$$$$444")
+                print(comando)
                 ejecutar_comando(comando)
 
         cliente.close()

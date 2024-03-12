@@ -80,7 +80,7 @@ class DespachadorPropiedades:
 
     def publicar_comando_rechazar_propiedad(self, propiedad_id):
         payload = dict(
-            propiedad_id_id=str(propiedad_id)
+            propiedad_id=str(propiedad_id)
         )
         comando_integracion = dict(
             id = str(uuid.uuid4()),
