@@ -170,8 +170,7 @@ Atributo de calidad: Disponibilidad
 
 ## Funcional Módulo
 
-![Uploading PROPUESTA_ARQUITECTURA_PDA_ALBA-Page-10.drawio.png…]()
-
+![PROPUESTA_ARQUITECTURA_PDA_ALBA-Page-10 drawio](https://github.com/albauniandes/PropAlpes/assets/98656753/b51e0eb9-6b78-4d54-ba9c-e86f5e42d469)
 
 ## C&C
 
