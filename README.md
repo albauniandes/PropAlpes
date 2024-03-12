@@ -23,7 +23,7 @@ Dentro de la carpeta src contamos con 4 microservicios:
 ## Link, documentación y colección de Postman
 ### https://documenter.getpostman.com/view/20308430/2sA2xiWsJT
 
-## Arquitectura para el experimento - Diagrama de contexto Refinado
+## Arquitectura para el experimento 
 Para la etapa final de la experimentación implementamos la siguiente arquitectura:
 ![Borrador_arquitectura drawio_final](https://github.com/albauniandes/PropAlpes/assets/98788512/14268ab5-9e72-4343-99a2-b19f23b30ded)
 
