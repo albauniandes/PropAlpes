@@ -170,6 +170,7 @@ Atributo de calidad: Disponibilidad
 
 ## Funcional Módulo
 
+![Uploading PROPUESTA_ARQUITECTURA_PDA_ALBA-Page-10.drawio.png…]()
 
 
 ## C&C
