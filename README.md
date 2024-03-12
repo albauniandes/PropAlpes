@@ -22,7 +22,7 @@ Dentro de la carpeta src contamos con 4 microservicios:
 
 ## Arquitectura para el experimento
 Para la etapa final de la experimentación implementamos la siguiente arquitectura:
-![Borrador_arquitectura(1)](https://github.com/albauniandes/PropAlpes/assets/98788512/d903b67e-6df1-4588-bca4-3183e7c7aedd)
+![Borrador_arquitectura drawio_final](https://github.com/albauniandes/PropAlpes/assets/98788512/14268ab5-9e72-4343-99a2-b19f23b30ded)
 
 El BFF se comunica con la capa UI a través de una API de GraphQL y envia los comandos de creación a los servicios compañías y geograficos usando un tópico de comandos. Cuando se crearon los registros de las compañías y de los datos gergráficos en las bases de datos de cada servicio, se envía un mensaje que informa el servicio de auditoría sobre la creación de dichos registros. Para este último paso se usa un tópico de eventos.
 
@@ -148,7 +148,7 @@ docker run -p 5001:5000 geograficos/flask
 # Escenarios de calidad a probar
 
 Atributo de calidad: Escalabilidad
-![image](https://github.com/albauniandes/PropAlpes/assets/98656753/12c1d88f-b766-43cc-bda1-c5a72e3c1a1f)
+![image](https://github.com/albauniandes/PropAlpes/assets/98788512/3f098113-75d5-4008-b6ab-8deb5b54201c)
 
 Atributo de calidad: Escalabilidad II
 ![image](https://github.com/albauniandes/PropAlpes/assets/98788512/a237bd0a-a1c8-44d4-a911-cb46ddbea9b2)
